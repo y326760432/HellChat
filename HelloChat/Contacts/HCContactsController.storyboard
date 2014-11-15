@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ns5-Ns-0LP">
+    <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--Contacts Controller-->
+        <scene sceneID="er2-F4-nh6">
+            <objects>
+                <tableViewController id="M4S-2P-HrK" customClass="HCContactsController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bol-Tc-QHl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="CELL" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="nip-bk-v0u">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nip-bk-v0u" id="ivf-yJ-Fk5">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="M4S-2P-HrK" id="9K2-g0-Sif"/>
+                            <outlet property="delegate" destination="M4S-2P-HrK" id="GlT-Dc-5p2"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="w6P-GH-Sk4">
+                        <barButtonItem key="rightBarButtonItem" title="添加" id="0gW-NJ-yqz">
+                            <connections>
+                                <segue destination="a8n-Ag-cRz" kind="push" id="GTi-mb-8Wm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OHM-Xg-eIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="711" y="-747"/>
+        </scene>
+        <!--Add Contact Controller - 添加好友-->
+        <scene sceneID="G91-7E-txQ">
+            <objects>
+                <viewController id="a8n-Ag-cRz" customClass="HCAddContactController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hvX-gZ-yxq"/>
+                        <viewControllerLayoutGuide type="bottom" id="GUs-5H-e0b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HnK-ip-mXC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QU1-Hd-nqj">
+                                <rect key="frame" x="20" y="84" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a8n-Ag-cRz" id="mgP-1T-NBE"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QU1-Hd-nqj" firstAttribute="leading" secondItem="HnK-ip-mXC" secondAttribute="leading" constant="20" symbolic="YES" id="hn3-L8-jTB"/>
+                            <constraint firstAttribute="trailing" secondItem="QU1-Hd-nqj" secondAttribute="trailing" constant="20" symbolic="YES" id="oQD-bN-h48"/>
+                            <constraint firstItem="QU1-Hd-nqj" firstAttribute="top" secondItem="hvX-gZ-yxq" secondAttribute="bottom" constant="20" id="rAx-fQ-Xfw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="添加好友" id="N1r-pj-DTG">
+                        <barButtonItem key="rightBarButtonItem" title="确定" id="knD-Pq-eXI">
+                            <connections>
+                                <action selector="sendInvite" destination="a8n-Ag-cRz" id="TRE-9k-8eS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="txtuserid" destination="QU1-Hd-nqj" id="RNh-uy-vXJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGK-D4-aWU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1144" y="-747"/>
+        </scene>
+        <!--Nav Controller-->
+        <scene sceneID="RVD-4o-91z">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ns5-Ns-0LP" customClass="YGCNavController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wDV-E8-bDB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="M4S-2P-HrK" kind="relationship" relationship="rootViewController" id="RjJ-zb-nd7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pNC-O9-9EW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="269" y="-747"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
