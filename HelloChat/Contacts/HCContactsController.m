@@ -10,6 +10,7 @@
 #import "XMPPRoster.h"
 #import "XMPPRosterCoreDataStorage.h"
 #import "HCAppdelegate.h"
+#import "HCChatController.h"
 @interface HCContactsController ()<NSFetchedResultsControllerDelegate>
 {
     NSFetchedResultsController *_fetchedResultsController;
@@ -80,6 +81,24 @@
     cell.textLabel.text=[NSString stringWithFormat:@"%@",user.jid];
     cell.imageView.image=[self loaduserPhoto:user];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self performSegueWithIdentifier:@"ChatSegue" sender:indexPath];
+}
+
+#pragma mark 准备显示聊天控制器
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSIndexPath *)sender
+{
+    if([segue.destinationViewController isKindOfClass:[HCChatController class]])
+    {
+        HCChatController *chatcontroller=segue.destinationViewController;
+        chatcontroller.user=[_fetchedResultsController objectAtIndexPath:sender];
+    }
 }
 
 #pragma mark NSFetchedResultsControllerDelegate 代理方法

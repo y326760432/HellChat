@@ -35,10 +35,69 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="YB5-bF-dUj" kind="push" identifier="ChatSegue" id="pP6-NQ-JQb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHM-Xg-eIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711" y="-747"/>
+            <point key="canvasLocation" x="675" y="-747"/>
+        </scene>
+        <!--Chat Controller-->
+        <scene sceneID="ik1-9Z-cR0">
+            <objects>
+                <viewController id="YB5-bF-dUj" customClass="HCChatController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Ij-fB-kFI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lg9-9h-QMA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qO3-1G-04i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHE-wq-ClW">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0Z7-fi-KTr" userLabel="信息输入框">
+                                        <rect key="frame" x="20" y="6" width="280" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="YB5-bF-dUj" id="rJn-WO-cKm"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="4ab-fE-ODe"/>
+                                    <constraint firstItem="0Z7-fi-KTr" firstAttribute="leading" secondItem="EHE-wq-ClW" secondAttribute="leading" constant="20" id="91r-z4-s4T"/>
+                                    <constraint firstItem="0Z7-fi-KTr" firstAttribute="top" secondItem="EHE-wq-ClW" secondAttribute="top" constant="7" id="GXu-iO-nbH"/>
+                                    <constraint firstAttribute="width" constant="320" id="J6y-Wn-93x"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Z7-fi-KTr" secondAttribute="trailing" constant="20" id="QhK-Zb-lZC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <constraints>
+                            <constraint firstItem="Lg9-9h-QMA" firstAttribute="top" secondItem="EHE-wq-ClW" secondAttribute="bottom" priority="600" constant="216" id="T6e-ji-Wtd" userLabel="信息输入框-弹出英文键盘的底部距离"/>
+                            <constraint firstItem="EHE-wq-ClW" firstAttribute="leading" secondItem="qO3-1G-04i" secondAttribute="leading" id="VVN-93-yiq"/>
+                            <constraint firstItem="Lg9-9h-QMA" firstAttribute="top" secondItem="EHE-wq-ClW" secondAttribute="bottom" priority="400" constant="252" id="oUA-oR-aiQ" userLabel="信息输入框-弹出中文键盘的底部距离"/>
+                            <constraint firstItem="Lg9-9h-QMA" firstAttribute="top" secondItem="EHE-wq-ClW" secondAttribute="bottom" id="vUi-UO-KoZ" userLabel="信息输入框-没有键盘时的底部距离"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="EkA-Oe-QD2"/>
+                    <connections>
+                        <outlet property="enkeybordcts" destination="T6e-ji-Wtd" id="jo4-RL-i4E"/>
+                        <outlet property="keybordHiddenCts" destination="vUi-UO-KoZ" id="IxL-hK-evp"/>
+                        <outlet property="txtMsg" destination="0Z7-fi-KTr" id="Vvo-H0-cjg"/>
+                        <outlet property="zhkeybordcts" destination="oUA-oR-aiQ" id="mx7-tY-36c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4PD-FW-xOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1176" y="-407"/>
         </scene>
         <!--Add Contact Controller - 添加好友-->
         <scene sceneID="G91-7E-txQ">
@@ -82,7 +141,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CGK-D4-aWU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1144" y="-747"/>
+            <point key="canvasLocation" x="1176" y="-1074"/>
         </scene>
         <!--Nav Controller-->
         <scene sceneID="RVD-4o-91z">

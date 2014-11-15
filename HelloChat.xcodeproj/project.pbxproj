@@ -66,6 +66,7 @@
 		5A7831B81A0A57FA00025E28 /* sidebar_signature_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7831A91A0A57FA00025E28 /* sidebar_signature_nor@2x.png */; };
 		5A7831B91A0A57FA00025E28 /* sidebar_signature_other@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7831AA1A0A57FA00025E28 /* sidebar_signature_other@2x.png */; };
 		5A7831BD1A0A5CD200025E28 /* HCPersonalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7831BB1A0A5CD200025E28 /* HCPersonalController.m */; };
+		5A91ED2D1A17909000874DDF /* HCChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A91ED2C1A17909000874DDF /* HCChatController.m */; };
 		5A93A9B71A0906F7009BF9E3 /* common_button_blue_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9AF1A0906F7009BF9E3 /* common_button_blue_pressed@2x.png */; };
 		5A93A9B81A0906F7009BF9E3 /* common_button_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9B01A0906F7009BF9E3 /* common_button_disabled@2x.png */; };
 		5A93A9B91A0906F7009BF9E3 /* common_button_focus_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9B11A0906F7009BF9E3 /* common_button_focus_nor@2x.png */; };
@@ -359,6 +360,8 @@
 		5A7831AA1A0A57FA00025E28 /* sidebar_signature_other@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sidebar_signature_other@2x.png"; sourceTree = "<group>"; };
 		5A7831BA1A0A5CD200025E28 /* HCPersonalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCPersonalController.h; sourceTree = "<group>"; };
 		5A7831BB1A0A5CD200025E28 /* HCPersonalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCPersonalController.m; sourceTree = "<group>"; };
+		5A91ED2B1A17909000874DDF /* HCChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCChatController.h; sourceTree = "<group>"; };
+		5A91ED2C1A17909000874DDF /* HCChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCChatController.m; sourceTree = "<group>"; };
 		5A93A9AF1A0906F7009BF9E3 /* common_button_blue_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_blue_pressed@2x.png"; sourceTree = "<group>"; };
 		5A93A9B01A0906F7009BF9E3 /* common_button_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_disabled@2x.png"; sourceTree = "<group>"; };
 		5A93A9B11A0906F7009BF9E3 /* common_button_focus_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_focus_nor@2x.png"; sourceTree = "<group>"; };
@@ -1074,6 +1077,8 @@
 				5A93E3C31A12487E002E0E4A /* HCContactsController.storyboard */,
 				5A93E3C51A12552D002E0E4A /* HCAddContactController.h */,
 				5A93E3C61A12552D002E0E4A /* HCAddContactController.m */,
+				5A91ED2B1A17909000874DDF /* HCChatController.h */,
+				5A91ED2C1A17909000874DDF /* HCChatController.m */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -2238,6 +2243,7 @@
 				5A987CFE1A0486E600A71B46 /* XMPPRosterCoreDataStorage.m in Sources */,
 				5A9877961A047A6E00A71B46 /* HCAppDelegate.m in Sources */,
 				5A987D0B1A0486E600A71B46 /* XMPPRoom.xcdatamodeld in Sources */,
+				5A91ED2D1A17909000874DDF /* HCChatController.m in Sources */,
 				5A45C9831A05DC4000D4C116 /* HCDynamicController.m in Sources */,
 				5A987D301A0486E600A71B46 /* XMPPMessage+XEP_0085.m in Sources */,
 				5A93A9C81A0907DE009BF9E3 /* NSObject+Value.m in Sources */,
