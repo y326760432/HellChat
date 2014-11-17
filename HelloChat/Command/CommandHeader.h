@@ -21,8 +21,15 @@
 //服务名称 拼接JID的时候时候 xxx@Ygcserver
 #define kServerName @"@Ygcserver"
 
+//登录人JID字符串
+#define kmyJidStr [HCLoginUserTool sharedHCLoginUserTool].loginUser.JID
+
+//登录人JID对象
+#define kmyJid [XMPPJID jidWithString:kmyJidStr]
+
 //拼接带服务器地址的JID字符串
 #define kAppendJid(name) [name stringByAppendingString:kServerName]
+
 
 //获取appdelegate
 #define kAppdelegate ((HCAppDelegate *)[UIApplication sharedApplication].delegate)

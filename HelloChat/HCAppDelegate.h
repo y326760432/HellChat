@@ -38,11 +38,24 @@ typedef void (^connectSuccessBlock)();
 @property (strong, nonatomic, readonly) XMPPvCardAvatarModule *xmppvCardAvatarModule;
 
 /**
- 花名片
+ 花名册
  */
 @property(strong,nonatomic,readonly) XMPPRoster *xmppRoster;
 
+/**
+ 花名册存储
+ */
 @property(nonatomic,strong,readonly) XMPPRosterCoreDataStorage *xmpprosterCoreDataStorage;
+
+/**
+ 聊天记录模块
+ */
+@property(nonatomic,strong,readonly) XMPPMessageArchiving *xmppmessageArchiving;
+
+/**
+聊天记录存储模块
+ */
+@property(nonatomic,strong,readonly) XMPPMessageArchivingCoreDataStorage *xmppmessageCoreDataStorage;
 
 /**
  连接

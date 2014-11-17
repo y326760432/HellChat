@@ -16,6 +16,11 @@
 @property(nonatomic,strong) XMPPUserCoreDataStorageObject *user;
 
 /**
+ 聊天记录tableview
+ */
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
+
+/**
  信息输入框
  */
 @property (weak, nonatomic) IBOutlet UITextField *txtMsg;
@@ -23,16 +28,7 @@
 /**
  没有键盘时信息输入框的底部距离 因为约束移除后，又要添加回去，为了防止内存泄露，这里声明为strong
  */
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *keybordHiddenCts;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *keybordHiddenCts;
 
-/**
- 弹出英文键盘时底部距离 因为约束移除后，又要添加回去，为了防止内存泄露，这里声明为strong
- */
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *enkeybordcts;
-
-/**
- 弹出中文键盘时底部距离 因为约束移除后，又要添加回去，为了防止内存泄露，这里声明为strong
- */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *zhkeybordcts;
 
 @end

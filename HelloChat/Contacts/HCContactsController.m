@@ -63,6 +63,34 @@
     return _fetchedResultsController.sections.count;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    // 1. 取出控制器中的所有分组
+    NSArray *array = [_fetchedResultsController sections];
+    // 2. 根据section值取出对应的分组信息对象
+    id <NSFetchedResultsSectionInfo> info = array[section];
+    
+    NSString *stateName = nil;
+    NSInteger state = [[info name] integerValue];
+    
+    switch (state) {
+        case 0:
+            stateName = @"在线";
+            break;
+        case 1:
+            stateName = @"离开";
+            break;
+        case 2:
+            stateName = @"下线";
+            break;
+        default:
+            stateName = @"未知";
+            break;
+    }
+    
+    return stateName;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [_fetchedResultsController.sections[section] numberOfObjects];

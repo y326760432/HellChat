@@ -116,12 +116,17 @@
         _xmppcapabilitiesStorage =[[XMPPCapabilitiesCoreDataStorage alloc]init];
         _xmppcapabilities=[[XMPPCapabilities alloc]initWithCapabilitiesStorage:_xmppcapabilitiesStorage];
         
+        //聊天记录模块
+        _xmppmessageCoreDataStorage=[[XMPPMessageArchivingCoreDataStorage alloc]init];
+        _xmppmessageArchiving=[[XMPPMessageArchiving alloc]initWithMessageArchivingStorage:_xmppmessageCoreDataStorage];
+        
         //激活
         [_xmppreconect activate:_xmppStream];
         [_xmppvCardTempModule activate:_xmppStream];
         [_xmppvCardAvatarModule activate:_xmppStream];
         [_xmppRoster activate:_xmppStream];
         [_xmppcapabilities activate:_xmppStream];
+        [_xmppmessageArchiving activate:_xmppStream];
     }
 
 }
@@ -233,12 +238,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kupdatevCardFaild object:nil];
 }
 
-#pragma  mark 接受到消息
--(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
-{
-    NSLog(@"%@",message);
-}
-
 #pragma mark 接收到用户展现(好友请求，上线，下线等)
 
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
@@ -250,7 +249,6 @@
         //接收请求
         [_xmppRoster acceptPresenceSubscriptionRequestFrom:jid andAddToRoster:YES];
     }
-    NSLog(@"didReceivePresence---%@",presence);
 }
 //
 //-(void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence
@@ -283,6 +281,7 @@
     [_xmppvCardAvatarModule deactivate];
     [_xmppRoster deactivate];
     [_xmppcapabilities deactivate];
+    [_xmppmessageArchiving deactivate];
     
     // 3. 断开XMPPStream的连接
     [_xmppStream disconnect];
@@ -297,6 +296,8 @@
     _xmpprosterCoreDataStorage=nil;
     _xmppcapabilities=nil;
     _xmppcapabilitiesStorage=nil;
+    _xmppmessageArchiving=nil;
+    _xmppmessageCoreDataStorage=nil;
 }
 
 #pragma mark 当前窗口失去焦点，即将进入后台

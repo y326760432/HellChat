@@ -53,6 +53,11 @@
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPvCardAvatarModule.h"
 //
+/**
+ 聊天记录
+ */
+#import "XMPPMessageArchiving.h"
+#import "XMPPMessageArchivingCoreDataStorage.h"
 //#import "XMPPPubSub.h"
 //
 //#import "TURNSocket.h"
