@@ -256,14 +256,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RDJ-Bf-yiQ">
-                                <rect key="frame" x="15" y="56" width="290" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RDJ-Bf-yiQ">
+                                <rect key="frame" x="15" y="40" width="290" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4Ke-1W-Roy"/>
+                                    <constraint firstAttribute="width" constant="290" id="gPf-2y-lhc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RDJ-Bf-yiQ" secondAttribute="trailing" constant="15" id="Awa-Kd-12W"/>
+                            <constraint firstItem="RDJ-Bf-yiQ" firstAttribute="leading" secondItem="juu-Ax-Gsw" secondAttribute="leading" constant="15" id="JCu-r3-X9v"/>
+                            <constraint firstItem="RDJ-Bf-yiQ" firstAttribute="top" secondItem="RzU-3T-keD" secondAttribute="bottom" constant="20" id="uU8-fQ-NF6"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="y3R-6e-2cV"/>
                     <connections>

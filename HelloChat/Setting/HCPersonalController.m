@@ -49,6 +49,10 @@
 
 @implementation HCPersonalController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.backgroundColor=[UIColor redColor];
+}
 
 - (void)viewDidLoad
 {

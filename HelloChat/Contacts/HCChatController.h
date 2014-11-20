@@ -26,9 +26,49 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtMsg;
 
 /**
- 没有键盘时信息输入框的底部距离 因为约束移除后，又要添加回去，为了防止内存泄露，这里声明为strong
+ 没有键盘时信息输入框的底部距离
  */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keybordHiddenCts;
 
+/**
+ 语音按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *btnvolice;
+
+/**
+ 语音按钮点击事件
+ */
+-(IBAction)btnvoliceclick:(id)sender;
+
+/**
+ 按住说话按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *btnspeak;
+
+
+/**
+按住说话按钮点击事件
+ */
+-(IBAction)btnspeakclick:(id)sender;
+
+/**
+ 表情按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *btnexpression;
+
+/**
+ 表情按钮点击事件
+ */
+-(IBAction)btnexpressionclick:(id)sender;
+
+/**
+ 添加文件按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *btnFile;
+
+/**
+ 添加文件按钮点击事件
+ */
+-(IBAction)btnFileclick:(id)sender;
 
 @end

@@ -30,8 +30,13 @@
     _send_pressimg=[UIImage resizedImage:@"chat_send_press_pic.png"];
     _recive_norimg=[UIImage resizedImage:@"chat_recive_nor.png"];
     _recive_pressimg=[UIImage resizedImage:@"chat_recive_press_pic.png"];
-    
+    //设置行的背景颜色为透明色
     self.backgroundColor=[UIColor clearColor];
+    
+    //设置选择行时背景色为透明色
+    UIView *selectview=[[UIView alloc]initWithFrame:self.frame];
+    selectview.backgroundColor=[UIColor clearColor];
+    self.selectedBackgroundView=selectview;
 }
 
 -(void)setMessage:(NSString *)msg

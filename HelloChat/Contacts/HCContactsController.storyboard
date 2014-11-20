@@ -60,7 +60,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0Z7-fi-KTr" userLabel="信息输入框">
-                                        <rect key="frame" x="20" y="7" width="280" height="30"/>
+                                        <rect key="frame" x="42" y="7" width="205" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="send"/>
@@ -68,14 +68,59 @@
                                             <outlet property="delegate" destination="YB5-bF-dUj" id="rJn-WO-cKm"/>
                                         </connections>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DmN-Xx-CUC" userLabel="语音/键盘">
+                                        <rect key="frame" x="5" y="6" width="34" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="chat_bottom_voice_nor.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="chat_bottom_voice_press.png"/>
+                                        <connections>
+                                            <action selector="btnvoliceclick:" destination="YB5-bF-dUj" eventType="touchUpInside" id="Zl1-rc-Q7L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0h-C4-hqD" userLabel="发送文件">
+                                        <rect key="frame" x="281" y="3" width="34" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="chat_bottom_up_nor.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="chat_bottom_up_press.png"/>
+                                        <connections>
+                                            <action selector="btnFileclick:" destination="YB5-bF-dUj" eventType="touchUpInside" id="9Ma-a8-6Fb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgK-SE-eOF" userLabel="发送表情">
+                                        <rect key="frame" x="247" y="5" width="34" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="chat_bottom_smile_nor.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="chat_bottom_smile_press.png"/>
+                                        <connections>
+                                            <action selector="btnexpressionclick:" destination="YB5-bF-dUj" eventType="touchUpInside" id="asJ-vY-tt3"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juT-WC-eWv" userLabel="按住说话">
+                                        <rect key="frame" x="42" y="6" width="205" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="按住说话" backgroundImage="chat_bottom_bg.png">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnspeakclick:" destination="YB5-bF-dUj" eventType="touchUpInside" id="Vkd-Ti-6lm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4ab-fE-ODe"/>
-                                    <constraint firstItem="0Z7-fi-KTr" firstAttribute="leading" secondItem="EHE-wq-ClW" secondAttribute="leading" constant="20" id="91r-z4-s4T"/>
+                                    <constraint firstItem="0Z7-fi-KTr" firstAttribute="leading" secondItem="EHE-wq-ClW" secondAttribute="leading" constant="42" id="91r-z4-s4T"/>
                                     <constraint firstItem="0Z7-fi-KTr" firstAttribute="top" secondItem="EHE-wq-ClW" secondAttribute="top" constant="7" id="GXu-iO-nbH"/>
                                     <constraint firstAttribute="width" constant="320" id="J6y-Wn-93x"/>
-                                    <constraint firstAttribute="trailing" secondItem="0Z7-fi-KTr" secondAttribute="trailing" constant="20" id="QhK-Zb-lZC"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Z7-fi-KTr" secondAttribute="trailing" constant="73" id="QhK-Zb-lZC"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3eN-zv-Hhq" userLabel="聊天记录Table View">
@@ -83,6 +128,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="460" id="1Fy-UZ-Yf6"/>
                                     <constraint firstAttribute="width" constant="320" id="H5N-4A-W5L"/>
                                 </constraints>
                                 <prototypes>
@@ -187,15 +233,19 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                         <constraints>
-                            <constraint firstItem="3eN-zv-Hhq" firstAttribute="top" secondItem="4Ij-fB-kFI" secondAttribute="bottom" id="8hC-ih-NzO"/>
                             <constraint firstItem="EHE-wq-ClW" firstAttribute="top" secondItem="3eN-zv-Hhq" secondAttribute="bottom" id="K0Q-x6-rBJ"/>
                             <constraint firstItem="EHE-wq-ClW" firstAttribute="leading" secondItem="qO3-1G-04i" secondAttribute="leading" id="VVN-93-yiq" userLabel="Horizontal Space - View - 信息输入框"/>
+                            <constraint firstItem="EHE-wq-ClW" firstAttribute="top" secondItem="3eN-zv-Hhq" secondAttribute="bottom" id="fXa-kR-vK0"/>
                             <constraint firstItem="3eN-zv-Hhq" firstAttribute="leading" secondItem="qO3-1G-04i" secondAttribute="leading" id="fcQ-47-wuC"/>
                             <constraint firstItem="Lg9-9h-QMA" firstAttribute="top" secondItem="EHE-wq-ClW" secondAttribute="bottom" id="vUi-UO-KoZ" userLabel="信息输入框-没有键盘时的底部距离"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Zhangsan" id="EkA-Oe-QD2"/>
                     <connections>
+                        <outlet property="btnFile" destination="i0h-C4-hqD" id="SiG-0g-fji"/>
+                        <outlet property="btnexpression" destination="hgK-SE-eOF" id="dr5-BV-Lre"/>
+                        <outlet property="btnspeak" destination="juT-WC-eWv" id="T2H-ln-TQo"/>
+                        <outlet property="btnvolice" destination="DmN-Xx-CUC" id="c7H-bf-u7U"/>
                         <outlet property="keybordHiddenCts" destination="vUi-UO-KoZ" id="IxL-hK-evp"/>
                         <outlet property="tableview" destination="3eN-zv-Hhq" id="SQ4-CG-xmT"/>
                         <outlet property="txtMsg" destination="0Z7-fi-KTr" id="Vvo-H0-cjg"/>
@@ -269,6 +319,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chat_bottom_bg.png" width="5" height="44"/>
+        <image name="chat_bottom_smile_nor.png" width="34" height="34"/>
+        <image name="chat_bottom_smile_press.png" width="34" height="34"/>
+        <image name="chat_bottom_up_nor.png" width="34" height="34"/>
+        <image name="chat_bottom_up_press.png" width="34" height="34"/>
+        <image name="chat_bottom_voice_nor.png" width="34" height="34"/>
+        <image name="chat_bottom_voice_press.png" width="34" height="34"/>
         <image name="chat_recive_nor.png" width="64" height="56"/>
         <image name="chat_recive_press_pic.png" width="64" height="56"/>
         <image name="chat_send_nor.png" width="64" height="56"/>
