@@ -13,6 +13,7 @@
 #import "XMPPvCardTemp.h"
 #import "HCLoginUser.h"
 #import "HCLoginUserTool.h"
+#import <QuartzCore/QuartzCore.h>
 @interface HCMessageController ()
 {
     UIImageView *_imgvPhoto;//头像
@@ -65,6 +66,26 @@
     }
 }
 
+#pragma mark UITableView代理方法
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 20;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *ID=@"CELL";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
+    if(cell==nil)
+    {
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
+    cell.textLabel.text=[NSString stringWithFormat:@"%d",indexPath.row];
+    return cell;
+}
+
+#pragma mark 显示个人信息
 -(void)showPersonal
 {
      HCPersonalController *personal=[UIStoryboard  storyboardWithName:@"HCPersonalController" bundle:nil].instantiateInitialViewController;

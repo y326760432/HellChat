@@ -11,6 +11,15 @@
 		5A3FD8301A0545E3002B79EB /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FD82B1A0545E3002B79EB /* RECommonFunctions.m */; };
 		5A3FD8311A0545E3002B79EB /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FD82D1A0545E3002B79EB /* RESideMenu.m */; };
 		5A3FD8321A0545E3002B79EB /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FD82F1A0545E3002B79EB /* UIViewController+RESideMenu.m */; };
+		5A432A7D1A20327300B41F3E /* aio_icons_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A7A1A20327300B41F3E /* aio_icons_camera@2x.png */; };
+		5A432A7E1A20327300B41F3E /* aio_icons_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A7B1A20327300B41F3E /* aio_icons_location@2x.png */; };
+		5A432A7F1A20327300B41F3E /* aio_icons_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A7C1A20327300B41F3E /* aio_icons_pic@2x.png */; };
+		5A432A821A20329800B41F3E /* HCFileInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A811A20329800B41F3E /* HCFileInputView.m */; };
+		5A432A851A2050D500B41F3E /* HCLocationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A831A2050D500B41F3E /* HCLocationTool.m */; };
+		5A432A871A2051C900B41F3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A432A861A2051C900B41F3E /* CoreLocation.framework */; };
+		5A432A8A1A20764000B41F3E /* AppIcon-57×57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A881A20764000B41F3E /* AppIcon-57×57@2x.png */; };
+		5A432A8B1A20764000B41F3E /* AppIcon-57×57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A891A20764000B41F3E /* AppIcon-57×57.png */; };
+		5A432A8D1A2076FD00B41F3E /* AppIcon-29×29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */; };
 		5A45C9641A05D86A00D4C116 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9631A05D86A00D4C116 /* Balloon@2x.png */; };
 		5A45C9661A05D87500D4C116 /* IconCalendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9651A05D87500D4C116 /* IconCalendar@2x.png */; };
 		5A45C9681A05D87F00D4C116 /* IconEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9671A05D87F00D4C116 /* IconEmpty@2x.png */; };
@@ -307,6 +316,17 @@
 		5A3FD82D1A0545E3002B79EB /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
 		5A3FD82E1A0545E3002B79EB /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		5A3FD82F1A0545E3002B79EB /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		5A432A7A1A20327300B41F3E /* aio_icons_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aio_icons_camera@2x.png"; sourceTree = "<group>"; };
+		5A432A7B1A20327300B41F3E /* aio_icons_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aio_icons_location@2x.png"; sourceTree = "<group>"; };
+		5A432A7C1A20327300B41F3E /* aio_icons_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aio_icons_pic@2x.png"; sourceTree = "<group>"; };
+		5A432A801A20329800B41F3E /* HCFileInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCFileInputView.h; sourceTree = "<group>"; };
+		5A432A811A20329800B41F3E /* HCFileInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCFileInputView.m; sourceTree = "<group>"; };
+		5A432A831A2050D500B41F3E /* HCLocationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCLocationTool.m; sourceTree = "<group>"; };
+		5A432A841A2050D500B41F3E /* HCLocationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCLocationTool.h; sourceTree = "<group>"; };
+		5A432A861A2051C900B41F3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5A432A881A20764000B41F3E /* AppIcon-57×57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-57×57@2x.png"; sourceTree = "<group>"; };
+		5A432A891A20764000B41F3E /* AppIcon-57×57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-57×57.png"; sourceTree = "<group>"; };
+		5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29×29.png"; sourceTree = "<group>"; };
 		5A45C9631A05D86A00D4C116 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		5A45C9651A05D87500D4C116 /* IconCalendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCalendar@2x.png"; sourceTree = "<group>"; };
 		5A45C9671A05D87F00D4C116 /* IconEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconEmpty@2x.png"; sourceTree = "<group>"; };
@@ -777,6 +797,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A432A871A2051C900B41F3E /* CoreLocation.framework in Frameworks */,
 				5A987DA31A04C5DB00A71B46 /* QuartzCore.framework in Frameworks */,
 				5A987D6D1A0487A800A71B46 /* libresolv.dylib in Frameworks */,
 				5A987D6B1A0486E600A71B46 /* libidn.a in Frameworks */,
@@ -909,6 +930,8 @@
 		5A45C9C01A066E9E00D4C116 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				5A432A831A2050D500B41F3E /* HCLocationTool.m */,
+				5A432A841A2050D500B41F3E /* HCLocationTool.h */,
 				5A45C9C11A066EB000D4C116 /* HCLoginUserTool.h */,
 				5A45C9C21A066EB000D4C116 /* HCLoginUserTool.m */,
 				5A9C0E851A07B0820014A70F /* HCAlertDialog.h */,
@@ -1011,6 +1034,7 @@
 		5A9877841A047A6E00A71B46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A432A861A2051C900B41F3E /* CoreLocation.framework */,
 				5A987DA21A04C5DB00A71B46 /* QuartzCore.framework */,
 				5A987D6C1A0487A800A71B46 /* libresolv.dylib */,
 				5A9879A21A047F5B00A71B46 /* libxml2.dylib */,
@@ -2067,6 +2091,8 @@
 				5AA8102F1A1CBB8900CAAC25 /* HCChatCell.m */,
 				5AA810311A1CBDFD00CAAC25 /* HCEmojiInputView.h */,
 				5AA810321A1CBDFD00CAAC25 /* HCEmojiInputView.m */,
+				5A432A801A20329800B41F3E /* HCFileInputView.h */,
+				5A432A811A20329800B41F3E /* HCFileInputView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2086,6 +2112,9 @@
 		5ACA1B051A0E022D006427D7 /* AppIcon */ = {
 			isa = PBXGroup;
 			children = (
+				5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */,
+				5A432A881A20764000B41F3E /* AppIcon-57×57@2x.png */,
+				5A432A891A20764000B41F3E /* AppIcon-57×57.png */,
 				5ACA1B0A1A0E04D4006427D7 /* AppIcon-29x29@2x.png */,
 				5ACA1B0B1A0E04D4006427D7 /* AppIcon-40x40@2x.png */,
 				5ACA1B061A0E024E006427D7 /* AppIcon-60*60@2x.png */,
@@ -2105,6 +2134,9 @@
 		5AFDEF471A18CDE200C7B27C /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				5A432A7A1A20327300B41F3E /* aio_icons_camera@2x.png */,
+				5A432A7B1A20327300B41F3E /* aio_icons_location@2x.png */,
+				5A432A7C1A20327300B41F3E /* aio_icons_pic@2x.png */,
 				5AA810341A1CD06500CAAC25 /* aio_face_delete_pressed@2x.png */,
 				5AA810351A1CD06500CAAC25 /* aio_face_delete@2x.png */,
 				5A9D82EF1A1A3A690077D494 /* chat_bottom_bg@2x.png */,
@@ -2204,8 +2236,10 @@
 			files = (
 				5ACA1B071A0E024E006427D7 /* AppIcon-60*60@2x.png in Resources */,
 				5A9877901A047A6E00A71B46 /* InfoPlist.strings in Resources */,
+				5A432A8B1A20764000B41F3E /* AppIcon-57×57.png in Resources */,
 				5A987D961A04C34000A71B46 /* AppIcon-140x40@2x.png in Resources */,
 				5AFDEF4B1A18CDF100C7B27C /* chat_send_dim@2x.png in Resources */,
+				5A432A8A1A20764000B41F3E /* AppIcon-57×57@2x.png in Resources */,
 				5A987D9E1A04C34000A71B46 /* AppIcon-172x72~ipad.png in Resources */,
 				5A45C9AD1A062A3500D4C116 /* tab_qworld_nor@2x.png in Resources */,
 				5A45C96C1A05D89000D4C116 /* IconProfile@2x.png in Resources */,
@@ -2244,6 +2278,7 @@
 				5A987DA51A04C70900A71B46 /* line@2x.png in Resources */,
 				5A9D82E81A1A33B00077D494 /* chat_bottom_up_press@2x.png in Resources */,
 				5A45C96A1A05D88800D4C116 /* IconHome@2x.png in Resources */,
+				5A432A8D1A2076FD00B41F3E /* AppIcon-29×29.png in Resources */,
 				5A987D7D1A04C06C00A71B46 /* bc_btn_blue_hl@2x.png in Resources */,
 				5A45C9B01A062A3500D4C116 /* tab_recent_press@2x.png in Resources */,
 				5A45C9AE1A062A3500D4C116 /* tab_qworld_press@2x.png in Resources */,
@@ -2272,6 +2307,7 @@
 				5A9877981A047A6E00A71B46 /* Images.xcassets in Resources */,
 				5A7831AF1A0A57FA00025E28 /* sidebar_decoration@3x.png in Resources */,
 				5A9D82E71A1A33B00077D494 /* chat_bottom_up_nor@2x.png in Resources */,
+				5A432A7F1A20327300B41F3E /* aio_icons_pic@2x.png in Resources */,
 				5A93A9BE1A0906F7009BF9E3 /* common_button_white_pressed@2x.png in Resources */,
 				5A93A9BA1A0906F7009BF9E3 /* common_button_focus_pressed@2x.png in Resources */,
 				5ACA1AFB1A0DB96B006427D7 /* HCMineController.storyboard in Resources */,
@@ -2282,6 +2318,7 @@
 				5A987D9F1A04C34000A71B46 /* AppIcon-176x76@2x~ipad.png in Resources */,
 				5A93A9BB1A0906F7009BF9E3 /* common_button_red_nor@2x.png in Resources */,
 				5A987D941A04C34000A71B46 /* AppIcon-129x29@3x.png in Resources */,
+				5A432A7D1A20327300B41F3E /* aio_icons_camera@2x.png in Resources */,
 				5A987D991A04C34000A71B46 /* AppIcon-157x57.png in Resources */,
 				5AFDEF4D1A18CDF100C7B27C /* chat_send_press_pic@2x.png in Resources */,
 				5ACA1B0C1A0E04D4006427D7 /* AppIcon-29x29@2x.png in Resources */,
@@ -2292,6 +2329,7 @@
 				5A45C9B71A06302B00D4C116 /* header_bg@2x.png in Resources */,
 				5A7831AE1A0A57FA00025E28 /* sidebar_business@3x.png in Resources */,
 				5A93A9BD1A0906F7009BF9E3 /* common_button_white_nor@2x.png in Resources */,
+				5A432A7E1A20327300B41F3E /* aio_icons_location@2x.png in Resources */,
 				5A45C9AB1A062A3500D4C116 /* tab_buddy_nor@2x.png in Resources */,
 				5AFDEF501A18D02C00C7B27C /* chat_recive_nor@2x.png in Resources */,
 				5A987D6A1A0486E600A71B46 /* build-libidn.sh in Resources */,
@@ -2362,6 +2400,7 @@
 				5A987D331A0486E600A71B46 /* NSString+XEP_0106.m in Sources */,
 				5A987D181A0486E600A71B46 /* XMPPRoom.m in Sources */,
 				5A987D231A0486E600A71B46 /* XMPPvCardTempLabel.m in Sources */,
+				5A432A821A20329800B41F3E /* HCFileInputView.m in Sources */,
 				5A45C97D1A05DC0900D4C116 /* HCMessageController.m in Sources */,
 				5A987D1B1A0486E600A71B46 /* XMPPvCardCoreDataStorage.m in Sources */,
 				5A987D1F1A0486E600A71B46 /* XMPPvCardTempAdr.m in Sources */,
@@ -2453,6 +2492,7 @@
 				5A987D261A0486E600A71B46 /* NSXMLElement+XEP_0059.m in Sources */,
 				5A987D0D1A0486E600A71B46 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				5A987D4E1A0486E600A71B46 /* XMPPMessage+XEP_0224.m in Sources */,
+				5A432A851A2050D500B41F3E /* HCLocationTool.m in Sources */,
 				5A987D5A1A0486E600A71B46 /* XMPPStringPrep.m in Sources */,
 				5A987D4A1A0486E600A71B46 /* XMPPTime.m in Sources */,
 				5A987D351A0486E600A71B46 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
@@ -2615,6 +2655,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloChat/HelloChat-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "HelloChat/HelloChat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2633,6 +2674,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloChat/HelloChat-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "HelloChat/HelloChat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (

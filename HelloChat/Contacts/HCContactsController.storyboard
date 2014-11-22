@@ -154,7 +154,7 @@
                                                         <constraint firstAttribute="width" constant="94" id="KIR-WH-p1W"/>
                                                         <constraint firstAttribute="height" constant="56" id="WfW-9g-od7"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <inset key="contentEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
                                                     <state key="normal" title="Button" backgroundImage="chat_recive_nor.png">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -200,7 +200,7 @@
                                                         <constraint firstAttribute="height" constant="56" id="8UR-aY-ReP"/>
                                                         <constraint firstAttribute="width" constant="94" id="tve-Rg-Gdy"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <inset key="contentEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
                                                     <state key="normal" title="Button" backgroundImage="chat_send_nor.png">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>

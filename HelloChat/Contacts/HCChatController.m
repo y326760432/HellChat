@@ -17,9 +17,12 @@
 #import "HCChatCell.h"
 #import "HCRoundImageView.h"
 #import "HCEmojiInputView.h"
+#import "HCFileInputView.h"
 #import "UITextField+YGCCategory.h"
 #import "UIImage+YGCCategory.h"
-@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate>
+#import "HCLocationTool.h"
+#import "MBProgressHUD.h"
+@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate>
 {
     //查询结果控制器
     NSFetchedResultsController *_fetchedresultsController;
@@ -32,6 +35,15 @@
     
     //表情输入视图
     HCEmojiInputView *_emojiInputView;
+    
+    //文件输入视图
+    HCFileInputView *_fileInputView;
+    
+    //定位工具
+    HCLocationTool *_locationtool;
+    
+    //定位加载动画
+    MBProgressHUD *_locationhub;
 }
 @end
 
@@ -42,7 +54,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     //设置title
-    self.title=_user.jidStr;
+    self.title=[NSString stringWithFormat:@"%@\n在线",_user.jidStr];
     //监听键盘位置即将改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [self setUpfectchresultControllser];
@@ -65,6 +77,9 @@
     _keyboardimgnor=[UIImage imageNamed:@"chat_bottom_keyboard_nor.png"];
     _keyboardimgpress=[UIImage imageNamed:@"chat_bottom_keyboard_press.png"];
     
+    //初始化定位工具并设置代理
+    _locationtool=[HCLocationTool sharedHCLocationTool];
+    _locationtool.delegate=self;
     
 }
 
@@ -171,7 +186,7 @@
     NSArray *sections= _fetchedresultsController.sections;
     if(sections.count)
     {
-        id<NSFetchedResultsSectionInfo> info=[sections firstObject];
+        id<NSFetchedResultsSectionInfo> info=sections[0];
         NSInteger count=[info numberOfObjects];
         if(count)
         {
@@ -208,14 +223,20 @@
 -(void)sendMsg
 {
     NSString *msgstr=_txtMsg.text;
+    [self sendMsgWithStr:msgstr];
+    _txtMsg.text=@"";
+}
+
+#pragma mark 发送消息
+-(void)sendMsgWithStr:(NSString *)msgstr
+{
     if(msgstr)
     {
         XMPPMessage *message=[[XMPPMessage alloc]initWithType:@"chat" to:_user.jid];
         [message addBody:msgstr];
         [kAppdelegate.xmppStream sendElement:message];
-        _txtMsg.text=@"";
+        
     }
-    
 }
 
 #pragma mark 输入视图按钮点击事件处理
@@ -347,17 +368,25 @@
     //如果按钮被选择，按钮图标显示键盘图标
     if(sender.tag)
     {
+        if(_fileInputView==nil)
+        {
+            _fileInputView=[[HCFileInputView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
+            _fileInputView.delegate=self;
+        }
+        //设置输入框的输入视图
+        _txtMsg.inputView=_fileInputView;
         [sender setBackgroundImage:_keyboardimgnor forState:UIControlStateNormal];
         [sender setBackgroundImage:_keyboardimgpress forState:UIControlStateHighlighted];
-        
-        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
-        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
+        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
+        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
         [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
         [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
+        
 
     }
     else
     {
+        _txtMsg.inputView=nil;
         [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
         [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
     }
@@ -367,6 +396,77 @@
 
 }
 
+#pragma mark 发送文件输入视图代理实现
 
+#pragma mark 打开相册选择照片
+-(void)FileInputViewImgLib:(HCFileInputView *)FileInputView
+{
+    UIImagePickerController *imgcontroller=[[UIImagePickerController alloc]init];
+    imgcontroller.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+    imgcontroller.delegate=self;
+    //imgcontroller.allowsEditing=YES;
+    [self presentViewController:imgcontroller animated:YES completion:^{
+        
+    }];
+
+}
+
+#pragma mark 打开相机拍照
+-(void)FileInputViewTakePhoto:(HCFileInputView *)FileInputView
+{
+    //检查相机模式是否可用
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+       [HCAlertDialog showDialog:@"没有可用的拍照设备"];
+        return;
+    }
+    UIImagePickerController *imgpickcontroller=[[UIImagePickerController alloc]init];
+    imgpickcontroller.sourceType=UIImagePickerControllerSourceTypeCamera;
+    imgpickcontroller.delegate=self;
+    [self.navigationController presentViewController:imgpickcontroller animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+}
+
+#pragma mark 发送位置
+-(void)FileInputViewLocation:(HCFileInputView *)FileInputView
+{
+    //方式1.直接在View上show
+    if(_locationhub==nil)
+    {
+        _locationhub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    [_locationhub show:YES];
+    [_locationtool startLocalation];
+}
+
+#pragma mark 定位工具代理
+#pragma mark 定位成功
+-(void)locationToolSuccess:(HCLocationTool *)location
+{
+    [_locationhub hide:YES];
+    if(location.loclationStr)
+    {
+        UIActionSheet *sheet=[[UIActionSheet alloc]initWithTitle:@"我的位置" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:location.loclationStr otherButtonTitles:nil];
+        [sheet showInView:self.view];
+    }
+}
+
+#pragma mark 发送位置
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==0)
+    {
+        [self sendMsgWithStr:[actionSheet buttonTitleAtIndex:buttonIndex]];
+    }
+}
+
+#pragma mark 定位失败
+-(void)locationToolFail:(HCLocationTool *)lacation
+{
+    [_locationhub hide:YES];
+}
 
 @end

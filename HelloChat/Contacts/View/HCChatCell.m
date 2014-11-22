@@ -9,7 +9,7 @@
 #import "HCChatCell.h"
 #import "HCRoundImageView.h"
 #import "UIImage+YGCCategory.h"
-
+#import <QuartzCore/QuartzCore.h>
 @interface HCChatCell ()
 {
     UIImage *_send_norimg;//发送信息默认状态的背景
