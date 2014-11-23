@@ -17,7 +17,9 @@
 #import "HCEditVCardController.h"
 #import "HCAlertDialog.h"
 #import "NSDate+YGCCategory.h"
+#import "NSString+YGCCategory.h"
 #import "MJRefresh.h"
+#import "MBProgressHUD.h"
 /**
  电子名片静态行模型
  */
@@ -41,9 +43,9 @@
     
     NSArray *_cellHeaderLabels;//列头Labels数组
     
-    UIActivityIndicatorView *_indictatorview;//加载动画
-    
     MJRefreshHeaderView *_headerview;//下来刷新控件
+    
+    MBProgressHUD *_hub;
 }
 @end
 
@@ -59,6 +61,8 @@
     [super viewDidLoad];
     
     [self setUI];
+    
+    
 }
 
 -(void)setUI
@@ -73,11 +77,7 @@
     //设置头像圆角
     _imgvphoto.layer.masksToBounds=YES;
     _imgvphoto.layer.cornerRadius=40;
-    
-    //加载动画
-    _indictatorview=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    _indictatorview.center=self.view.center;
-    [self.view addSubview:_indictatorview];
+
     
     //让设置tableview距离底部距离-20 全屏效果
 //    self.tableView.contentInset=UIEdgeInsetsMake(-35, 0, 0, 0);
@@ -101,18 +101,12 @@
 #pragma mark 获取电子名片
 -(void)getvCard
 {
-     [_indictatorview startAnimating];
-   XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
+    XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
     if(myvcard==nil)
         myvcard=[XMPPvCardTemp vCardTemp];
      XMPPJID *jid=[XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
     //设置JID
     myvcard.jid=jid;
-    // 更新或保存电子名片
-    [kAppdelegate.xmppvCardTempModule updateMyvCardTemp:myvcard];
-    
-    NSLog(@"jid:%@ nickname:%@ sex:%@ city:%@ title:%@ bday:%@ mail:%@ phone%@",myvcard.jid,myvcard.nickname,myvcard.prefix,myvcard.role,myvcard.title,myvcard.bday,myvcard.mailer,myvcard.suffix);
-    
     NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid];
     if (data) {
         _imgvphoto.image=[UIImage imageWithData:data];//头像
@@ -121,22 +115,16 @@
     {
         _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
     }
-    _labcellnikiname.text=myvcard.nickname;//昵称
-    _labnikiname.text=myvcard.nickname;//昵称
-    _labsex.text=myvcard.prefix;//性别
-    _labcity.text=myvcard.role;//所在地
-    _labdescribe.text=myvcard.title;//简介
-    _labbday.text=[myvcard.bday toStringWithFormater:@"yyyy-MM-dd"];//生日
-    _labmail.text=myvcard.mailer;//邮件
-    _labphone.text=myvcard.suffix;//电话
-    
+    // 更新或保存电子名片(异步操作，通过通知回调进行后续处理)
+    [kAppdelegate.xmppvCardTempModule updateMyvCardTemp:myvcard];
+    _hub=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _hub.dimBackground=YES;
 }
 
 #pragma mark 保存名片信息
 -(void)updatevCard
 {
   XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
-    [_indictatorview startAnimating];
     myvcard.nickname=_labcellnikiname.text;//昵称
     myvcard.prefix=_labsex.text;//性别
     myvcard.role=_labcity.text;//所在地
@@ -156,14 +144,33 @@
     myvcard.photo=UIImagePNGRepresentation(_imgvphoto.image);
     myvcard.suffix=_labphone.text;
     [kAppdelegate.xmppvCardTempModule updateMyvCardTemp:myvcard];
+    _hub=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    _hub.dimBackground=YES;
 }
 
 #pragma 更新成功
 -(void)updateSuccess
 {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [_indictatorview stopAnimating];
-    });
+        _hub.hidden=YES;
+        XMPPJID *jid=[XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
+        XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
+          NSLog(@"jid:%@ nickname:%@ sex:%@ city:%@ title:%@ bday:%@ mail:%@ phone%@",myvcard.jid,myvcard.nickname,myvcard.prefix,myvcard.role,myvcard.title,myvcard.bday,myvcard.mailer,myvcard.suffix);
+        NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid];
+        if (data) {
+            _imgvphoto.image=[UIImage imageWithData:data];//头像
+        }
+        else if(myvcard.photo)
+        {
+            _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
+        }
+        _labcellnikiname.text=myvcard.name;//昵称
+        _labnikiname.text=myvcard.name;//昵称
+        _labsex.text=myvcard.prefix;//性别
+        _labcity.text=myvcard.role;//所在地
+        _labdescribe.text=myvcard.title;//简介
+        _labbday.text=[myvcard.bday toStringWithFormater:@"yyyy-MM-dd"];//生日
+        _labmail.text=myvcard.mailer;//邮件
+        _labphone.text=myvcard.suffix;//电话
     
 }
 
@@ -171,7 +178,8 @@
 -(void)updateFaild
 {
      dispatch_sync(dispatch_get_main_queue(), ^{
-         [_indictatorview stopAnimating];
+         _hub.hidden=YES;
+         
      });
 }
 
@@ -201,6 +209,11 @@
 #pragma mark 打开相机拍照
 -(void)takePhoto
 {
+    //检查相机模式是否可用
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [HCAlertDialog showDialog:@"没有可用的拍照设备"];
+        return;
+    }
     UIImagePickerController *imgcontroller=[[UIImagePickerController alloc]init];
     imgcontroller.sourceType=UIImagePickerControllerSourceTypeCamera;
     imgcontroller.delegate=self;

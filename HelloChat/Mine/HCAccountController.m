@@ -37,8 +37,7 @@
     //设置登录标记
     [HCLoginUserTool sharedHCLoginUserTool].isLogined=NO;
     //跳转到登录页面
-    HCLoginController *login=[[HCLoginController alloc]init];
-    
+    HCLoginController *login=[UIStoryboard storyboardWithName:@"HCLoginController" bundle:nil].instantiateInitialViewController;
     [UIApplication sharedApplication].keyWindow.rootViewController=login;
 }
 

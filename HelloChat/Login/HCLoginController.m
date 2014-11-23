@@ -13,9 +13,10 @@
 #import "HCAppDelegate.h"
 #import "HCAlertDialog.h"
 #import "MBProgressHUD.h"
+#import "UIImage+YGCCategory.h"
 @interface HCLoginController ()<UITextFieldDelegate>
 {
-    UIActivityIndicatorView *_indicator;//登录加载动画
+    MBProgressHUD *_loginhud;//登录加载动画
 }
 @end
 
@@ -28,34 +29,46 @@
     return (HCAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
+#pragma mark 视图将要出现的时候 隐藏导航栏
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden=YES;
+    kAppdelegate.isRegister=NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self setUI];
+   [self setUI];
 }
 
 -(void)setUI
 {
+
     //设置头像圆角
     _imgphoto.layer.masksToBounds=YES;
     _imgphoto.layer.cornerRadius=40.0;
     
-    //设置登录按钮图片拉伸
-    UIImage *img=[UIImage imageNamed:@"bc_btn_blue.png"];
-    UIImage *btnimg=[img stretchableImageWithLeftCapWidth:img.size.width*0.5 topCapHeight:img.size.height*0.5];
-    [_btnlogin setBackgroundImage:btnimg forState:UIControlStateNormal];
-    UIImage  *imghl=[UIImage imageNamed:@"login_btn_blue_press.png"];
-    UIImage * btnimghl=[imghl stretchableImageWithLeftCapWidth:imghl.size.width*0.5 topCapHeight:imghl.size.height*0.5];
+    //设置密码输入框回车键文字JOIN
     _txtpassword.returnKeyType=UIReturnKeyJoin;
-    [_btnlogin setBackgroundImage:btnimghl forState:UIControlStateHighlighted];
-    [_btnlogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"login_bg.png"]];
     
-    //添加指示器
-    _indicator=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    _indicator.center=self.view.center;
-    [self.view addSubview:_indicator];
+    //设置登录按钮图片拉伸
+//    [_btnlogin setBackgroundImage:[UIImage resizedImage:@"bc_btn_blue.png"] forState:UIControlStateNormal];
+//    [_btnlogin setBackgroundImage:[UIImage resizedImage:@"login_btn_blue_press.png"]
+//                         forState:UIControlStateHighlighted];
+    
+    //设置按钮背景颜色
+    _btnlogin.backgroundColor=kGetColorRGB(0, 173, 241);
+    _btnlogin.layer.cornerRadius=5;
+    _btnregister.backgroundColor=[UIColor orangeColor];
+    _btnregister.layer.cornerRadius=5;
+    
+    //登录事件
+    [_btnlogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+   
+    
+  
     
     //设置用户名和密码,如果沙盒中有用户名和密码，自动填入
     if([HCLoginUserTool sharedHCLoginUserTool].loginUser)
@@ -122,7 +135,9 @@
         [HCLoginUserTool sharedHCLoginUserTool].loginUser=user;
         
         //开始加载动画
-        [_indicator startAnimating];
+        //添加指示器
+        _loginhud= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        _loginhud.dimBackground=YES;
         _btnlogin.enabled=NO;
         [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
         [[self appdelegate] connectWithFailBock:^(NSString *error) {
@@ -138,7 +153,7 @@
 -(void)finishLogin
 {
     //停止加载动画
-    [_indicator stopAnimating];
+    [_loginhud hide:YES];
     _btnlogin.enabled=YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
 }
@@ -151,4 +166,11 @@
 
 
 
+- (IBAction)btnRegisterClick:(id)sender
+{
+    kAppdelegate.isRegister=YES;
+    
+    self.navigationController.navigationBarHidden=NO;
+    [self performSegueWithIdentifier:@"goroRegisterName" sender:nil];
+}
 @end

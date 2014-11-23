@@ -16,7 +16,7 @@
 #import "XMPPReconnect.h"
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPvCardTempModule.h"
-@interface HCAppDelegate ()<XMPPvCardTempModuleDelegate,XMPPRosterDelegate>
+@interface HCAppDelegate ()<XMPPvCardTempModuleDelegate,XMPPRosterDelegate,XMPPStreamDelegate>
 {
     connectFailBlock _connectFialBlock;//连接失败调用的Block 包括连接，验证密码错误，都调用整个block
     connectSuccessBlock _connectSuccessBlock;//连接成功调用的Block
@@ -29,6 +29,8 @@
     
     HCLoginController *_loginController;//登录控制器
     
+    UINavigationController *_loginnav;//登录导航控制器
+    
     XMPPCapabilities *_xmppcapabilities;//增强实体连接模块
     XMPPCapabilitiesCoreDataStorage *_xmppcapabilitiesStorage;//增强实体连接模块
 }
@@ -40,11 +42,11 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    
+    _mainController=[[HCMainController alloc]init];
     //如果沙盒中有用户登录信息，则直接到主控制器，否则启动登录控制器
-    if([HCLoginUserTool sharedHCLoginUserTool].loginUser&&[HCLoginUserTool sharedHCLoginUserTool])
-        [self goMainController];
-    else
+//    if([HCLoginUserTool sharedHCLoginUserTool].loginUser&&[HCLoginUserTool sharedHCLoginUserTool])
+//        [self goMainController];
+//    else
         [self goLoginController];
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -56,7 +58,10 @@
 -(void)goLoginController
 {
     if(_loginController==nil)
-        _loginController=[[HCLoginController alloc]init];
+    {
+        _loginController=[UIStoryboard storyboardWithName:@"HCLoginController" bundle:nil].instantiateInitialViewController;
+//        _loginnav=[[UINavigationController alloc]initWithRootViewController:_loginController];
+    }
      self.window.rootViewController=_loginController;
 }
 
@@ -71,7 +76,8 @@
 //        _mainController.backgroundImage=[UIImage imageNamed:@"Stars.png"];
         
     }
-    _mainController=[[HCMainController alloc]init];
+    //_mainController=[[HCMainController alloc]init];
+    NSLog(@"%@",@"即将显示主界面");
     self.window.rootViewController=_mainController;
 }
 
@@ -140,7 +146,11 @@
     [_xmppStream disconnect];
     
     if (![_xmppStream isConnected]) {
-        XMPPJID *jid = [XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
+        XMPPJID *jid=nil;
+        if(_isRegister&&_registerInfo)
+            jid=[XMPPJID jidWithString:kAppendJid(_registerInfo.username)];
+        else
+            jid= [XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
         [self.xmppStream setMyJID:jid];
         [self.xmppStream setHostName:kHostName];
         NSError *error = nil;
@@ -159,12 +169,19 @@
 -(void)xmppStreamDidConnect:(XMPPStream *)sender
 {
     NSError *error = nil;
-    if (![self.xmppStream authenticateWithPassword:[HCLoginUserTool sharedHCLoginUserTool].loginUser.password error:&error]) {
-        if(error&&_connectFialBlock)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-            _connectFialBlock(@"用户名或密码错误,请重新输入!");
-            });
+    if(_isRegister&&_registerInfo)
+    {
+        [self.xmppStream registerWithPassword:_registerInfo.password error:nil];
+    }
+    else
+    {
+        if (![self.xmppStream authenticateWithPassword:[HCLoginUserTool sharedHCLoginUserTool].loginUser.password error:&error]) {
+            if(error&&_connectFialBlock)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                _connectFialBlock(@"用户名或密码错误,请重新输入!");
+                });
+            }
         }
     }
 }
@@ -191,13 +208,31 @@
     }
 }
 
+#pragma mark 注册失败
+-(void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error
+{
+    NSLog(@"%@",error.stringValue);
+    //发出通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRegisterFailNotiKey object:error];
+}
+
+#pragma mark 注册成功
+-(void)xmppStreamDidRegister:(XMPPStream *)sender
+{
+    //发出通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRegisterSuccessNotiKey object:nil];
+}
+
 #pragma mark 验证完毕
 -(void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     BOOL islogined=[HCLoginUserTool sharedHCLoginUserTool].isLogined;
     if(!islogined)
     {
-        [self goMainController];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self goMainController];
+        });
+        
     }
     //登录成功回调
     if(_connectSuccessBlock)

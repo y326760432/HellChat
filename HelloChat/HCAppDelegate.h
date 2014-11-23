@@ -10,6 +10,7 @@
 #import "XMPPFramework.h"
 #import "XMPPvCardTempModule.h"
 #import "XMPPRoster.h"
+#import "HCRegisterInfo.h"
 /**
  连接失败调用的Block
  */
@@ -21,6 +22,16 @@ typedef void (^connectFailBlock)(NSString *error);
 typedef void (^connectSuccessBlock)();
 
 @interface HCAppDelegate : UIResponder <UIApplicationDelegate,XMPPStreamDelegate>
+
+/**
+ 是否注册
+ */
+@property(nonatomic,assign) BOOL isRegister;
+
+/**
+ 注册信息
+ */
+@property(nonatomic,strong) HCRegisterInfo *registerInfo;
 
 /**
  xmpp
@@ -61,6 +72,11 @@ typedef void (^connectSuccessBlock)();
  连接
  */
 -(void)connectWithFailBock:(connectFailBlock) failblock succsee:(connectSuccessBlock)successblock;
+
+/**
+ 上线
+ */
+-(void)goOnline;
 
 /**
  断开连接

@@ -34,6 +34,12 @@
 //获取appdelegate
 #define kAppdelegate ((HCAppDelegate *)[UIApplication sharedApplication].delegate)
 
+//注册失败发出的通知
+#define kRegisterFailNotiKey @"RegisterFailNotiKey"
+
+//注册成功发出通知
+#define kRegisterSuccessNotiKey @"RegisterSuccessNotiKey"
+
 //更新电子名片成功发出的通知
 #define kdidupdatevCard @"kdidupdatevCardNoti"
 
