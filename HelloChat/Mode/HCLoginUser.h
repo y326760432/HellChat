@@ -21,6 +21,11 @@
 @property(nonatomic,copy) NSString *password;
 
 /**
+ 头像
+ */
+@property(nonatomic,copy) UIImage *photo;
+
+/**
  JIP(带服务器名)
  */
 @property(nonatomic,copy) NSString *JID;

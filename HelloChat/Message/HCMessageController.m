@@ -58,11 +58,13 @@
 #pragma mark 电子名片更新通知
 -(void)vCardUpdate
 {
-    XMPPJID *jid=[XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
-    NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid];
+    NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:kmyJid];
     if(data)
     {
         _imgvPhoto.image=[UIImage imageWithData:data];
+        //设置归档用户的头像，登录界面显示
+        [HCLoginUserTool sharedHCLoginUserTool].userPhoto=[UIImage imageWithData:data];
+
     }
 }
 

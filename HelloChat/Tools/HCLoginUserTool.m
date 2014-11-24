@@ -32,4 +32,12 @@ singleton_implementation(HCLoginUserTool)
     [NSKeyedArchiver archiveRootObject:_loginUser toFile:kAppendDocPath(kLoginUserFile)];
 }
 
+-(void)setUserPhoto:(UIImage *)userPhoto
+{
+    _userPhoto=userPhoto;
+    _loginUser.photo=userPhoto;
+    //写入到沙盒文件
+    [NSKeyedArchiver archiveRootObject:_loginUser toFile:kAppendDocPath(kLoginUserFile)];
+}
+
 @end

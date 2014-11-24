@@ -19,6 +19,7 @@
         self.password=[aDecoder decodeObjectForKey:@"password"];
         self.JID=[aDecoder decodeObjectForKey:@"JID"];
         self.logouted=[aDecoder decodeBoolForKey:@"logouted"];
+        self.photo=[aDecoder decodeObjectForKey:@"photo"];
     }
     return self;
 }
@@ -30,6 +31,7 @@
     [aCoder encodeObject:self.password forKey:@"password"];
     [aCoder encodeObject:self.JID forKey:@"JID"];
     [aCoder encodeBool:self.logouted forKey:@"logouted"];
+    [aCoder encodeObject:self.photo forKey:@"photo"];
 }
 
 //设置用户名的时候顺便设置JID
@@ -38,5 +40,6 @@
     _username=username;
     _JID=[NSString stringWithFormat:@"%@%@",username,kServerName];
 }
+
 
 @end

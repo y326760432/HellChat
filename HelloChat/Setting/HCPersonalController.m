@@ -104,19 +104,12 @@
     XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
     if(myvcard==nil)
         myvcard=[XMPPvCardTemp vCardTemp];
-     XMPPJID *jid=[XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
+    NSLog(@"%@",kmyJidStr);
     //设置JID
-    myvcard.jid=jid;
-    NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid];
-    if (data) {
-        _imgvphoto.image=[UIImage imageWithData:data];//头像
-    }
-    else if(myvcard.photo)
-    {
-        _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
-    }
+    myvcard.jid=kmyJid;
     // 更新或保存电子名片(异步操作，通过通知回调进行后续处理)
     [kAppdelegate.xmppvCardTempModule updateMyvCardTemp:myvcard];
+    [self setInfo];
     _hub=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _hub.dimBackground=YES;
 }
@@ -125,6 +118,7 @@
 -(void)updatevCard
 {
   XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
+    NSLog(@"%@",[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID);
     myvcard.nickname=_labcellnikiname.text;//昵称
     myvcard.prefix=_labsex.text;//性别
     myvcard.role=_labcity.text;//所在地
@@ -151,27 +145,33 @@
 #pragma 更新成功
 -(void)updateSuccess
 {
+     dispatch_async(dispatch_get_main_queue(), ^{
         _hub.hidden=YES;
-        XMPPJID *jid=[XMPPJID jidWithString:[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID];
-        XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
-          NSLog(@"jid:%@ nickname:%@ sex:%@ city:%@ title:%@ bday:%@ mail:%@ phone%@",myvcard.jid,myvcard.nickname,myvcard.prefix,myvcard.role,myvcard.title,myvcard.bday,myvcard.mailer,myvcard.suffix);
-        NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid];
-        if (data) {
-            _imgvphoto.image=[UIImage imageWithData:data];//头像
-        }
-        else if(myvcard.photo)
-        {
-            _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
-        }
-        _labcellnikiname.text=myvcard.name;//昵称
-        _labnikiname.text=myvcard.name;//昵称
-        _labsex.text=myvcard.prefix;//性别
-        _labcity.text=myvcard.role;//所在地
-        _labdescribe.text=myvcard.title;//简介
-        _labbday.text=[myvcard.bday toStringWithFormater:@"yyyy-MM-dd"];//生日
-        _labmail.text=myvcard.mailer;//邮件
-        _labphone.text=myvcard.suffix;//电话
+         [self setInfo];});
+}
+
+#pragma mark 设置用户信息
+-(void)setInfo
+{
+
+    XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
+    NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:kmyJid];
+    if (data) {
+        _imgvphoto.image=[UIImage imageWithData:data];//头像
+    }
+    else if(myvcard.photo)
+    {
+        _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
+    }
     
+    _labcellnikiname.text=myvcard.nickname;//昵称
+    _labnikiname.text=myvcard.nickname;//昵称
+    _labsex.text=myvcard.prefix;//性别
+    _labcity.text=myvcard.role;//所在地
+    _labdescribe.text=myvcard.title;//简介
+    _labbday.text=[myvcard.bday toStringWithFormater:@"yyyy-MM-dd"];//生日
+    _labmail.text=myvcard.mailer;//邮件
+    _labphone.text=myvcard.suffix;//电话
 }
 
 #pragma mark 更新失败

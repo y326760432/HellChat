@@ -73,8 +73,13 @@
     //设置用户名和密码,如果沙盒中有用户名和密码，自动填入
     if([HCLoginUserTool sharedHCLoginUserTool].loginUser)
     {
-        _txtusername.text=[HCLoginUserTool sharedHCLoginUserTool].loginUser.username;
-        _txtpassword.text=[HCLoginUserTool sharedHCLoginUserTool].loginUser.password;
+        HCLoginUser *user=[HCLoginUserTool sharedHCLoginUserTool].loginUser;
+        _txtusername.text=user.username;
+        _txtpassword.text=user.password;
+        if(user.photo)
+        {
+            _imgphoto.image=user.photo;
+        }
     }
 }
 

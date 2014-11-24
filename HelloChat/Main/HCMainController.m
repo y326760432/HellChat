@@ -53,7 +53,7 @@
     _indicator=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _indicator.center=self.view.center;
     [self.view addSubview:_indicator];
-    [self connect];
+    //[self connect];
     
     
   
@@ -120,18 +120,18 @@
         
     }
 }
--(void)connect
-{
-    [_indicator startAnimating];
-    [kAppdelegate connectWithFailBock:^(NSString *error) {
-        [_indicator stopAnimating];
-        [HCAlertDialog showDialog:error];
-    } succsee:^{
-        [_indicator stopAnimating];
-        
-        [self getVCard];
-    }];
-}
+//-(void)connect
+//{
+//    [_indicator startAnimating];
+//    [kAppdelegate connectWithFailBock:^(NSString *error) {
+//        [_indicator stopAnimating];
+//        [HCAlertDialog showDialog:error];
+//    } succsee:^{
+//        [_indicator stopAnimating];
+//        
+//        [self getVCard];
+//    }];
+//}
 
 -(void)getVCard
 {

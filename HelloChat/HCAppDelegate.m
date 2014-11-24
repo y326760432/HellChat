@@ -14,6 +14,7 @@
 #import "HCLoginUser.h"
 #import "HCLoginUserTool.h"
 #import "XMPPReconnect.h"
+#import "XMPPvCardTemp.h"
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPvCardTempModule.h"
 @interface HCAppDelegate ()<XMPPvCardTempModuleDelegate,XMPPRosterDelegate,XMPPStreamDelegate>
@@ -254,14 +255,19 @@
     
 }
 
--(void)xmppvCardTempModule:(XMPPvCardTempModule *)vCardTempModule didReceivevCardTemp:(XMPPvCardTemp *)vCardTemp forJID:(XMPPJID *)jid
-{
-     [[NSNotificationCenter defaultCenter] postNotificationName:kdidupdatevCard object:nil];
-}
 
 #pragma mark 电子名片保存成功
 -(void)xmppvCardTempModuleDidUpdateMyvCard:(XMPPvCardTempModule *)vCardTempModule
 {
+    NSData *data=[_xmppvCardAvatarModule photoDataForJID:kmyJid];
+    if(data)
+    {
+        NSLog(@"asd");
+    }
+    else if(vCardTempModule.myvCardTemp.photo)
+    {
+        data=vCardTempModule.myvCardTemp.photo;
+    }
     //发送通知
     [[NSNotificationCenter defaultCenter] postNotificationName:kdidupdatevCard object:nil];
 }
@@ -285,11 +291,11 @@
         [_xmppRoster acceptPresenceSubscriptionRequestFrom:jid andAddToRoster:YES];
     }
 }
-//
-//-(void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence
-//{
-//    NSLog(@"didReceivePresenceSubscriptionRequest---%@",presence);
-//}
+
+-(void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence
+{
+    NSLog(@"didReceivePresenceSubscriptionRequest---%@",presence);
+}
 
 #pragma mark 下线
 -(void)goOffline

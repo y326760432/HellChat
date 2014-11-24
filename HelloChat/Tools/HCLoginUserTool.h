@@ -19,6 +19,10 @@ singleton_interface(HCLoginUserTool)
 @property(nonatomic,strong) HCLoginUser *loginUser;
 
 /**
+ 保存本地用户头像
+ */
+@property(nonatomic,strong) UIImage *userPhoto;
+/**
  是否已经登录
  */
 @property(nonatomic,assign) BOOL isLogined;

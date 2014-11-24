@@ -84,6 +84,7 @@
     user.password=kAppdelegate.registerInfo.password;
     //设置当前登录账户为注册账户
     [HCLoginUserTool sharedHCLoginUserTool].loginUser=user;
+    [HCLoginUserTool sharedHCLoginUserTool].userPhoto=[_btnphoto backgroundImageForState:UIControlStateNormal];
     //用户上线
     [kAppdelegate goOnline];
     
