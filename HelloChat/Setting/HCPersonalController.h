@@ -24,14 +24,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labcity;
 
-@property (weak, nonatomic) IBOutlet UILabel *labdescribe;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *labbday;
-
-@property (weak, nonatomic) IBOutlet UILabel *labmail;
-
-@property (weak, nonatomic) IBOutlet UILabel *labphone;
-
 
 @end

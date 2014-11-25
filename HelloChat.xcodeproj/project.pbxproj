@@ -287,6 +287,12 @@
 		5A987DA31A04C5DB00A71B46 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A987DA21A04C5DB00A71B46 /* QuartzCore.framework */; };
 		5A987DA51A04C70900A71B46 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A987DA41A04C70900A71B46 /* line@2x.png */; };
 		5A9C0E871A07B0820014A70F /* HCAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9C0E861A07B0820014A70F /* HCAlertDialog.m */; };
+		5A9CFEE21A24A82100FC4647 /* HCContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9CFEE11A24A82100FC4647 /* HCContactCell.m */; };
+		5A9CFF401A24C41A00FC4647 /* Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9CFF371A24C41A00FC4647 /* Emoji.m */; };
+		5A9CFF411A24C41A00FC4647 /* EmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9CFF391A24C41A00FC4647 /* EmojiEmoticons.m */; };
+		5A9CFF421A24C41A00FC4647 /* EmojiMapSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9CFF3B1A24C41A00FC4647 /* EmojiMapSymbols.m */; };
+		5A9CFF431A24C41A00FC4647 /* EmojiPictographs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9CFF3D1A24C41A00FC4647 /* EmojiPictographs.m */; };
+		5A9CFF441A24C41A00FC4647 /* EmojiTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9CFF3F1A24C41A00FC4647 /* EmojiTransport.m */; };
 		5A9D82E51A1A33B00077D494 /* chat_bottom_smile_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D82DF1A1A33B00077D494 /* chat_bottom_smile_nor@2x.png */; };
 		5A9D82E61A1A33B00077D494 /* chat_bottom_smile_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D82E01A1A33B00077D494 /* chat_bottom_smile_press@2x.png */; };
 		5A9D82E71A1A33B00077D494 /* chat_bottom_up_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D82E11A1A33B00077D494 /* chat_bottom_up_nor@2x.png */; };
@@ -797,6 +803,18 @@
 		5A987DA41A04C70900A71B46 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		5A9C0E851A07B0820014A70F /* HCAlertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCAlertDialog.h; sourceTree = "<group>"; };
 		5A9C0E861A07B0820014A70F /* HCAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCAlertDialog.m; sourceTree = "<group>"; };
+		5A9CFEE01A24A82100FC4647 /* HCContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCContactCell.h; sourceTree = "<group>"; };
+		5A9CFEE11A24A82100FC4647 /* HCContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCContactCell.m; sourceTree = "<group>"; };
+		5A9CFF361A24C41A00FC4647 /* Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emoji.h; sourceTree = "<group>"; };
+		5A9CFF371A24C41A00FC4647 /* Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Emoji.m; sourceTree = "<group>"; };
+		5A9CFF381A24C41A00FC4647 /* EmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiEmoticons.h; sourceTree = "<group>"; };
+		5A9CFF391A24C41A00FC4647 /* EmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiEmoticons.m; sourceTree = "<group>"; };
+		5A9CFF3A1A24C41A00FC4647 /* EmojiMapSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiMapSymbols.h; sourceTree = "<group>"; };
+		5A9CFF3B1A24C41A00FC4647 /* EmojiMapSymbols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiMapSymbols.m; sourceTree = "<group>"; };
+		5A9CFF3C1A24C41A00FC4647 /* EmojiPictographs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiPictographs.h; sourceTree = "<group>"; };
+		5A9CFF3D1A24C41A00FC4647 /* EmojiPictographs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiPictographs.m; sourceTree = "<group>"; };
+		5A9CFF3E1A24C41A00FC4647 /* EmojiTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiTransport.h; sourceTree = "<group>"; };
+		5A9CFF3F1A24C41A00FC4647 /* EmojiTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiTransport.m; sourceTree = "<group>"; };
 		5A9D82DF1A1A33B00077D494 /* chat_bottom_smile_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_smile_nor@2x.png"; sourceTree = "<group>"; };
 		5A9D82E01A1A33B00077D494 /* chat_bottom_smile_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_smile_press@2x.png"; sourceTree = "<group>"; };
 		5A9D82E11A1A33B00077D494 /* chat_bottom_up_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_bottom_up_nor@2x.png"; sourceTree = "<group>"; };
@@ -1170,6 +1188,7 @@
 		5A9877B71A047ACF00A71B46 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				5A9CFF351A24C3E600FC4647 /* Emoji */,
 				5A68C0DF1A0E632300F4D25B /* MJRefresh */,
 				5A3FD8291A0545E3002B79EB /* RESideMenu */,
 				5A3FD8251A04FE56002B79EB /* MBProgressHUD */,
@@ -2158,6 +2177,23 @@
 			path = Icon;
 			sourceTree = "<group>";
 		};
+		5A9CFF351A24C3E600FC4647 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				5A9CFF361A24C41A00FC4647 /* Emoji.h */,
+				5A9CFF371A24C41A00FC4647 /* Emoji.m */,
+				5A9CFF381A24C41A00FC4647 /* EmojiEmoticons.h */,
+				5A9CFF391A24C41A00FC4647 /* EmojiEmoticons.m */,
+				5A9CFF3A1A24C41A00FC4647 /* EmojiMapSymbols.h */,
+				5A9CFF3B1A24C41A00FC4647 /* EmojiMapSymbols.m */,
+				5A9CFF3C1A24C41A00FC4647 /* EmojiPictographs.h */,
+				5A9CFF3D1A24C41A00FC4647 /* EmojiPictographs.m */,
+				5A9CFF3E1A24C41A00FC4647 /* EmojiTransport.h */,
+				5A9CFF3F1A24C41A00FC4647 /* EmojiTransport.m */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
 		5AA8102D1A1CBB8900CAAC25 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2167,6 +2203,8 @@
 				5AA810321A1CBDFD00CAAC25 /* HCEmojiInputView.m */,
 				5A432A801A20329800B41F3E /* HCFileInputView.h */,
 				5A432A811A20329800B41F3E /* HCFileInputView.m */,
+				5A9CFEE01A24A82100FC4647 /* HCContactCell.h */,
+				5A9CFEE11A24A82100FC4647 /* HCContactCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2498,6 +2536,7 @@
 				5A45C97D1A05DC0900D4C116 /* HCMessageController.m in Sources */,
 				5A987D1B1A0486E600A71B46 /* XMPPvCardCoreDataStorage.m in Sources */,
 				5A987D1F1A0486E600A71B46 /* XMPPvCardTempAdr.m in Sources */,
+				5A9CFF401A24C41A00FC4647 /* Emoji.m in Sources */,
 				5A987D5D1A0486E600A71B46 /* DDAbstractDatabaseLogger.m in Sources */,
 				5A432A921A20923C00B41F3E /* HCRegisterNameController.m in Sources */,
 				5A987D631A0486E600A71B46 /* DDDispatchQueueLogFormatter.m in Sources */,
@@ -2527,6 +2566,7 @@
 				5A987D111A0486E600A71B46 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				5A987CED1A0486E600A71B46 /* NSXMLElement+XMPP.m in Sources */,
 				5A987D521A0486E600A71B46 /* XMPPMessage+XEP_0308.m in Sources */,
+				5A9CFEE21A24A82100FC4647 /* HCContactCell.m in Sources */,
 				5A987D1A1A0486E600A71B46 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				5A987D2C1A0486E600A71B46 /* XMPPMessage+XEP_0066.m in Sources */,
 				5A987D091A0486E600A71B46 /* XMPPLastActivity.m in Sources */,
@@ -2534,6 +2574,7 @@
 				5A987D0E1A0486E600A71B46 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				5A987D5B1A0486E600A71B46 /* XMPPTimer.m in Sources */,
 				5A987D1E1A0486E600A71B46 /* XMPPvCardTemp.m in Sources */,
+				5A9CFF441A24C41A00FC4647 /* EmojiTransport.m in Sources */,
 				5A987D5E1A0486E600A71B46 /* DDASLLogger.m in Sources */,
 				5A987D171A0486E600A71B46 /* XMPPMUC.m in Sources */,
 				5A7831BD1A0A5CD200025E28 /* HCPersonalController.m in Sources */,
@@ -2547,6 +2588,7 @@
 				5A987D051A0486E600A71B46 /* XMPPIQ+JabberRPC.m in Sources */,
 				5A9C0E871A07B0820014A70F /* HCAlertDialog.m in Sources */,
 				5A987D611A0486E600A71B46 /* DDTTYLogger.m in Sources */,
+				5A9CFF431A24C41A00FC4647 /* EmojiPictographs.m in Sources */,
 				5A987D271A0486E600A71B46 /* XMPPResultSet.m in Sources */,
 				5A987D541A0486E600A71B46 /* NSXMLElement+XEP_0335.m in Sources */,
 				5A987D4F1A0486E600A71B46 /* XMPPMessage+XEP_0280.m in Sources */,
@@ -2571,6 +2613,7 @@
 				5A987D071A0486E600A71B46 /* XMPPJabberRPCModule.m in Sources */,
 				5A987D761A04BD8100A71B46 /* HCLoginController.m in Sources */,
 				5AFDEF431A18B82300C7B27C /* HCRoundImageView.m in Sources */,
+				5A9CFF421A24C41A00FC4647 /* EmojiMapSymbols.m in Sources */,
 				5A987D031A0486E600A71B46 /* XMPPRoster.m in Sources */,
 				5A68C0E91A0E632300F4D25B /* MJRefreshBaseView.m in Sources */,
 				5A987CEE1A0486E600A71B46 /* XMPPElement.m in Sources */,
@@ -2588,6 +2631,7 @@
 				5A987D491A0486E600A71B46 /* XMPPAutoTime.m in Sources */,
 				5A987D261A0486E600A71B46 /* NSXMLElement+XEP_0059.m in Sources */,
 				5A987D0D1A0486E600A71B46 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
+				5A9CFF411A24C41A00FC4647 /* EmojiEmoticons.m in Sources */,
 				5A987D4E1A0486E600A71B46 /* XMPPMessage+XEP_0224.m in Sources */,
 				5A432A851A2050D500B41F3E /* HCLocationTool.m in Sources */,
 				5A987D5A1A0486E600A71B46 /* XMPPStringPrep.m in Sources */,

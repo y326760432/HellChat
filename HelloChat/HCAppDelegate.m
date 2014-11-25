@@ -290,6 +290,10 @@
         //接收请求
         [_xmppRoster acceptPresenceSubscriptionRequestFrom:jid andAddToRoster:YES];
     }
+    else
+    {
+        NSLog(@"%@",presence);
+    }
 }
 
 -(void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence

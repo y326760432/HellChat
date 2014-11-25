@@ -16,6 +16,11 @@
 //判断是否iphone5尺寸设备
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
+//self.frame.size
+#define kselfsize self.frame.size
+//self.view.frame.size
+#define kselfviewsize self.view.frame.size
+
 //服务器IP
 #define kHostName @"121.41.37.62"
 //服务名称 拼接JID的时候时候 xxx@Ygcserver

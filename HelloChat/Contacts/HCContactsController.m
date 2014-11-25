@@ -11,6 +11,7 @@
 #import "XMPPRosterCoreDataStorage.h"
 #import "HCAppdelegate.h"
 #import "HCChatController.h"
+#import "HCContactCell.h"
 @interface HCContactsController ()<NSFetchedResultsControllerDelegate>
 {
     NSFetchedResultsController *_fetchedResultsController;
@@ -99,16 +100,19 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID=@"CELL";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
+    HCContactCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
     if(cell==nil)
     {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell=[[HCContactCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     XMPPUserCoreDataStorageObject *user=[_fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"%@",user);
-    cell.textLabel.text=[NSString stringWithFormat:@"%@",user.jid];
-    cell.imageView.image=[self loaduserPhoto:user];
+    cell.user=user;
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -63,7 +63,7 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor colorWithPatternImage:[UIImage resizedImage:@"login_bg.jpg"]];
     _tableview.backgroundView=view;
-//    _tableview.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"login_bg.jpg"]];
+    _tableview.alwaysBounceVertical=YES;
     
     //点击表格时，关闭键盘
     [_tableview addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyBoard)]];

@@ -7,7 +7,7 @@
 //
 
 #import "HCEmojiInputView.h"
-
+#import "Emoji.h"
 #pragma mark 表情代码
 static unichar emotechars[28] =
 {
@@ -25,6 +25,12 @@ static unichar emotechars[28] =
 //每行表情距离屏幕的左右边距
 #define kPading 20
 
+@interface HCEmojiInputView ()
+{
+    NSArray *_allEmojies;
+}
+@end
+
 @implementation HCEmojiInputView
 
 - (id)initWithFrame:(CGRect)frame
@@ -34,7 +40,8 @@ static unichar emotechars[28] =
         //设置背景颜色
         self.backgroundColor=[UIColor groupTableViewBackgroundColor];
         [self createEmojiButton];
-    }
+        _allEmojies=[Emoji allEmoji];
+    };
     return self;
 }
 
@@ -78,7 +85,7 @@ static unichar emotechars[28] =
             else
             {
                 //设置表情文字
-                [btn setTitle:[self getEmojiStrWithIndex:index] forState:UIControlStateNormal];
+                [btn setTitle:_allEmojies[0] forState:UIControlStateNormal];
                 //设置按钮点击事件
                 [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             }
@@ -117,7 +124,7 @@ static unichar emotechars[28] =
 #pragma mark 获取表情字符
 -(NSString *)getEmojiStrWithIndex:(int)index
 {
-    return [NSString stringWithFormat:@"%C",emotechars[index]];
+    return _allEmojies[index];
 }
 
 #pragma mark 固定输入视图的高度

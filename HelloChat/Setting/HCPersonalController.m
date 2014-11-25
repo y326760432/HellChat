@@ -89,8 +89,8 @@
     [self performSelectorInBackground:@selector(getvCard) withObject:nil];
     
     //初始化列头数组
-    _cellHeaders=@[@[@"昵称",@"性别",@"所在地",@"简介"],@[@"生日",@"邮件",@"手机"]];
-    _cellHeaderLabels=@[@[_labcellnikiname,_labsex,_labcity,_labdescribe],@[_labbday,_labmail,_labphone]];
+    _cellHeaders=@[@[@"昵称",@"性别",@"所在地"],@[@"生日"]];
+    _cellHeaderLabels=@[@[_labcellnikiname,_labsex,_labcity],@[_labbday]];
     
     //注册电子名片更新通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSuccess) name:kdidupdatevCard object:nil];
@@ -119,10 +119,9 @@
 {
   XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
     NSLog(@"%@",[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID);
-    myvcard.nickname=_labcellnikiname.text;//昵称
+    myvcard.name=_labcellnikiname.text;//昵称
     myvcard.prefix=_labsex.text;//性别
     myvcard.role=_labcity.text;//所在地
-    myvcard.title=_labdescribe.text;//简介
     //生日
     if(_labbday.text.length>0)
     {
@@ -133,10 +132,7 @@
     }
     else
         myvcard.bday=nil;
-    
-    myvcard.mailer=_labmail.text;//邮件
     myvcard.photo=UIImagePNGRepresentation(_imgvphoto.image);
-    myvcard.suffix=_labphone.text;
     [kAppdelegate.xmppvCardTempModule updateMyvCardTemp:myvcard];
     _hub=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _hub.dimBackground=YES;
@@ -164,14 +160,11 @@
         _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
     }
     
-    _labcellnikiname.text=myvcard.nickname;//昵称
-    _labnikiname.text=myvcard.nickname;//昵称
+    _labcellnikiname.text=myvcard.name;//昵称
+    _labnikiname.text=myvcard.name;//昵称
     _labsex.text=myvcard.prefix;//性别
     _labcity.text=myvcard.role;//所在地
-    _labdescribe.text=myvcard.title;//简介
     _labbday.text=[myvcard.bday toStringWithFormater:@"yyyy-MM-dd"];//生日
-    _labmail.text=myvcard.mailer;//邮件
-    _labphone.text=myvcard.suffix;//电话
 }
 
 #pragma mark 更新失败

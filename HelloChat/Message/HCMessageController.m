@@ -37,7 +37,7 @@
     self.title=@"消息";
     
     //设置圆角头像
-    UIImage *img=[UIImage imageNamed:@"AppIcon-140x40.png"];
+    UIImage *img=[UIImage imageNamed:@"normalheadphoto.png"];
     _imgvPhoto=[[UIImageView alloc]initWithImage:img];
     _imgvPhoto.contentMode=UIViewContentModeScaleAspectFit;
     _imgvPhoto.frame=CGRectMake(0, 0, 36, 36);

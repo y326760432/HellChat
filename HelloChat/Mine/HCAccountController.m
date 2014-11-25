@@ -10,6 +10,7 @@
 #import "UIImage+YGCCategory.h"
 #import "HCLoginController.h"
 #import "HCLoginUserTool.h"
+#import "HCAppdelegate.h"
 @interface HCAccountController ()
 
 @end
@@ -36,6 +37,7 @@
     
     //设置登录标记
     [HCLoginUserTool sharedHCLoginUserTool].isLogined=NO;
+    [kAppdelegate.xmppStream disconnect];
     //跳转到登录页面
     HCLoginController *login=[UIStoryboard storyboardWithName:@"HCLoginController" bundle:nil].instantiateInitialViewController;
     [UIApplication sharedApplication].keyWindow.rootViewController=login;
