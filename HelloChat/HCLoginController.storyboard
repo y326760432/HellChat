@@ -25,10 +25,6 @@
                                 <rect key="frame" x="0.0" y="40" width="320" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="normalheadphoto.png" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-qW-Uw7">
-                                        <rect key="frame" x="115" y="10" width="80" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMb-Ii-1ml">
                                         <rect key="frame" x="20" y="191" width="135" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -42,29 +38,6 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="登录"/>
                                     </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LJZ-a5-S1U">
-                                        <rect key="frame" x="0.0" y="100" width="320" height="81"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FN2-qW-E72" userLabel="用户名">
-                                                <rect key="frame" x="20" y="0.0" width="280" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="q4j-V7-xsJ" userLabel="密码">
-                                                <rect key="frame" x="20" y="41" width="280" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                            </textField>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line.png" translatesAutoresizingMaskIntoConstraints="NO" id="EJ1-Ba-MAU">
-                                                <rect key="frame" x="0.0" y="41" width="320" height="1"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -76,9 +49,6 @@
                         <outlet property="bgImgView" destination="ADu-FX-5Hh" id="Y7j-65-nYv"/>
                         <outlet property="btnlogin" destination="SgQ-0c-fF3" id="1gZ-2h-rCK"/>
                         <outlet property="btnregister" destination="pMb-Ii-1ml" id="dPB-oG-Yok"/>
-                        <outlet property="imgphoto" destination="VSq-qW-Uw7" id="Dur-SO-7zW"/>
-                        <outlet property="txtpassword" destination="q4j-V7-xsJ" id="UC2-n6-6O5"/>
-                        <outlet property="txtusername" destination="FN2-qW-E72" id="3Ld-HJ-Ym0"/>
                         <segue destination="SHf-DR-GxW" kind="push" identifier="goroRegisterName" id="Wtm-dr-w3Z"/>
                     </connections>
                 </viewController>
@@ -353,7 +323,6 @@
         <image name="icon_register_password.png" width="16" height="16"/>
         <image name="line.png" width="320" height="1"/>
         <image name="login_bg.jpg" width="640" height="1136"/>
-        <image name="normalheadphoto.png" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

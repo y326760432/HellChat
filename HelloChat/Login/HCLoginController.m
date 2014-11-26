@@ -64,6 +64,31 @@
     _imgphoto.layer.cornerRadius=40.0;
     [self.view addSubview:_imgphoto];
    
+    //添加用户名和密码View
+    CGFloat max_y=CGRectGetMaxY(_imgphoto.frame);
+    UIView *infoview=[[UIView alloc]init];
+    infoview.backgroundColor=[UIColor whiteColor];
+    infoview.frame=CGRectMake(0, max_y+10, kselfviewsize.width, 81);
+    //用户名输入框
+    _txtusername=[[UITextField alloc]init];
+    _txtusername.font=kFont(15);
+    _txtusername.placeholder=@"用户名";
+    _txtusername.contentMode=UIViewContentModeCenter;
+    _txtusername.borderStyle=UITextBorderStyleNone;
+    _txtusername.frame=CGRectMake(0, 0, kselfviewsize.width-40, 40);
+    [infoview addSubview:_txtusername];
+    //分割线
+    UIImageView *line=[[UIImageView alloc]initWithFrame:CGRectMake(0, 41, kselfviewsize.width, 1)];
+    line.image=[UIImage imageNamed:@"line.png"];
+    [infoview addSubview:line];
+    //密码输入框
+    _txtpassword=[[UITextField alloc]initWithFrame:CGRectMake(0, 41, kselfviewsize.width-40, 40)];
+    _txtpassword.secureTextEntry=YES;
+    _txtpassword.font=kFont(15);
+    _txtpassword.placeholder=@"密码";
+    _txtpassword.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
+    [infoview addSubview:_txtpassword];
+    [self.view addSubview:infoview];
     
     //设置密码输入框回车键文字JOIN
     _txtpassword.returnKeyType=UIReturnKeyJoin;
