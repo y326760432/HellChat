@@ -17,6 +17,11 @@
 @interface HCLoginController ()<UITextFieldDelegate>
 {
     MBProgressHUD *_loginhud;//登录加载动画
+    UIImageView *_imgphoto;//头像
+    UITextField *_txtusername;//用户名
+    UITextField *_txtpassword;//密码
+    UIButton *_btnlogin;//登录
+    UIButton *_btnregister;//注册
 }
 @end
 
@@ -46,9 +51,19 @@
 -(void)setUI
 {
 
+    //添加头像
+    _imgphoto=[[UIImageView alloc]init];
+    _imgphoto.image=[UIImage imageNamed:@"normalheadphoto.png"];
+    CGFloat imgphoto_w=80;
+    CGFloat imgphoto_h=80;
+    CGFloat imgphoto_x=(kselfviewsize.width-imgphoto_w)/2;
+    CGFloat imgphoto_y=10;
+    _imgphoto.frame=CGRectMake(imgphoto_x, imgphoto_y, imgphoto_w, imgphoto_h);
     //设置头像圆角
     _imgphoto.layer.masksToBounds=YES;
     _imgphoto.layer.cornerRadius=40.0;
+    [self.view addSubview:_imgphoto];
+   
     
     //设置密码输入框回车键文字JOIN
     _txtpassword.returnKeyType=UIReturnKeyJoin;

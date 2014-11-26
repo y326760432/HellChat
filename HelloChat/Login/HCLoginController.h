@@ -12,11 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImgView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imgphoto;
-@property (weak, nonatomic) IBOutlet UITextField *txtusername;
-@property (weak, nonatomic) IBOutlet UITextField *txtpassword;
-@property (weak, nonatomic) IBOutlet UIButton *btnlogin;
-@property (weak, nonatomic) IBOutlet UIButton *btnregister;
+
+
 
 /**
  注册方法
