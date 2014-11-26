@@ -318,17 +318,21 @@
 
 #pragma mark 表情视图代理
 
+#pragma mark 输入一个表情
 -(void)EmojiInputViewSelectItem:(NSString *)string
 {
-    //当前光标位置
+    _txtMsg.text=[_txtMsg.text stringByAppendingString:string];
     NSRange range=_txtMsg.selectedRange;
-    //将输入框内容字符串转变成可变字符串
-    NSMutableString *inputstr=[NSMutableString stringWithString:_txtMsg.text];
-    //在光标出插入表情
-    [inputstr insertString:string atIndex:range.location];
-    _txtMsg.text=inputstr;
-    //设置光标位置
-    [_txtMsg setSelectedRange:NSMakeRange(range.location+1, 0)];
+//    int length=string.length;
+//    //当前光标位置
+//    NSRange range=_txtMsg.selectedRange;
+//    //将输入框内容字符串转变成可变字符串
+//    NSMutableString *inputstr=[NSMutableString stringWithString:_txtMsg.text];
+//    //在光标出插入表情
+//    [inputstr insertString:string atIndex:range.location*2];
+//    _txtMsg.text=inputstr;
+//    //设置光标位置
+//    [_txtMsg setSelectedRange:NSMakeRange((range.location*2)+1, 0)];
 }
 
 #pragma mark 删除一个表情
@@ -341,7 +345,7 @@
         //将输入框内容字符串转变成可变字符串
         NSMutableString *str=[NSMutableString stringWithString:_txtMsg.text];
         //删除范围，当前光标位置-1，长度为1
-        NSRange delrange=NSMakeRange(range.location-1, 1);
+        NSRange delrange=NSMakeRange(range.location-2, 2);
         //删除字符串
         [str deleteCharactersInRange:delrange];
         //设置删除后的输入框内容

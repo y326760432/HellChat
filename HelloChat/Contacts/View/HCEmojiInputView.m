@@ -8,26 +8,18 @@
 
 #import "HCEmojiInputView.h"
 #import "Emoji.h"
-#pragma mark 表情代码
-static unichar emotechars[28] =
-{
-    0xe415, 0xe056, 0xe057, 0xe414, 0xe405, 0xe106, 0xe418,
-    0xe417, 0xe40d, 0xe40a, 0xe404, 0xe105, 0xe409, 0xe40e,
-    0xe402, 0xe108, 0xe403, 0xe058, 0xe407, 0xe401, 0xe416,
-    0xe40c, 0xe406, 0xe413, 0xe411, 0xe412, 0xe410, 0xe059,
-};
 
 //分4行7列显示
-#define kRowCount   4
-#define kColCount   7
-//每个表情大小
-#define kButtonSize 44
-//每行表情距离屏幕的左右边距
-#define kPading 20
+#define kColCount   8   //列数
+#define kButtonSize 38  //每个表情大小
+#define kEmojiCount 200 //表情总个数
+#define kCountInPage 40 //每页表情个数
 
-@interface HCEmojiInputView ()
+@interface HCEmojiInputView ()<UIScrollViewDelegate>
 {
     NSArray *_allEmojies;
+    UIScrollView *_scorllview;
+    UIPageControl *_pageControl;
 }
 @end
 
@@ -39,8 +31,33 @@ static unichar emotechars[28] =
     if (self) {
         //设置背景颜色
         self.backgroundColor=[UIColor groupTableViewBackgroundColor];
-        [self createEmojiButton];
+        //加载所有Emoji表情
         _allEmojies=[Emoji allEmoji];
+        
+        //创建ScrollView
+        _scorllview=[[UIScrollView alloc]init];
+        //scrollview的高度=每页个数/列数*每个表情高度
+        CGFloat height=(kCountInPage/kColCount)*kButtonSize;
+        _scorllview.frame=CGRectMake(0, 0, kselfsize.width, height);
+        //总页数
+        int pageCount=kEmojiCount/kCountInPage;
+        _scorllview.contentSize=CGSizeMake(kselfsize.width*pageCount, 0);
+        _scorllview.pagingEnabled=YES;
+        _scorllview.showsHorizontalScrollIndicator=NO;
+        _scorllview.delegate=self;
+        [self addSubview:_scorllview];
+       
+        //分页控件
+        _pageControl=[[UIPageControl alloc]init];
+        _pageControl.center=CGPointMake(kselfsize.width/2,height+(kselfsize.height-height)/2);
+        _pageControl.numberOfPages=pageCount;
+        _pageControl.currentPageIndicatorTintColor=[UIColor darkGrayColor];
+        _pageControl.pageIndicatorTintColor=[UIColor lightGrayColor];
+        _pageControl.currentPage=0;
+        [self addSubview:_pageControl];
+        //创建表情按钮
+        [self createEmojiButton];
+        
     };
     return self;
 }
@@ -48,35 +65,29 @@ static unichar emotechars[28] =
 #pragma mark 创建表情按钮
 -(void)createEmojiButton
 {
-    //计算每个表情间的横向间距=屏幕的宽度-两边20的间距-7*44的宽度除以8个间隙
-    CGFloat marin_x=(self.frame.size.width-kColCount*kButtonSize)/(kColCount+1);
-    //计算每个表情间的垂直间距
-    CGFloat margin_y=(self.frame.size.height-kButtonSize*kRowCount)/(kRowCount+1);
-    for (int row=0; row<kRowCount; row++) {
-        for (int column=0; column<kColCount; column++) {
-            //表情序号
-            int index=row*7+column;
-            
+    //计算每个表情间的横向间距
+    CGFloat marin_x=(kselfsize.width-kButtonSize*kColCount)/2;
+        for (int i=0; i<kEmojiCount; i++) {
+            int col=i%kColCount;//列
+            int row=(i%kCountInPage)/kColCount;//行
+            int pageIndex=i/kCountInPage;//页码
             UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-            btn.tag=index;
-            CGFloat x=(column+1)*marin_x+(column)*kButtonSize;
-            CGFloat y=(row+1)*margin_y+(row)*kButtonSize;
+            btn.tag=i;
+            CGFloat x=marin_x+(col*kButtonSize)+(pageIndex*kselfsize.width);
+            CGFloat y=row*kButtonSize;
             btn.frame=CGRectMake(x, y, kButtonSize, kButtonSize);
-           
-            
             //如果是最后一行和最后一列，添加发送按钮
-            if(row==(kRowCount-1)&&column==(kColCount-1))
+            if((i%kCountInPage)==(kCountInPage-1))
             {
                 [btn setBackgroundColor:kGetColorRGB(0, 104, 255)];
                 btn.layer.masksToBounds=YES;
                 btn.layer.cornerRadius=4;
-                btn.bounds=CGRectMake(0, 0, 44, 30);
                 btn.titleLabel.font=kFont(15);
                 [btn addTarget:self action:@selector(sendClick) forControlEvents:UIControlEventTouchUpInside];
                 [btn setTitle:@"发送" forState:UIControlStateNormal];
             }
             //如果是最后一行和倒数第二列，添加删除按钮
-            else if(row==(kRowCount-1)&&column==(kColCount-2))
+            else if((i%kCountInPage)==(kCountInPage-2))
             {
                 [btn setBackgroundImage:[UIImage imageNamed:@"aio_face_delete.png"] forState:UIControlStateNormal];
                 [btn setBackgroundImage:[UIImage imageNamed:@"aio_face_delete_pressed.png"] forState:UIControlStateHighlighted];
@@ -85,13 +96,18 @@ static unichar emotechars[28] =
             else
             {
                 //设置表情文字
-                [btn setTitle:_allEmojies[0] forState:UIControlStateNormal];
+                [btn setTitle:_allEmojies[i] forState:UIControlStateNormal];
                 //设置按钮点击事件
                 [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             }
-            [self addSubview:btn];
-        }
+            [_scorllview addSubview:btn];
     }
+}
+
+#pragma mark scrollerview代理
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    _pageControl.currentPage=(scrollView.contentOffset.x/kselfsize.width);
 }
 
 #pragma mark 表情选择事件
