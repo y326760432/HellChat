@@ -13,13 +13,17 @@
 #import "HCLoginUserTool.h"
 #import "HCMainController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Command/Caregory/NSDate+YGCCategory.h"
+#import "NSDate+YGCCategory.h"
 #import "XMPPvCardTempModule.h"
 #import "XMPPvCardTemp.h"
 #import "XMPPvCardAvatarModule.h"
 #import "NSDate+YGCCategory.h"
 @interface HCRegisterInfoController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
+    
+    UIButton *_btnphoto;//头像按钮
+    UIButton *_btnsex;//性别
+    UITextField *_txtbday;//生日
     UIActionSheet *_photosheet;//选择头像菜单
     UIActionSheet *_sexshett;//选择性别菜单
     UIDatePicker *_datepicker;//选择生日
@@ -33,12 +37,67 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setLayout];
     _datepicker=[[UIDatePicker alloc]init];
     _datepicker.datePickerMode=UIDatePickerModeDate;
     [_datepicker addTarget:self action:@selector(dateValueChange:) forControlEvents:UIControlEventValueChanged];
     _datepicker.locale=[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     _txtbday.inputView=_datepicker;
 }
+
+#pragma mark 设置界面布局
+-(void)setLayout
+{
+    self.title=@"个人资料(3/3)";
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(flnish)];
+    //设置背景颜色
+    self.view.backgroundColor=kGetColorRGB(242, 242, 230);
+    
+    //起始位置
+    CGFloat start_y=0;
+    if(IOS7_OR_LATER)
+        start_y+=64;
+    //注册成功提示
+    UILabel *labmsg=[[UILabel alloc]initWithFrame:CGRectMake(0, start_y, kselfviewsize.width, 21)];
+    labmsg.text=@"注册成功，请设置个人资料吧！";
+    labmsg.textAlignment=NSTextAlignmentCenter;
+    labmsg.font=kFont(13);
+    [self.view addSubview:labmsg];
+    
+    CGFloat max_y=CGRectGetMaxY(labmsg.frame);
+    //头像按钮
+    _btnphoto=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_btnphoto setBackgroundImage:[UIImage imageNamed:@"icon_register_camera.png"] forState:UIControlStateNormal];
+    _btnphoto.frame=CGRectMake((kselfviewsize.width-80)/2, max_y+5, 80, 80);
+    [_btnphoto addTarget:self action:@selector(btnphotoclick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btnphoto];
+    
+    //信息输入视图
+    max_y=CGRectGetMaxY(_btnphoto.frame)+5;
+    UIView *infoview=[[UIView alloc]initWithFrame:CGRectMake(0, max_y, kselfviewsize.width, 81)];
+    infoview.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:infoview];
+    //性别
+    _btnsex=[UIButton buttonWithType:UIButtonTypeCustom];
+    _btnsex.frame=CGRectMake(0, 0, kselfviewsize.width, 40);
+    [_btnsex setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    _btnsex.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+    [_btnsex setTitle:@"性别" forState:UIControlStateNormal];
+    [_btnsex addTarget:self action:@selector(btnsexclick) forControlEvents:UIControlEventTouchUpInside];
+    [infoview addSubview:_btnsex];
+    //分割线
+    UIImageView *line=[[UIImageView alloc]initWithFrame:CGRectMake(0, 41, kselfviewsize.width, 1)];
+    line.image=[UIImage imageNamed:@"line.png"];
+    [infoview addSubview:line];
+    //生日
+    _txtbday=[[UITextField alloc]initWithFrame:CGRectMake(20, 41, kselfviewsize.width-40, 40)];
+    _txtbday.inputView=_datepicker;
+    _txtbday.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
+    _txtbday.textAlignment=NSTextAlignmentCenter;
+    _txtbday.placeholder=@"生日";
+    [infoview addSubview:_txtbday];
+}
+
 
 /**
  日期选择
@@ -51,7 +110,7 @@
 /**
  完成按钮点击
  */
-- (IBAction)flnish:(id)sender
+- (void)flnish
 {
     
     //验证输入
@@ -135,7 +194,7 @@
 /**
  性别按钮点击
  */
-- (IBAction)btnsexclick:(id)sender
+- (void)btnsexclick
 {
     [self.view endEditing:YES];
 
@@ -149,7 +208,7 @@
 /**
  头像按钮被点击
  */
--(IBAction)btnphotoclick :(id)sender
+-(void)btnphotoclick
 {
     [self.view endEditing:YES];
 

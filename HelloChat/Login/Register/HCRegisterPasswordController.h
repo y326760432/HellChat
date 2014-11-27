@@ -11,11 +11,4 @@
 @interface HCRegisterPasswordController : UIViewController
 
 
-@property (weak, nonatomic) IBOutlet UITextField *txtpassword1;
-
-@property (weak, nonatomic) IBOutlet UITextField *txtpassword2;
-
-
-- (IBAction)nextStep:(id)sender;
-
 @end

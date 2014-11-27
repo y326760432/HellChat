@@ -10,16 +10,6 @@
 @class HCLoginUser;
 @interface HCLoginController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *bgImgView;
-
-
-
-
-/**
- 注册方法
- */
-- (IBAction)btnRegisterClick:(id)sender;
-
 /**
  指定显示用户名和密码
  */

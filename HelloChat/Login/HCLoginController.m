@@ -14,6 +14,7 @@
 #import "HCAlertDialog.h"
 #import "MBProgressHUD.h"
 #import "UIImage+YGCCategory.h"
+#import "HCRegisterNameController.h"
 @interface HCLoginController ()<UITextFieldDelegate>
 {
     MBProgressHUD *_loginhud;//登录加载动画
@@ -41,6 +42,15 @@
     kAppdelegate.isRegister=NO;
 }
 
+#pragma mark 将UIImageView设置为本控制器的根view
+-(void)loadView
+{
+    UIImageView *bgimgview=[[UIImageView alloc]initWithFrame:[UIScreen mainScreen].applicationFrame];
+    bgimgview.image=[UIImage resizedImage:@"login_bg.jpg"];
+    bgimgview.userInteractionEnabled=YES;
+    self.view=bgimgview;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,13 +61,17 @@
 -(void)setUI
 {
 
+    //起始Y坐标
+    CGFloat starty=20;
+    if(IOS7_OR_LATER)
+        starty +=20;
     //添加头像
     _imgphoto=[[UIImageView alloc]init];
     _imgphoto.image=[UIImage imageNamed:@"normalheadphoto.png"];
     CGFloat imgphoto_w=80;
     CGFloat imgphoto_h=80;
     CGFloat imgphoto_x=(kselfviewsize.width-imgphoto_w)/2;
-    CGFloat imgphoto_y=10;
+    CGFloat imgphoto_y=starty;
     _imgphoto.frame=CGRectMake(imgphoto_x, imgphoto_y, imgphoto_w, imgphoto_h);
     //设置头像圆角
     _imgphoto.layer.masksToBounds=YES;
@@ -71,42 +85,57 @@
     infoview.frame=CGRectMake(0, max_y+10, kselfviewsize.width, 81);
     //用户名输入框
     _txtusername=[[UITextField alloc]init];
-    _txtusername.font=kFont(15);
+    _txtusername.font=kFont(18);
     _txtusername.placeholder=@"用户名";
-    _txtusername.contentMode=UIViewContentModeCenter;
+    _txtusername.textAlignment=NSTextAlignmentCenter;
+    _txtusername.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     _txtusername.borderStyle=UITextBorderStyleNone;
-    _txtusername.frame=CGRectMake(0, 0, kselfviewsize.width-40, 40);
+    _txtusername.frame=CGRectMake(20, 0, kselfviewsize.width-40, 40);
+    _txtusername.delegate=self;
     [infoview addSubview:_txtusername];
     //分割线
     UIImageView *line=[[UIImageView alloc]initWithFrame:CGRectMake(0, 41, kselfviewsize.width, 1)];
     line.image=[UIImage imageNamed:@"line.png"];
     [infoview addSubview:line];
     //密码输入框
-    _txtpassword=[[UITextField alloc]initWithFrame:CGRectMake(0, 41, kselfviewsize.width-40, 40)];
+    _txtpassword=[[UITextField alloc]initWithFrame:CGRectMake(20, 41, kselfviewsize.width-40, 40)];
     _txtpassword.secureTextEntry=YES;
-    _txtpassword.font=kFont(15);
+    _txtpassword.font=kFont(18);
     _txtpassword.placeholder=@"密码";
+    _txtpassword.textAlignment=NSTextAlignmentCenter;
     _txtpassword.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
+    _txtpassword.delegate=self;
+    //设置密码输入框回车键文字JOIN
+    _txtpassword.returnKeyType=UIReturnKeyJoin;
     [infoview addSubview:_txtpassword];
     [self.view addSubview:infoview];
     
-    //设置密码输入框回车键文字JOIN
-    _txtpassword.returnKeyType=UIReturnKeyJoin;
+    //登录注册按钮
+    max_y=CGRectGetMaxY(infoview.frame)+10;
+    //按钮宽度，屏幕两边两个间隙20*2加上那个按钮之间一个间隙20=60
+    CGFloat button_w=(kselfviewsize.width-60)/2;
+    //按钮高度
+    CGFloat button_h=40;
     
-    //设置登录按钮图片拉伸
-//    [_btnlogin setBackgroundImage:[UIImage resizedImage:@"bc_btn_blue.png"] forState:UIControlStateNormal];
-//    [_btnlogin setBackgroundImage:[UIImage resizedImage:@"login_btn_blue_press.png"]
-//                         forState:UIControlStateHighlighted];
-    
-    //设置按钮背景颜色
+    //注册按钮
+    _btnregister=[UIButton buttonWithType:UIButtonTypeCustom];
+    _btnregister.frame=CGRectMake(20, max_y, button_w, button_h);
+    _btnregister.backgroundColor=[UIColor orangeColor];
+    [_btnregister setTitle:@"注册" forState:UIControlStateNormal];
+    _btnregister.layer.cornerRadius=5;
+    [_btnregister addTarget:self action:@selector(userRegister) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btnregister];
+
+    //登录按钮
+    _btnlogin=[UIButton buttonWithType:UIButtonTypeCustom];
+    _btnlogin.frame=CGRectMake(40+button_w, max_y,button_w, button_h);
+    [_btnlogin setTitle:@"登录" forState:UIControlStateNormal];
+    [_btnlogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     _btnlogin.backgroundColor=kGetColorRGB(0, 173, 241);
     _btnlogin.layer.cornerRadius=5;
-    _btnregister.backgroundColor=[UIColor orangeColor];
-    _btnregister.layer.cornerRadius=5;
+    [self.view addSubview:_btnlogin];
     
-    //登录事件
-    [_btnlogin addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-   
+    
     
   
     
@@ -210,12 +239,14 @@
 
 
 
-
-- (IBAction)btnRegisterClick:(id)sender
+#pragma mark 注册
+- (void)userRegister
 {
     kAppdelegate.isRegister=YES;
     
     self.navigationController.navigationBarHidden=NO;
-    [self performSegueWithIdentifier:@"goroRegisterName" sender:nil];
+   
+    HCRegisterNameController *namecontroller=[[HCRegisterNameController alloc]init];
+    [self.navigationController pushViewController:namecontroller animated:YES];
 }
 @end

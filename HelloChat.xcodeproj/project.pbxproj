@@ -36,10 +36,6 @@
 		5A432A8A1A20764000B41F3E /* AppIcon-57×57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A881A20764000B41F3E /* AppIcon-57×57@2x.png */; };
 		5A432A8B1A20764000B41F3E /* AppIcon-57×57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A891A20764000B41F3E /* AppIcon-57×57.png */; };
 		5A432A8D1A2076FD00B41F3E /* AppIcon-29×29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */; };
-		5A432A921A20923C00B41F3E /* HCRegisterNameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A911A20923C00B41F3E /* HCRegisterNameController.m */; };
-		5A432A941A20A39C00B41F3E /* HCLoginController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A931A20A39C00B41F3E /* HCLoginController.storyboard */; };
-		5A432A971A20B78E00B41F3E /* HCRegisterInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A961A20B78E00B41F3E /* HCRegisterInfoController.m */; };
-		5A432A9A1A20BBB200B41F3E /* HCRegisterPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A991A20BBB200B41F3E /* HCRegisterPasswordController.m */; };
 		5A432A9D1A20C29B00B41F3E /* HCRegisterInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A9C1A20C29B00B41F3E /* HCRegisterInfo.m */; };
 		5A45C9641A05D86A00D4C116 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9631A05D86A00D4C116 /* Balloon@2x.png */; };
 		5A45C9661A05D87500D4C116 /* IconCalendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9651A05D87500D4C116 /* IconCalendar@2x.png */; };
@@ -322,6 +318,9 @@
 		5AFDEF501A18D02C00C7B27C /* chat_recive_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFDEF4E1A18D02C00C7B27C /* chat_recive_nor@2x.png */; };
 		5AFDEF511A18D02C00C7B27C /* chat_recive_press_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFDEF4F1A18D02C00C7B27C /* chat_recive_press_pic@2x.png */; };
 		5AFE44411A0BB450001C1A4D /* HCEditVCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE44401A0BB450001C1A4D /* HCEditVCardController.m */; };
+		87E3CAA21A270BBF002419EC /* HCRegisterInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3CA9D1A270BBF002419EC /* HCRegisterInfoController.m */; };
+		87E3CAA31A270BBF002419EC /* HCRegisterNameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3CA9F1A270BBF002419EC /* HCRegisterNameController.m */; };
+		87E3CAA41A270BBF002419EC /* HCRegisterPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3CAA11A270BBF002419EC /* HCRegisterPasswordController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -371,13 +370,6 @@
 		5A432A881A20764000B41F3E /* AppIcon-57×57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-57×57@2x.png"; sourceTree = "<group>"; };
 		5A432A891A20764000B41F3E /* AppIcon-57×57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-57×57.png"; sourceTree = "<group>"; };
 		5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29×29.png"; sourceTree = "<group>"; };
-		5A432A901A20923C00B41F3E /* HCRegisterNameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterNameController.h; sourceTree = "<group>"; };
-		5A432A911A20923C00B41F3E /* HCRegisterNameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterNameController.m; sourceTree = "<group>"; };
-		5A432A931A20A39C00B41F3E /* HCLoginController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HCLoginController.storyboard; sourceTree = "<group>"; };
-		5A432A951A20B78E00B41F3E /* HCRegisterInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterInfoController.h; sourceTree = "<group>"; };
-		5A432A961A20B78E00B41F3E /* HCRegisterInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterInfoController.m; sourceTree = "<group>"; };
-		5A432A981A20BBB200B41F3E /* HCRegisterPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterPasswordController.h; sourceTree = "<group>"; };
-		5A432A991A20BBB200B41F3E /* HCRegisterPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterPasswordController.m; sourceTree = "<group>"; };
 		5A432A9B1A20C29B00B41F3E /* HCRegisterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterInfo.h; sourceTree = "<group>"; };
 		5A432A9C1A20C29B00B41F3E /* HCRegisterInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterInfo.m; sourceTree = "<group>"; };
 		5A45C9631A05D86A00D4C116 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
@@ -855,6 +847,12 @@
 		5AFDEF4F1A18D02C00C7B27C /* chat_recive_press_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_recive_press_pic@2x.png"; sourceTree = "<group>"; };
 		5AFE443F1A0BB450001C1A4D /* HCEditVCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCEditVCardController.h; sourceTree = "<group>"; };
 		5AFE44401A0BB450001C1A4D /* HCEditVCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCEditVCardController.m; sourceTree = "<group>"; };
+		87E3CA9C1A270BBF002419EC /* HCRegisterInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterInfoController.h; sourceTree = "<group>"; };
+		87E3CA9D1A270BBF002419EC /* HCRegisterInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterInfoController.m; sourceTree = "<group>"; };
+		87E3CA9E1A270BBF002419EC /* HCRegisterNameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterNameController.h; sourceTree = "<group>"; };
+		87E3CA9F1A270BBF002419EC /* HCRegisterNameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterNameController.m; sourceTree = "<group>"; };
+		87E3CAA01A270BBF002419EC /* HCRegisterPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterPasswordController.h; sourceTree = "<group>"; };
+		87E3CAA11A270BBF002419EC /* HCRegisterPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterPasswordController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1202,15 +1200,9 @@
 		5A9877BB1A047B4000A71B46 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				87E3CA9B1A270BBF002419EC /* Register */,
 				5A987D731A04BD8100A71B46 /* HCLoginController.h */,
 				5A987D741A04BD8100A71B46 /* HCLoginController.m */,
-				5A432A901A20923C00B41F3E /* HCRegisterNameController.h */,
-				5A432A911A20923C00B41F3E /* HCRegisterNameController.m */,
-				5A432A931A20A39C00B41F3E /* HCLoginController.storyboard */,
-				5A432A951A20B78E00B41F3E /* HCRegisterInfoController.h */,
-				5A432A961A20B78E00B41F3E /* HCRegisterInfoController.m */,
-				5A432A981A20BBB200B41F3E /* HCRegisterPasswordController.h */,
-				5A432A991A20BBB200B41F3E /* HCRegisterPasswordController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -2276,6 +2268,20 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		87E3CA9B1A270BBF002419EC /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				87E3CA9C1A270BBF002419EC /* HCRegisterInfoController.h */,
+				87E3CA9D1A270BBF002419EC /* HCRegisterInfoController.m */,
+				87E3CA9E1A270BBF002419EC /* HCRegisterNameController.h */,
+				87E3CA9F1A270BBF002419EC /* HCRegisterNameController.m */,
+				87E3CAA01A270BBF002419EC /* HCRegisterPasswordController.h */,
+				87E3CAA11A270BBF002419EC /* HCRegisterPasswordController.m */,
+			);
+			name = Register;
+			path = Login/Register;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2396,7 +2402,6 @@
 				5A45C9A11A0629D700D4C116 /* login_bg.jpg in Resources */,
 				5A9D82EE1A1A34320077D494 /* chat_bottom_keyboard_press@2x.png in Resources */,
 				5A987D9A1A04C34000A71B46 /* AppIcon-157x57@2x.png in Resources */,
-				5A432A941A20A39C00B41F3E /* HCLoginController.storyboard in Resources */,
 				5A987D9B1A04C34000A71B46 /* AppIcon-160x60@2x.png in Resources */,
 				5A45C9AF1A062A3500D4C116 /* tab_recent_nor@2x.png in Resources */,
 				5A987DA51A04C70900A71B46 /* line@2x.png in Resources */,
@@ -2527,6 +2532,7 @@
 				5A9877961A047A6E00A71B46 /* HCAppDelegate.m in Sources */,
 				5A987D0B1A0486E600A71B46 /* XMPPRoom.xcdatamodeld in Sources */,
 				5AA89FE51A1E1C8B0013E913 /* UITextField+YGCCategory.m in Sources */,
+				87E3CAA21A270BBF002419EC /* HCRegisterInfoController.m in Sources */,
 				5A91ED2D1A17909000874DDF /* HCChatController.m in Sources */,
 				5A45C9831A05DC4000D4C116 /* HCDynamicController.m in Sources */,
 				5A987D301A0486E600A71B46 /* XMPPMessage+XEP_0085.m in Sources */,
@@ -2539,10 +2545,10 @@
 				5A432A821A20329800B41F3E /* HCFileInputView.m in Sources */,
 				5A45C97D1A05DC0900D4C116 /* HCMessageController.m in Sources */,
 				5A987D1B1A0486E600A71B46 /* XMPPvCardCoreDataStorage.m in Sources */,
+				87E3CAA31A270BBF002419EC /* HCRegisterNameController.m in Sources */,
 				5A987D1F1A0486E600A71B46 /* XMPPvCardTempAdr.m in Sources */,
 				5A9CFF401A24C41A00FC4647 /* Emoji.m in Sources */,
 				5A987D5D1A0486E600A71B46 /* DDAbstractDatabaseLogger.m in Sources */,
-				5A432A921A20923C00B41F3E /* HCRegisterNameController.m in Sources */,
 				5A987D631A0486E600A71B46 /* DDDispatchQueueLogFormatter.m in Sources */,
 				5A987CFB1A0486E600A71B46 /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				5A93E3C71A12552D002E0E4A /* HCAddContactController.m in Sources */,
@@ -2557,7 +2563,6 @@
 				5A987CFC1A0486E600A71B46 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				5A45C9801A05DC2800D4C116 /* HCContactsController.m in Sources */,
 				5A3FD8311A0545E3002B79EB /* RESideMenu.m in Sources */,
-				5A432A971A20B78E00B41F3E /* HCRegisterInfoController.m in Sources */,
 				5A987D1C1A0486E600A71B46 /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				5A987CE61A0486E600A71B46 /* XMPPDigestMD5Authentication.m in Sources */,
 				5A987D691A0486E600A71B46 /* DDXMLNode.m in Sources */,
@@ -2565,7 +2570,6 @@
 				5A987CE71A0486E600A71B46 /* XMPPPlainAuthentication.m in Sources */,
 				5A987D081A0486E600A71B46 /* XMPPIQ+LastActivity.m in Sources */,
 				5A987CF21A0486E600A71B46 /* XMPPModule.m in Sources */,
-				5A432A9A1A20BBB200B41F3E /* HCRegisterPasswordController.m in Sources */,
 				5A987CFD1A0486E600A71B46 /* XMPPRoster.xcdatamodel in Sources */,
 				5A987D111A0486E600A71B46 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				5A987CED1A0486E600A71B46 /* NSXMLElement+XMPP.m in Sources */,
@@ -2652,6 +2656,7 @@
 				5A987D361A0486E600A71B46 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				5A987D561A0486E600A71B46 /* GCDMulticastDelegate.m in Sources */,
 				5A987D101A0486E600A71B46 /* XMPPRoomHybridStorage.m in Sources */,
+				87E3CAA41A270BBF002419EC /* HCRegisterPasswordController.m in Sources */,
 				5A987D511A0486E600A71B46 /* NSXMLElement+XEP_0297.m in Sources */,
 				5A45C9C31A066EB000D4C116 /* HCLoginUserTool.m in Sources */,
 				5A987CE81A0486E600A71B46 /* XMPPSCRAMSHA1Authentication.m in Sources */,

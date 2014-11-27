@@ -10,17 +10,4 @@
 
 @interface HCRegisterNameController : UIViewController
 
-/**
- 用户名
- */
-@property (weak, nonatomic) IBOutlet UITextField *txtusername;
-
-/**
- 昵称
- */
-@property (weak, nonatomic) IBOutlet UITextField *txtnikiname;
-
-
-- (IBAction)nextStep:(id)sender;
-
 @end

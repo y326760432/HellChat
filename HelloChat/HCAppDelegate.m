@@ -60,8 +60,8 @@
 {
     if(_loginController==nil)
     {
-        _loginController=[UIStoryboard storyboardWithName:@"HCLoginController" bundle:nil].instantiateInitialViewController;
-//        _loginnav=[[UINavigationController alloc]initWithRootViewController:_loginController];
+        _loginController=[[HCLoginController alloc]init];
+        _loginnav=[[UINavigationController alloc]initWithRootViewController:_loginController];
     }
      self.window.rootViewController=_loginController;
 }
