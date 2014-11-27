@@ -8,21 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HCPersonalController : UITableViewController
+@interface HCVCardController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgvphoto;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *labnikiname;
+@property (weak, nonatomic) IBOutlet UILabel *labusername;
 
+@property (weak, nonatomic) IBOutlet UILabel *labnikiname;
 
 @property (weak, nonatomic) IBOutlet UILabel *labuserdesc;
 
 @property (weak, nonatomic) IBOutlet UILabel *labcellnikiname;
 
 @property (weak, nonatomic) IBOutlet UILabel *labsex;
-
-@property (weak, nonatomic) IBOutlet UILabel *labcity;
 
 @property (weak, nonatomic) IBOutlet UILabel *labbday;
 

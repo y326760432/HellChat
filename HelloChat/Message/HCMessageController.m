@@ -7,7 +7,7 @@
 //
 
 #import "HCMessageController.h"
-#import "HCPersonalController.h"
+#import "HCVCardController.h"
 #import "RESideMenu.h"
 #import "HCAppDelegate.h"
 #import "XMPPvCardTemp.h"
@@ -90,7 +90,7 @@
 #pragma mark 显示个人信息
 -(void)showPersonal
 {
-     HCPersonalController *personal=[UIStoryboard  storyboardWithName:@"HCPersonalController" bundle:nil].instantiateInitialViewController;
+     HCVCardController *personal=[UIStoryboard  storyboardWithName:@"HCPersonalController" bundle:nil].instantiateInitialViewController;
     [self.navigationController pushViewController:personal animated:YES];
 }
 

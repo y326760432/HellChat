@@ -12,5 +12,4 @@
 
 @property(nonatomic,weak) UILabel *content;
 
-@property (weak, nonatomic) IBOutlet UITextField *txtContent;
 @end

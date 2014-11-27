@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 叶根长. All rights reserved.
 //
 
-#import "HCPersonalController.h"
+#import "HCVCardController.h"
 #import "RESideMenu.h"
 #import "HCMainController.h"
 #import "XMPPvCardTempModule.h"
@@ -37,7 +37,7 @@
 
 @end
 
-@interface HCPersonalController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MJRefreshBaseViewDelegate>
+@interface HCVCardController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MJRefreshBaseViewDelegate>
 {
     NSArray *_cellHeaders;//列头名称数组
     
@@ -46,10 +46,12 @@
     MJRefreshHeaderView *_headerview;//下来刷新控件
     
     MBProgressHUD *_hub;
+    
+    BOOL isviewload;
 }
 @end
 
-@implementation HCPersonalController
+@implementation HCVCardController
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -61,7 +63,7 @@
     [super viewDidLoad];
     
     [self setUI];
-    
+    isviewload=YES;
     
 }
 
@@ -79,18 +81,15 @@
     _imgvphoto.layer.cornerRadius=40;
 
     
-    //让设置tableview距离底部距离-20 全屏效果
-//    self.tableView.contentInset=UIEdgeInsetsMake(-35, 0, 0, 0);
-    
     //设置头像点击事件
     [_imgvphoto addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setPhoto)]];
     
     //下载个人名片数据
-    [self performSelectorInBackground:@selector(getvCard) withObject:nil];
+    [self getvCard];
     
     //初始化列头数组
-    _cellHeaders=@[@[@"昵称",@"性别",@"所在地"],@[@"生日"]];
-    _cellHeaderLabels=@[@[_labcellnikiname,_labsex,_labcity],@[_labbday]];
+    _cellHeaders=@[@[@"昵称",@"性别"],@[@"生日"]];
+    _cellHeaderLabels=@[@[_labcellnikiname,_labsex],@[_labbday]];
     
     //注册电子名片更新通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSuccess) name:kdidupdatevCard object:nil];
@@ -121,7 +120,6 @@
     NSLog(@"%@",[HCLoginUserTool sharedHCLoginUserTool].loginUser.JID);
     myvcard.name=_labcellnikiname.text;//昵称
     myvcard.prefix=_labsex.text;//性别
-    myvcard.role=_labcity.text;//所在地
     //生日
     if(_labbday.text.length>0)
     {
@@ -143,13 +141,14 @@
 {
      dispatch_async(dispatch_get_main_queue(), ^{
         _hub.hidden=YES;
-         [self setInfo];});
+         [self setInfo];
+        ;});
+    
 }
 
 #pragma mark 设置用户信息
 -(void)setInfo
 {
-
     XMPPvCardTemp *myvcard=kAppdelegate.xmppvCardTempModule.myvCardTemp;
     NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:kmyJid];
     if (data) {
@@ -160,10 +159,10 @@
         _imgvphoto.image=[UIImage imageWithData:myvcard.photo];//头像
     }
     
+    _labusername.text=[HCLoginUserTool sharedHCLoginUserTool].loginUser.username;
     _labcellnikiname.text=myvcard.name;//昵称
     _labnikiname.text=myvcard.name;//昵称
     _labsex.text=myvcard.prefix;//性别
-    _labcity.text=myvcard.role;//所在地
     _labbday.text=[myvcard.bday toStringWithFormater:@"yyyy-MM-dd"];//生日
 }
 
@@ -242,25 +241,49 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section>0)
     {
-        UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
         self.navigationController.navigationBar.hidden=NO;
-        VCardCellData *data=[[VCardCellData alloc]init];
-        data.cell=cell;
-        data.indexpath=indexPath;
-        [self performSegueWithIdentifier:@"editvCardElement" sender:data];
+        [self performSegueWithIdentifier:@"editvCardElement" sender:indexPath];
     }
 }
 
 #pragma mark 跳转到编辑界面
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(VCardCellData*)sender
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSIndexPath *)indexpath
 {
     if([segue.destinationViewController isKindOfClass:[HCEditVCardController class]])
     {
         HCEditVCardController *controller=(HCEditVCardController *)segue.destinationViewController;
-        controller.title=[NSString stringWithFormat:@"编辑%@",_cellHeaders[sender.indexpath.section-1][sender.indexpath.row]];
-        controller.content=_cellHeaderLabels[sender.indexpath.section-1][sender.indexpath.row];
+        NSString *title=@"";
+        UILabel *lab=nil;
+        if(indexpath.section==1)
+        {
+            if(indexpath.row==1)
+            {
+                title=@"昵称";
+                lab=_labcellnikiname;
+            }
+            else if(indexpath.row==2)
+            {
+                title=@"性别";
+                lab=_labsex;
+            }
+            
+        }
+        else if(indexpath.section==2)
+        {
+            if(indexpath.row==0)
+            {
+                title=@"生日";
+                lab=_labbday;
+            }
+        }
+        if(title.length>0)
+        {
+            controller.title=[NSString stringWithFormat:@"编辑%@",title];
+        }
+        controller.content=lab;
     }
 }
 

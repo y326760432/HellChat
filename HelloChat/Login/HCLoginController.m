@@ -243,9 +243,7 @@
 - (void)userRegister
 {
     kAppdelegate.isRegister=YES;
-    
     self.navigationController.navigationBarHidden=NO;
-   
     HCRegisterNameController *namecontroller=[[HCRegisterNameController alloc]init];
     [self.navigationController pushViewController:namecontroller animated:YES];
 }

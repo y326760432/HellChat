@@ -51,4 +51,10 @@
 //更新电子名片失败发出的通知
 #define kupdatevCardFaild @"kupdatevCardFaild"
 
+//是否播放消息声音偏好设置键
+#define kSoundUserDefaultKey @"HCSoundUserDefaultKey"
+
+//是否接受通知偏好设置键
+#define kNotiUserDefaultKey @"HCNotiUserDefaultKey"
+
 #endif

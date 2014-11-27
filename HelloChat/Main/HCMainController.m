@@ -39,7 +39,7 @@
     contact.delegate=self;
     
     //我
-    YGCNavController *mine=[[YGCNavController alloc]initWithRootViewController: [UIStoryboard storyboardWithName:@"HCMineController" bundle:nil].instantiateInitialViewController];
+    YGCNavController *mine=[[YGCNavController alloc]initWithRootViewController: [[HCMineController alloc]initWithStyle:UITableViewStyleGrouped]];
     mine.delegate=self;
     
     [self addController:message];

@@ -63,7 +63,7 @@
         _loginController=[[HCLoginController alloc]init];
         _loginnav=[[UINavigationController alloc]initWithRootViewController:_loginController];
     }
-     self.window.rootViewController=_loginController;
+     self.window.rootViewController=_loginnav;
 }
 
 #pragma mark 前往主控制器(登录成功)

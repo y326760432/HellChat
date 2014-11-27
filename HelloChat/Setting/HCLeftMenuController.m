@@ -11,7 +11,7 @@
 #import "UIImage+YGCCategory.h"
 #import "HCLoginController.h"
 #import "HCLoginUserTool.h"
-#import "HCPersonalController.h"
+#import "HCVCardController.h"
 #import "RESideMenu.h"
 #import "HCAppdelegate.h"
 #import "YGCNavController.h"
