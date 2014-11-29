@@ -30,7 +30,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         //设置背景颜色
-        self.backgroundColor=[UIColor groupTableViewBackgroundColor];
+        self.backgroundColor=kGetColorRGB(232, 231, 235);
         //加载所有Emoji表情
         _allEmojies=[Emoji allEmoji];
         

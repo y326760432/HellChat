@@ -22,28 +22,25 @@
 #import "UIImage+YGCCategory.h"
 #import "HCLocationTool.h"
 #import "MBProgressHUD.h"
+#define kInputBarHeight 44 //输入条高度
+
 @interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate>
 {
     //查询结果控制器
     NSFetchedResultsController *_fetchedresultsController;
-    
-    //小键盘图标（普通状态）
-    UIImage *_keyboardimgnor;
-    
-    //小键盘图标（被点击状态）
-    UIImage *_keyboardimgpress;
-    
-    //表情输入视图
-    HCEmojiInputView *_emojiInputView;
-    
-    //文件输入视图
-    HCFileInputView *_fileInputView;
-    
-    //定位工具
-    HCLocationTool *_locationtool;
-    
-    //定位加载动画
-    MBProgressHUD *_locationhub;
+    UITableView *_tableview;//聊天记录tableview
+    UIView *_inputBar;//信息输入条
+    UITextField *_txtMsg;//信息输入框
+    UIButton *_btnvolice;//语音按钮
+    UIButton *_btnspeak;//按住说话按钮
+    UIButton *_btnexpression;//表情按钮
+    UIButton *_btnFile;//添加文件按钮
+    UIImage *_keyboardimgnor;//小键盘图标（普通状态）
+    UIImage *_keyboardimgpress;//小键盘图标（被点击状态）
+    HCEmojiInputView *_emojiInputView;//表情输入视图
+    HCFileInputView *_fileInputView;//文件输入视图
+    HCLocationTool *_locationtool;//定位工具
+    MBProgressHUD *_locationhub;//定位加载动画
 }
 @end
 
@@ -53,26 +50,20 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
+    
+    [self setLayout];
+    
     //设置title
     self.title=[NSString stringWithFormat:@"%@\n在线",_user.jidStr];
+    
     //监听键盘位置即将改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    //初始化查询控制器
     [self setUpfectchresultControllser];
-    
-    //设置聊天背景图片
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage resizedImage:@"login_bg.jpg"]];
-    _tableview.backgroundView=view;
-    _tableview.alwaysBounceVertical=YES;
     
     //点击表格时，关闭键盘
     [_tableview addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyBoard)]];
     
-    if(!IOS7_OR_LATER)
-    {
-        //_tableview.separatorInset
-    }
-   
     //初始化键盘小图标
     _keyboardimgnor=[UIImage imageNamed:@"chat_bottom_keyboard_nor.png"];
     _keyboardimgpress=[UIImage imageNamed:@"chat_bottom_keyboard_press.png"];
@@ -82,6 +73,95 @@
     _locationtool.delegate=self;
     
 }
+
+#pragma mark 设置界面布局
+-(void)setLayout
+{
+    
+    CGFloat start_y=0;
+    if(IOS7_OR_LATER)
+        start_y +=64;
+    
+    //1添加tableView
+    UIButton *buton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    buton.frame=CGRectMake(40, 50, 100, 40);
+    [self.view addSubview:buton];
+    //tableview的高度=控制器高度-起始位置-输入视图高度-导航栏的高度，如果是IOS7则不需要-导航栏高度，
+    //因为起始位置已经包含导航栏的位置
+    CGFloat tableview_h=kselfviewsize.height-start_y-kInputBarHeight-44;
+    if(IOS7_OR_LATER)
+        tableview_h +=44;
+     _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, start_y, kselfviewsize.width, tableview_h) style:UITableViewStylePlain];
+    //取消分割线
+    _tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
+    _tableview.delegate=self;
+    _tableview.dataSource=self;
+    //设置聊天背景图片
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage resizedImage:@"login_bg.jpg"]];
+    _tableview.backgroundView=view;
+   _tableview.alwaysBounceVertical=YES;
+    [self.view addSubview:_tableview];
+    CGFloat max_y=CGRectGetMaxY(_tableview.frame);
+    //2添加输入条 输入条高度为44
+    _inputBar=[[UIView alloc]initWithFrame:CGRectMake(0, max_y, kselfviewsize.width, kInputBarHeight)];
+    _inputBar.backgroundColor=kGetColorRGB(232, 231, 235);
+    [self.view addSubview:_inputBar];
+    //2.1 添加语音按钮，输入框，表情按钮，文件按钮 每个小按钮的宽高为34，距离底部和顶部距离为4
+    //第一个按钮距离左边距离为20，最后一个按钮距离右边屏幕距离为20，按钮直接距离为5
+    CGFloat margin_y=4;
+    CGFloat margin_x=5;
+    CGFloat panding=1;
+    CGFloat size=34;
+    
+    //2.2添加语音按钮
+    _btnvolice=[UIButton buttonWithType:UIButtonTypeCustom];
+    _btnvolice.frame=CGRectMake(margin_x, margin_y,size,size);
+    [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
+    [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
+    [_btnvolice addTarget:self action:@selector(btnvoliceclick:) forControlEvents:UIControlEventTouchUpInside];
+    [_inputBar addSubview:_btnvolice];
+    
+    //2.3添加输入框
+    CGFloat max_x=CGRectGetMaxX(_btnvolice.frame)+panding;
+    _txtMsg=[[UITextField alloc]init];
+    _txtMsg.frame=CGRectMake(max_x, margin_y, kselfviewsize.width-(margin_x*2+panding*2)-3*size, size);
+    _txtMsg.delegate=self;
+    _txtMsg.borderStyle=UITextBorderStyleRoundedRect;
+    _txtMsg.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
+    [_inputBar addSubview:_txtMsg];
+    
+    //2.4添加按住说话按钮
+    _btnspeak=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_btnspeak setTitle:@"按住说话" forState:UIControlStateNormal];
+    _btnspeak.titleLabel.font=kFont(15);
+    [_btnspeak setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_btnspeak addTarget:self action:@selector(btnspeakclick:) forControlEvents:UIControlEventTouchUpInside];
+    _btnspeak.frame=_txtMsg.frame;
+    _btnspeak.hidden=YES;
+    [_inputBar addSubview:_btnspeak];
+    
+    //2.5添加表情按钮
+    max_x=CGRectGetMaxX(_txtMsg.frame)+panding;
+    _btnexpression=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
+    [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
+    _btnexpression.frame=CGRectMake(max_x, margin_y, size, size);
+    [_btnexpression addTarget:self action:@selector(btnexpressionclick:) forControlEvents:UIControlEventTouchUpInside];
+    [_inputBar addSubview:_btnexpression];
+    
+    //2.6添加发送文件按钮
+    max_x=CGRectGetMaxX(_btnexpression.frame)+panding;
+    _btnFile=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
+    [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
+    [_btnFile addTarget:self action:@selector(btnFileclick:) forControlEvents:UIControlEventTouchUpInside];
+    _btnFile.frame=CGRectMake(max_x, margin_y, size, size);
+    [_inputBar addSubview:_btnFile];
+
+    
+}
+
 
 #pragma mark 初始化查询控制器
 -(void)setUpfectchresultControllser
@@ -115,7 +195,11 @@
 #pragma mark 键盘位置发生改变通知
 -(void)keyBoardChangeFrame:(NSNotification *)nofification
 {
-    
+    CGRect inputbarframe=_inputBar.frame;
+    CGRect tableviewframe=_tableview.frame;
+    //记录输入视图的初始位置
+    inputbarframe.origin.y=kselfviewsize.height-kInputBarHeight;
+    tableviewframe.origin.y=IOS7_OR_LATER?64:0;
     //键盘的目标位置
     CGRect keyboardframe=[nofification.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
     //动画时长
@@ -123,13 +207,20 @@
     
     //如果键盘的y等于屏幕的总高度，则表示键盘将要隐藏，设置输入视图距离底部距离为0
     if(keyboardframe.origin.y==[UIScreen mainScreen].bounds.size.height)
-        _keybordHiddenCts.constant=0;
+    {
+        inputbarframe.origin.y=kselfviewsize.height-kInputBarHeight;
+        tableviewframe.origin.y=IOS7_OR_LATER?64:0;
+    }
     else
-        _keybordHiddenCts.constant=keyboardframe.size.height;
-    
+    {
+        inputbarframe.origin.y -=keyboardframe.size.height;
+        tableviewframe.origin.y-=keyboardframe.size.height;
+    }
+
     //动画展现输入框位置
     [UIView animateWithDuration:duration animations:^{
-        [self.view layoutIfNeeded];
+        _inputBar.frame=inputbarframe;
+        _tableview.frame=tableviewframe;
     }];
 
 }
@@ -142,34 +233,34 @@
     return [info numberOfObjects];
 }
 
+#pragma mark 获取行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XMPPMessageArchiving_Message_CoreDataObject *message=[_fetchedresultsController objectAtIndexPath:indexPath];
-    //计算文字高度=文字真实高度+文字在Button中的间距40+cell的上下间距30
-    CGFloat cellheight=[message.body sizeWithFont:kFont(14) constrainedToSize:CGSizeMake(180, MAXFLOAT)].height+70;
-    
-    return cellheight>80?cellheight:80;
+    //计算文字宽高 需要和HCChatCell方法一致
+    CGSize msgsize=[message.body sizeWithFont:kFont(15) constrainedToSize:CGSizeMake(180, MAXFLOAT)];
+    CGFloat height=msgsize.height+40;
+    if(height<kbuttonHeight)
+        height=kbuttonHeight;
+    return height;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *fromChatCellId=@"FromChatCell";
-    static NSString *toChatCellId=@"ToChatCell";
+    static NSString *ID=@"CELL";
     //提取消息
     XMPPMessageArchiving_Message_CoreDataObject *message=[_fetchedresultsController objectAtIndexPath:indexPath];
     
     HCChatCell *cell=nil;
-    if(message.isOutgoing)
-        cell=[tableView dequeueReusableCellWithIdentifier:toChatCellId];
-    else
-        cell=[tableView dequeueReusableCellWithIdentifier:fromChatCellId];
+    if(cell==nil)
+        cell=[[HCChatCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     cell.isOutgoing=message.isOutgoing;
     //设置头像
     XMPPJID *jid=kmyJid;
     //是否用户自己发送的信息
     if(!message.isOutgoing)
         jid=message.bareJid;
-    cell.photoimgv.image=[UIImage imageWithData:[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid]];
+    [cell setPhoto:[UIImage imageWithData:[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid]]];
     //设置消息内容
     [cell setMessage:message.body];
     
@@ -190,6 +281,7 @@
         NSInteger count=[info numberOfObjects];
         if(count)
         {
+            
             NSIndexPath *indexpath=[NSIndexPath indexPathForRow:count-1 inSection:0];
             [_tableview selectRowAtIndexPath:indexpath animated:YES scrollPosition:UITableViewScrollPositionBottom];
         }

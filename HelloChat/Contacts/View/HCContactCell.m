@@ -9,6 +9,7 @@
 #import "HCContactCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HCAppDelegate.h"
+#import "HCXMPPUserTool.h"
 @interface HCContactCell ()
 {
    IBOutlet UIImageView *_photoview; //头像
@@ -18,37 +19,32 @@
 
 @implementation HCContactCell
 
-
--(void)awakeFromNib
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    _photoview.layer.masksToBounds=YES;
-    _photoview.layer.cornerRadius=25;
-
+    if(self=[super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        //创建头像 宽高各50，距离Cell左距离和上距离为10
+        _photoview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 50, 50)];
+        _photoview.layer.masksToBounds=YES;
+        _photoview.layer.cornerRadius=25;
+        [self.contentView addSubview:_photoview];
+        
+        //创建昵称 距离头像10距离
+        _labname=[[UILabel alloc]init];
+        _labname.font=kFont(18);
+        _labname.backgroundColor=[UIColor clearColor];
+        _labname.frame=CGRectMake(70, 10, kselfsize.width-75-20, 30);
+        [self.contentView addSubview:_labname];
+    }
+    return self;
 }
 
+#pragma mark 设置用户昵称和头像
 -(void)setUser:(XMPPUserCoreDataStorageObject *)user
 {
     _user=user;
-    if(user.displayName)
-    {
-        _labname.text=user.displayName;
-    }
-    else
-        _labname.text=user.jidStr;
-    
-    NSLog(@"%@",_labname.text);
-    _photoview.image=[self loaduserPhoto:user];
-}
-
-#pragma mark 加载用户头像
--(UIImage *)loaduserPhoto:(XMPPUserCoreDataStorageObject *)user
-{
-    if(user.photo)
-        return user.photo;
-    NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:user.jid];
-    if(data)
-        return [UIImage imageWithData:data];
-    return [UIImage imageNamed:@"normalheadphoto"];
+    _labname.text=[[HCXMPPUserTool sharedHCXMPPUserTool] getDisplayNameWithUser:user];
+    _photoview.image=[[HCXMPPUserTool sharedHCXMPPUserTool] loaduserPhotoWithUser:user];
 }
 
 @end

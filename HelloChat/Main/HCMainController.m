@@ -35,7 +35,7 @@
                                [[HCMessageController alloc]init]];
     message.delegate=self;
     //联系人
-    YGCNavController *contact=[UIStoryboard storyboardWithName:@"HCContactsController" bundle:nil].instantiateInitialViewController;
+    YGCNavController *contact=[[YGCNavController alloc]initWithRootViewController:[[HCContactsController alloc]initWithStyle:UITableViewStyleGrouped]];
     contact.delegate=self;
     
     //我

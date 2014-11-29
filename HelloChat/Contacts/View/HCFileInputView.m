@@ -20,7 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         //设置背景颜色
-        self.backgroundColor=[UIColor groupTableViewBackgroundColor];
+        self.backgroundColor=kGetColorRGB(232, 231, 235);
         //添加按钮
         [self addFileButton];
     }

@@ -12,9 +12,14 @@
 #import "HCAppdelegate.h"
 #import "HCChatController.h"
 #import "HCContactCell.h"
-@interface HCContactsController ()<NSFetchedResultsControllerDelegate>
+#import "HCAddContactController.h"
+#import "HCXMPPUserTool.h"
+@interface HCContactsController ()<NSFetchedResultsControllerDelegate,UIAlertViewDelegate>
 {
     NSFetchedResultsController *_fetchedResultsController;
+    
+    //即将删除的好友，用户选择删除好友后，记录该好友，然后弹出询问对话框，点击确定后将该好友删除
+    XMPPUserCoreDataStorageObject *_willdelUser;
 }
 @end
 
@@ -23,10 +28,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title=@"联系人";
+    [self setLayout];
     [self setUpFetchedResultsController];
 }
 
+#pragma mark 设置界面布局
+-(void)setLayout
+{
+    self.title=@"联系人";
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addNewContract)];
+}
+
+#pragma mark 初始化好友查询控制器
 -(void)setUpFetchedResultsController
 {
     NSManagedObjectContext *context=kAppdelegate.xmpprosterCoreDataStorage.mainThreadManagedObjectContext;
@@ -64,6 +77,7 @@
     return _fetchedResultsController.sections.count;
 }
 
+#pragma mark 设置组名
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     // 1. 取出控制器中的所有分组
@@ -92,11 +106,13 @@
     return stateName;
 }
 
+#pragma mark 获取分组数量
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [_fetchedResultsController.sections[section] numberOfObjects];
 }
 
+#pragma mark 创建表格行视图
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID=@"CELL";
@@ -110,16 +126,49 @@
     return cell;
 }
 
+#pragma mark 设置行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 70;
 }
 
+#pragma mark 选择某个联系人
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self performSegueWithIdentifier:@"ChatSegue" sender:indexPath];
+    HCChatController *chatcontroller=[[HCChatController alloc]init];
+    chatcontroller.user=[_fetchedResultsController objectAtIndexPath:indexPath];
+    [self.navigationController pushViewController:chatcontroller animated:YES];
+}
+
+#pragma mark 设置表格行可编辑
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+#pragma mark 提交变化行编辑，如果是删除，则弹出询问提示是否要删除好友
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(editingStyle==UITableViewCellEditingStyleDelete)
+    {
+       XMPPUserCoreDataStorageObject *user=[_fetchedResultsController objectAtIndexPath:indexPath];
+        _willdelUser=user;
+        NSString *username=[[HCXMPPUserTool sharedHCXMPPUserTool] getDisplayNameWithUser:user];
+        UIAlertView *dialog=[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"是否要删除好友\n%@?",username] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        
+        [dialog show];
+    }
+}
+
+#pragma mark 确定删除好友
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==1&&_willdelUser)
+    {
+        [kAppdelegate.xmppRoster removeUser:_willdelUser.jid];
+    }
 }
 
 #pragma mark 准备显示聊天控制器
@@ -140,4 +189,12 @@
 {
     [self.tableView reloadData];
 }
+
+#pragma mark 添加新的联系人
+-(void)addNewContract
+{
+    HCAddContactController *addcontract=[[HCAddContactController alloc]init];
+    [self.navigationController pushViewController:addcontract animated:YES];
+}
+
 @end

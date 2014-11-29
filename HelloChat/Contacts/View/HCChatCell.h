@@ -7,32 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#define kbuttonWith 84 //消息内容最小宽度
+#define kbuttonHeight 56 //消息内容最小高度
 @interface HCChatCell : UITableViewCell
+
 
 /**
  头像
  */
-@property (weak, nonatomic) IBOutlet UIImageView *photoimgv;
-
-/**
- 消息内容
- */
-@property (weak, nonatomic) IBOutlet UIButton *msgbutton;
-
+-(void)setPhoto:(UIImage *)photo;
 /**
  设置消息内容
  */
 -(void)setMessage:(NSString *)msg;
-
-/**
- 消息内容宽度约束
- */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *msgbuttonWithCts;
-
-/**
- 消息内容高度约束
- */
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *msgbuttonHeightCts;
 
 /**
  是否为发送行 反之为接受行

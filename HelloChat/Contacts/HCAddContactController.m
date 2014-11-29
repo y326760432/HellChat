@@ -12,7 +12,9 @@
 #import "HCAlertDialog.h"
 #import "HCAppdelegate.h"
 @interface HCAddContactController ()<UITextFieldDelegate>
-
+{
+    UITextField *_txtuserid;
+}
 @end
 
 @implementation HCAddContactController
@@ -21,10 +23,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor whiteColor];
+    [self setLayout];
     [_txtuserid becomeFirstResponder];
 }
 
+
+-(void)setLayout
+{
+    self.title=@"添加好友";
+    self.view.backgroundColor=[UIColor whiteColor];
+    
+    //添加导航栏右边按钮
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(sendInvite)];
+    
+    //添加输入框
+    CGFloat start_y=20;
+    if(IOS7_OR_LATER)
+        start_y+=64;
+    _txtuserid=[[UITextField alloc]init];
+    _txtuserid.borderStyle=UITextBorderStyleRoundedRect;
+    _txtuserid.frame=CGRectMake(20, start_y, kselfviewsize.width-40, 30);
+    _txtuserid.delegate=self;
+    [self.view addSubview:_txtuserid];
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -53,6 +74,8 @@
         //发送的订阅请求
         [kAppdelegate.xmppRoster subscribePresenceToUser:[XMPPJID jidWithString:kAppendJid(_txtuserid.text)]];
          [self.view endEditing:YES];
+        
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
