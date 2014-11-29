@@ -94,6 +94,9 @@
 		5A7831B91A0A57FA00025E28 /* sidebar_signature_other@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7831AA1A0A57FA00025E28 /* sidebar_signature_other@2x.png */; };
 		5A7831BD1A0A5CD200025E28 /* HCVCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7831BB1A0A5CD200025E28 /* HCVCardController.m */; };
 		5A90564D1A29F72600CA8FD9 /* HCXMPPUserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90564C1A29F72600CA8FD9 /* HCXMPPUserTool.m */; };
+		5A9056501A2A038600CA8FD9 /* msgTritone.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A90564F1A2A038600CA8FD9 /* msgTritone.caf */; };
+		5A90569B1A2A0C0900CA8FD9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */; };
+		5A90569E1A2A0C8400CA8FD9 /* HCSoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90569D1A2A0C8400CA8FD9 /* HCSoundTool.m */; };
 		5A91ED2D1A17909000874DDF /* HCChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A91ED2C1A17909000874DDF /* HCChatController.m */; };
 		5A93A9B71A0906F7009BF9E3 /* common_button_blue_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9AF1A0906F7009BF9E3 /* common_button_blue_pressed@2x.png */; };
 		5A93A9B81A0906F7009BF9E3 /* common_button_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9B01A0906F7009BF9E3 /* common_button_disabled@2x.png */; };
@@ -107,7 +110,6 @@
 		5A93A9C91A0907DE009BF9E3 /* NSString+YGCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93A9C11A0907DE009BF9E3 /* NSString+YGCCategory.m */; };
 		5A93A9CA1A0907DE009BF9E3 /* UIBarButtonItem+YGCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93A9C21A0907DE009BF9E3 /* UIBarButtonItem+YGCCategory.m */; };
 		5A93A9CB1A0907DE009BF9E3 /* UIImage+YGCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93A9C41A0907DE009BF9E3 /* UIImage+YGCCategory.m */; };
-		5A93E3C41A12487E002E0E4A /* HCContactsController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A93E3C31A12487E002E0E4A /* HCContactsController.storyboard */; };
 		5A93E3C71A12552D002E0E4A /* HCAddContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93E3C61A12552D002E0E4A /* HCAddContactController.m */; };
 		5A9877861A047A6E00A71B46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A9877851A047A6E00A71B46 /* Foundation.framework */; };
 		5A9877881A047A6E00A71B46 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A9877871A047A6E00A71B46 /* CoreGraphics.framework */; };
@@ -432,6 +434,10 @@
 		5A7831BB1A0A5CD200025E28 /* HCVCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCVCardController.m; path = ../Setting/HCVCardController.m; sourceTree = "<group>"; };
 		5A90564B1A29F72600CA8FD9 /* HCXMPPUserTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCXMPPUserTool.h; sourceTree = "<group>"; };
 		5A90564C1A29F72600CA8FD9 /* HCXMPPUserTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCXMPPUserTool.m; sourceTree = "<group>"; };
+		5A90564F1A2A038600CA8FD9 /* msgTritone.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgTritone.caf; sourceTree = "<group>"; };
+		5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5A90569C1A2A0C8400CA8FD9 /* HCSoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSoundTool.h; sourceTree = "<group>"; };
+		5A90569D1A2A0C8400CA8FD9 /* HCSoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSoundTool.m; sourceTree = "<group>"; };
 		5A91ED2B1A17909000874DDF /* HCChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCChatController.h; sourceTree = "<group>"; };
 		5A91ED2C1A17909000874DDF /* HCChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCChatController.m; sourceTree = "<group>"; };
 		5A93A9AF1A0906F7009BF9E3 /* common_button_blue_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_blue_pressed@2x.png"; sourceTree = "<group>"; };
@@ -450,7 +456,6 @@
 		5A93A9C51A0907DE009BF9E3 /* UIBarButtonItem+YGCCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+YGCCategory.h"; sourceTree = "<group>"; };
 		5A93A9C61A0907DE009BF9E3 /* NSString+YGCCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+YGCCategory.h"; sourceTree = "<group>"; };
 		5A93A9C71A0907DE009BF9E3 /* NSObject+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Value.h"; sourceTree = "<group>"; };
-		5A93E3C31A12487E002E0E4A /* HCContactsController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HCContactsController.storyboard; sourceTree = "<group>"; };
 		5A93E3C51A12552D002E0E4A /* HCAddContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCAddContactController.h; sourceTree = "<group>"; };
 		5A93E3C61A12552D002E0E4A /* HCAddContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCAddContactController.m; sourceTree = "<group>"; };
 		5A9877821A047A6E00A71B46 /* HelloChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -827,6 +832,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A90569B1A2A0C0900CA8FD9 /* AudioToolbox.framework in Frameworks */,
 				5A432A871A2051C900B41F3E /* CoreLocation.framework in Frameworks */,
 				5A987DA31A04C5DB00A71B46 /* QuartzCore.framework in Frameworks */,
 				5A987D6D1A0487A800A71B46 /* libresolv.dylib in Frameworks */,
@@ -983,6 +989,8 @@
 				5A9C0E861A07B0820014A70F /* HCAlertDialog.m */,
 				5A90564B1A29F72600CA8FD9 /* HCXMPPUserTool.h */,
 				5A90564C1A29F72600CA8FD9 /* HCXMPPUserTool.m */,
+				5A90569C1A2A0C8400CA8FD9 /* HCSoundTool.h */,
+				5A90569D1A2A0C8400CA8FD9 /* HCSoundTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1023,6 +1031,14 @@
 				5A78319A1A0A571600025E28 /* qvh_sep_line@2x.png */,
 			);
 			path = LeftMenu;
+			sourceTree = "<group>";
+		};
+		5A90564E1A2A038600CA8FD9 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				5A90564F1A2A038600CA8FD9 /* msgTritone.caf */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		5A93A9AE1A0906D6009BF9E3 /* Button */ = {
@@ -1081,6 +1097,7 @@
 		5A9877841A047A6E00A71B46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */,
 				5A432A861A2051C900B41F3E /* CoreLocation.framework */,
 				5A987DA21A04C5DB00A71B46 /* QuartzCore.framework */,
 				5A987D6C1A0487A800A71B46 /* libresolv.dylib */,
@@ -1196,7 +1213,6 @@
 				5AA8102D1A1CBB8900CAAC25 /* View */,
 				5A45C97E1A05DC2800D4C116 /* HCContactsController.h */,
 				5A45C97F1A05DC2800D4C116 /* HCContactsController.m */,
-				5A93E3C31A12487E002E0E4A /* HCContactsController.storyboard */,
 				5A93E3C51A12552D002E0E4A /* HCAddContactController.h */,
 				5A93E3C61A12552D002E0E4A /* HCAddContactController.m */,
 				5A91ED2B1A17909000874DDF /* HCChatController.h */,
@@ -2077,6 +2093,7 @@
 		5A987D781A04C05D00A71B46 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A90564E1A2A038600CA8FD9 /* Sound */,
 				5A987D791A04C05D00A71B46 /* Images */,
 			);
 			path = Resources;
@@ -2341,6 +2358,7 @@
 				5A45C9AF1A062A3500D4C116 /* tab_recent_nor@2x.png in Resources */,
 				5A987DA51A04C70900A71B46 /* line@2x.png in Resources */,
 				5A9D82E81A1A33B00077D494 /* chat_bottom_up_press@2x.png in Resources */,
+				5A9056501A2A038600CA8FD9 /* msgTritone.caf in Resources */,
 				5A45C96A1A05D88800D4C116 /* IconHome@2x.png in Resources */,
 				5A432A8D1A2076FD00B41F3E /* AppIcon-29×29.png in Resources */,
 				5A987D7D1A04C06C00A71B46 /* bc_btn_blue_hl@2x.png in Resources */,
@@ -2355,7 +2373,6 @@
 				5A93A9B91A0906F7009BF9E3 /* common_button_focus_nor@2x.png in Resources */,
 				5A78319B1A0A571600025E28 /* qvh_sep_line@2x.png in Resources */,
 				5A45C9721A05D8AA00D4C116 /* Stars@2x.png in Resources */,
-				5A93E3C41A12487E002E0E4A /* HCContactsController.storyboard in Resources */,
 				5A93A9BC1A0906F7009BF9E3 /* common_button_red_pressed@2x.png in Resources */,
 				5A9D82ED1A1A34320077D494 /* chat_bottom_keyboard_nor@2x.png in Resources */,
 				5AFDEF511A18D02C00C7B27C /* chat_recive_press_pic@2x.png in Resources */,
@@ -2600,6 +2617,7 @@
 				5A987D3E1A0486E600A71B46 /* XMPPvCardAvatarModule.m in Sources */,
 				5A987D411A0486E600A71B46 /* XMPPMessage+XEP_0184.m in Sources */,
 				5A987D291A0486E600A71B46 /* XMPPPubSub.m in Sources */,
+				5A90569E1A2A0C8400CA8FD9 /* HCSoundTool.m in Sources */,
 				5A987D531A0486E600A71B46 /* XMPPMessage+XEP_0333.m in Sources */,
 				5A93A9C91A0907DE009BF9E3 /* NSString+YGCCategory.m in Sources */,
 			);

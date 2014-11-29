@@ -38,8 +38,6 @@
     
     //添加输入框
     CGFloat start_y=20;
-    if(IOS7_OR_LATER)
-        start_y+=64;
     _txtuserid=[[UITextField alloc]init];
     _txtuserid.borderStyle=UITextBorderStyleRoundedRect;
     _txtuserid.frame=CGRectMake(20, start_y, kselfviewsize.width-40, 30);

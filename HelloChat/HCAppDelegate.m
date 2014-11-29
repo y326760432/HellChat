@@ -17,6 +17,7 @@
 #import "XMPPvCardTemp.h"
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPvCardTempModule.h"
+#import "HCSoundTool.h"
 @interface HCAppDelegate ()<XMPPvCardTempModuleDelegate,XMPPRosterDelegate,XMPPStreamDelegate>
 {
     connectFailBlock _connectFialBlock;//连接失败调用的Block 包括连接，验证密码错误，都调用整个block
@@ -255,6 +256,12 @@
     
 }
 
+#pragma mark 播放音效
+-(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{
+    //播放音效
+    [[HCSoundTool sharedHCSoundTool] playNewMsgSound];
+}
 
 #pragma mark 电子名片保存成功
 -(void)xmppvCardTempModuleDidUpdateMyvCard:(XMPPvCardTempModule *)vCardTempModule

@@ -79,18 +79,15 @@
 {
     
     CGFloat start_y=0;
-    if(IOS7_OR_LATER)
-        start_y +=64;
-    
     //1添加tableView
     UIButton *buton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     buton.frame=CGRectMake(40, 50, 100, 40);
     [self.view addSubview:buton];
-    //tableview的高度=控制器高度-起始位置-输入视图高度-导航栏的高度，如果是IOS7则不需要-导航栏高度，
-    //因为起始位置已经包含导航栏的位置
+    //tableview的高度=控制器高度-起始位置-输入视图高度-导航栏的高度，如果是IOS7则还需要减去20个状态栏高度
     CGFloat tableview_h=kselfviewsize.height-start_y-kInputBarHeight-44;
-    if(IOS7_OR_LATER)
-        tableview_h +=44;
+    if (IOS7_OR_LATER) {
+        tableview_h-=20;
+    }
      _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, start_y, kselfviewsize.width, tableview_h) style:UITableViewStylePlain];
     //取消分割线
     _tableview.separatorStyle=UITableViewCellSeparatorStyleNone;
@@ -242,6 +239,8 @@
     CGFloat height=msgsize.height+40;
     if(height<kbuttonHeight)
         height=kbuttonHeight;
+    //行高再加10个距离，为了与输入视图有一定的距离
+    height +=10;
     return height;
 }
 
@@ -314,9 +313,12 @@
 #pragma mark 发送信息
 -(void)sendMsg
 {
-    NSString *msgstr=_txtMsg.text;
-    [self sendMsgWithStr:msgstr];
-    _txtMsg.text=@"";
+    if(_txtMsg.text.length>0)
+    {
+        NSString *msgstr=_txtMsg.text;
+        [self sendMsgWithStr:msgstr];
+        _txtMsg.text=@"";
+    }
 }
 
 #pragma mark 发送消息
