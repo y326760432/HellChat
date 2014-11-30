@@ -37,6 +37,12 @@
 		5A432A8B1A20764000B41F3E /* AppIcon-57×57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A891A20764000B41F3E /* AppIcon-57×57.png */; };
 		5A432A8D1A2076FD00B41F3E /* AppIcon-29×29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */; };
 		5A432A9D1A20C29B00B41F3E /* HCRegisterInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A432A9C1A20C29B00B41F3E /* HCRegisterInfo.m */; };
+		5A44AA061A2B16F90088E02B /* HelloChatMode.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A44AA041A2B16F90088E02B /* HelloChatMode.xcdatamodeld */; };
+		5A44AA0C1A2B17F90088E02B /* HCMessageDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A44AA0B1A2B17F90088E02B /* HCMessageDataTool.m */; };
+		5A44AA0E1A2B18440088E02B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A44AA0D1A2B18440088E02B /* CoreData.framework */; };
+		5A44AA111A2B3B740088E02B /* HCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A44AA101A2B3B740088E02B /* HCMessage.m */; };
+		5A44AA141A2B45520088E02B /* HCMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A44AA131A2B45520088E02B /* HCMessageCell.m */; };
+		5A44AA171A2B4FBE0088E02B /* HCUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A44AA161A2B4FBE0088E02B /* HCUserInfoCell.m */; };
 		5A45C9641A05D86A00D4C116 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9631A05D86A00D4C116 /* Balloon@2x.png */; };
 		5A45C9661A05D87500D4C116 /* IconCalendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9651A05D87500D4C116 /* IconCalendar@2x.png */; };
 		5A45C9681A05D87F00D4C116 /* IconEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A45C9671A05D87F00D4C116 /* IconEmpty@2x.png */; };
@@ -97,6 +103,8 @@
 		5A9056501A2A038600CA8FD9 /* msgTritone.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A90564F1A2A038600CA8FD9 /* msgTritone.caf */; };
 		5A90569B1A2A0C0900CA8FD9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */; };
 		5A90569E1A2A0C8400CA8FD9 /* HCSoundTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90569D1A2A0C8400CA8FD9 /* HCSoundTool.m */; };
+		5A9056A11A2A195600CA8FD9 /* tab_setting_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A90569F1A2A195600CA8FD9 /* tab_setting_nor@2x.png */; };
+		5A9056A21A2A195600CA8FD9 /* tab_setting_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9056A01A2A195600CA8FD9 /* tab_setting_press@2x.png */; };
 		5A91ED2D1A17909000874DDF /* HCChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A91ED2C1A17909000874DDF /* HCChatController.m */; };
 		5A93A9B71A0906F7009BF9E3 /* common_button_blue_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9AF1A0906F7009BF9E3 /* common_button_blue_pressed@2x.png */; };
 		5A93A9B81A0906F7009BF9E3 /* common_button_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A93A9B01A0906F7009BF9E3 /* common_button_disabled@2x.png */; };
@@ -357,6 +365,16 @@
 		5A432A8C1A2076FD00B41F3E /* AppIcon-29×29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29×29.png"; sourceTree = "<group>"; };
 		5A432A9B1A20C29B00B41F3E /* HCRegisterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRegisterInfo.h; sourceTree = "<group>"; };
 		5A432A9C1A20C29B00B41F3E /* HCRegisterInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRegisterInfo.m; sourceTree = "<group>"; };
+		5A44AA051A2B16F90088E02B /* HelloChatMode.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HelloChatMode.xcdatamodel; sourceTree = "<group>"; };
+		5A44AA0A1A2B17F90088E02B /* HCMessageDataTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCMessageDataTool.h; sourceTree = "<group>"; };
+		5A44AA0B1A2B17F90088E02B /* HCMessageDataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCMessageDataTool.m; sourceTree = "<group>"; };
+		5A44AA0D1A2B18440088E02B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5A44AA0F1A2B3B740088E02B /* HCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCMessage.h; sourceTree = "<group>"; };
+		5A44AA101A2B3B740088E02B /* HCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCMessage.m; sourceTree = "<group>"; };
+		5A44AA121A2B45520088E02B /* HCMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCMessageCell.h; sourceTree = "<group>"; };
+		5A44AA131A2B45520088E02B /* HCMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCMessageCell.m; sourceTree = "<group>"; };
+		5A44AA151A2B4FBE0088E02B /* HCUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCUserInfoCell.h; sourceTree = "<group>"; };
+		5A44AA161A2B4FBE0088E02B /* HCUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCUserInfoCell.m; sourceTree = "<group>"; };
 		5A45C9631A05D86A00D4C116 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		5A45C9651A05D87500D4C116 /* IconCalendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCalendar@2x.png"; sourceTree = "<group>"; };
 		5A45C9671A05D87F00D4C116 /* IconEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconEmpty@2x.png"; sourceTree = "<group>"; };
@@ -438,6 +456,8 @@
 		5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5A90569C1A2A0C8400CA8FD9 /* HCSoundTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSoundTool.h; sourceTree = "<group>"; };
 		5A90569D1A2A0C8400CA8FD9 /* HCSoundTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSoundTool.m; sourceTree = "<group>"; };
+		5A90569F1A2A195600CA8FD9 /* tab_setting_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_setting_nor@2x.png"; sourceTree = "<group>"; };
+		5A9056A01A2A195600CA8FD9 /* tab_setting_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_setting_press@2x.png"; sourceTree = "<group>"; };
 		5A91ED2B1A17909000874DDF /* HCChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCChatController.h; sourceTree = "<group>"; };
 		5A91ED2C1A17909000874DDF /* HCChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCChatController.m; sourceTree = "<group>"; };
 		5A93A9AF1A0906F7009BF9E3 /* common_button_blue_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_button_blue_pressed@2x.png"; sourceTree = "<group>"; };
@@ -832,6 +852,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A44AA0E1A2B18440088E02B /* CoreData.framework in Frameworks */,
 				5A90569B1A2A0C0900CA8FD9 /* AudioToolbox.framework in Frameworks */,
 				5A432A871A2051C900B41F3E /* CoreLocation.framework in Frameworks */,
 				5A987DA31A04C5DB00A71B46 /* QuartzCore.framework in Frameworks */,
@@ -940,6 +961,8 @@
 		5A45C9851A0609AC00D4C116 /* Dock */ = {
 			isa = PBXGroup;
 			children = (
+				5A90569F1A2A195600CA8FD9 /* tab_setting_nor@2x.png */,
+				5A9056A01A2A195600CA8FD9 /* tab_setting_press@2x.png */,
 				5A45C9B81A06355500D4C116 /* header_bg_ios7@2x.png */,
 				5A45C9B91A06355500D4C116 /* header_bg@2x.png */,
 				5A45C9B41A06302B00D4C116 /* header_bg_ios7@2x.png */,
@@ -974,6 +997,9 @@
 				5A45C9BE1A0663FD00D4C116 /* HCLoginUser.m */,
 				5A432A9B1A20C29B00B41F3E /* HCRegisterInfo.h */,
 				5A432A9C1A20C29B00B41F3E /* HCRegisterInfo.m */,
+				5A44AA041A2B16F90088E02B /* HelloChatMode.xcdatamodeld */,
+				5A44AA0F1A2B3B740088E02B /* HCMessage.h */,
+				5A44AA101A2B3B740088E02B /* HCMessage.m */,
 			);
 			path = Mode;
 			sourceTree = "<group>";
@@ -991,6 +1017,8 @@
 				5A90564C1A29F72600CA8FD9 /* HCXMPPUserTool.m */,
 				5A90569C1A2A0C8400CA8FD9 /* HCSoundTool.h */,
 				5A90569D1A2A0C8400CA8FD9 /* HCSoundTool.m */,
+				5A44AA0A1A2B17F90088E02B /* HCMessageDataTool.h */,
+				5A44AA0B1A2B17F90088E02B /* HCMessageDataTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1097,6 +1125,7 @@
 		5A9877841A047A6E00A71B46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A44AA0D1A2B18440088E02B /* CoreData.framework */,
 				5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */,
 				5A432A861A2051C900B41F3E /* CoreLocation.framework */,
 				5A987DA21A04C5DB00A71B46 /* QuartzCore.framework */,
@@ -1203,6 +1232,8 @@
 			children = (
 				5A45C97B1A05DC0900D4C116 /* HCMessageController.h */,
 				5A45C97C1A05DC0900D4C116 /* HCMessageController.m */,
+				5A44AA121A2B45520088E02B /* HCMessageCell.h */,
+				5A44AA131A2B45520088E02B /* HCMessageCell.m */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2194,6 +2225,8 @@
 			children = (
 				5AFDEF411A18B82300C7B27C /* HCRoundImageView.h */,
 				5AFDEF421A18B82300C7B27C /* HCRoundImageView.m */,
+				5A44AA151A2B4FBE0088E02B /* HCUserInfoCell.h */,
+				5A44AA161A2B4FBE0088E02B /* HCUserInfoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2394,10 +2427,12 @@
 				5A93A9BE1A0906F7009BF9E3 /* common_button_white_pressed@2x.png in Resources */,
 				5A93A9BA1A0906F7009BF9E3 /* common_button_focus_pressed@2x.png in Resources */,
 				5A3EE08D1A2161840081C9C1 /* img_nearby_group_session_arrow_up@2x.png in Resources */,
+				5A9056A21A2A195600CA8FD9 /* tab_setting_press@2x.png in Resources */,
 				5A45C9A31A0629E400D4C116 /* login_avatar_default@2x.png in Resources */,
 				5A9CFF461A24CC3C00FC4647 /* normalheadphoto@2x.png in Resources */,
 				5A7831B61A0A57FA00025E28 /* sidebar_setting@3x.png in Resources */,
 				5A3EE08A1A2161480081C9C1 /* icon_nearby_arrow@2x.png in Resources */,
+				5A9056A11A2A195600CA8FD9 /* tab_setting_nor@2x.png in Resources */,
 				5A93A9BB1A0906F7009BF9E3 /* common_button_red_nor@2x.png in Resources */,
 				5A432A7D1A20327300B41F3E /* aio_icons_camera@2x.png in Resources */,
 				5A3EE0A41A2165A60081C9C1 /* img_arrow_general_share@2x.png in Resources */,
@@ -2466,6 +2501,7 @@
 				5A987D341A0486E600A71B46 /* XMPPCapabilities.xcdatamodel in Sources */,
 				5A987CEC1A0486E600A71B46 /* NSNumber+XMPP.m in Sources */,
 				5A45C9971A060AEF00D4C116 /* YGCNavController.m in Sources */,
+				5A44AA171A2B4FBE0088E02B /* HCUserInfoCell.m in Sources */,
 				5A987D4D1A0486E600A71B46 /* XMPPAttentionModule.m in Sources */,
 				5A987D161A0486E600A71B46 /* XMPPMessage+XEP0045.m in Sources */,
 				5A3FD8281A04FE56002B79EB /* MBProgressHUD.m in Sources */,
@@ -2506,19 +2542,23 @@
 				5A3FD8311A0545E3002B79EB /* RESideMenu.m in Sources */,
 				5A987D1C1A0486E600A71B46 /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				5A987CE61A0486E600A71B46 /* XMPPDigestMD5Authentication.m in Sources */,
+				5A44AA061A2B16F90088E02B /* HelloChatMode.xcdatamodeld in Sources */,
 				5A987D691A0486E600A71B46 /* DDXMLNode.m in Sources */,
 				5A987D321A0486E600A71B46 /* XMPPTransports.m in Sources */,
 				5A987CE71A0486E600A71B46 /* XMPPPlainAuthentication.m in Sources */,
 				5A987D081A0486E600A71B46 /* XMPPIQ+LastActivity.m in Sources */,
+				5A44AA141A2B45520088E02B /* HCMessageCell.m in Sources */,
 				5A987CF21A0486E600A71B46 /* XMPPModule.m in Sources */,
 				5A987CFD1A0486E600A71B46 /* XMPPRoster.xcdatamodel in Sources */,
 				5A987D111A0486E600A71B46 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				5A987CED1A0486E600A71B46 /* NSXMLElement+XMPP.m in Sources */,
 				5A987D521A0486E600A71B46 /* XMPPMessage+XEP_0308.m in Sources */,
 				5A9CFEE21A24A82100FC4647 /* HCContactCell.m in Sources */,
+				5A44AA111A2B3B740088E02B /* HCMessage.m in Sources */,
 				5A987D1A1A0486E600A71B46 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				5A987D2C1A0486E600A71B46 /* XMPPMessage+XEP_0066.m in Sources */,
 				5A987D091A0486E600A71B46 /* XMPPLastActivity.m in Sources */,
+				5A44AA0C1A2B17F90088E02B /* HCMessageDataTool.m in Sources */,
 				5A987D001A0486E600A71B46 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				5A987D0E1A0486E600A71B46 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				5A987D5B1A0486E600A71B46 /* XMPPTimer.m in Sources */,
@@ -2854,6 +2894,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		5A44AA041A2B16F90088E02B /* HelloChatMode.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5A44AA051A2B16F90088E02B /* HelloChatMode.xcdatamodel */,
+			);
+			currentVersion = 5A44AA051A2B16F90088E02B /* HelloChatMode.xcdatamodel */;
+			path = HelloChatMode.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		5A987BEF1A0486E600A71B46 /* XMPPRoom.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

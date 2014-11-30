@@ -196,7 +196,7 @@
     CGRect tableviewframe=_tableview.frame;
     //记录输入视图的初始位置
     inputbarframe.origin.y=kselfviewsize.height-kInputBarHeight;
-    tableviewframe.origin.y=IOS7_OR_LATER?64:0;
+    tableviewframe.origin.y=0;
     //键盘的目标位置
     CGRect keyboardframe=[nofification.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
     //动画时长
@@ -206,7 +206,7 @@
     if(keyboardframe.origin.y==[UIScreen mainScreen].bounds.size.height)
     {
         inputbarframe.origin.y=kselfviewsize.height-kInputBarHeight;
-        tableviewframe.origin.y=IOS7_OR_LATER?64:0;
+        tableviewframe.origin.y=0;
     }
     else
     {

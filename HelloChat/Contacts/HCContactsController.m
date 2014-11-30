@@ -129,7 +129,7 @@
 #pragma mark 设置行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return kCellHeight;
 }
 
 #pragma mark 选择某个联系人

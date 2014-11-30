@@ -9,6 +9,9 @@
 #import "HCXMPPUserTool.h"
 #import "XMPPUserCoreDataStorageObject.h"
 #import "HCAppdelegate.h"
+#import "XMPPUserCoreDataStorageObject.h"
+#import "HCAppdelegate.h"
+#import <CoreData/CoreData.h>
 @implementation HCXMPPUserTool
 
 singleton_implementation(HCXMPPUserTool)
@@ -29,10 +32,36 @@ singleton_implementation(HCXMPPUserTool)
 {
     if(user.photo)
         return user.photo;
-    NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:user.jid];
-    if(data)
-        return [UIImage imageWithData:data];
+    return [self loaduserPhotoWithJid:user.jidStr];
+    
+}
+
+#pragma mark 根据jid加载用户头像
+-(UIImage *)loaduserPhotoWithJid:(NSString *)jid
+{
+    if(jid)
+    {
+        NSData *data=[kAppdelegate.xmppvCardAvatarModule photoDataForJID:[XMPPJID jidWithString:jid]];
+        if(data)
+            return [UIImage imageWithData:data];
+    }
     return [UIImage imageNamed:@"normalheadphoto"];
+}
+
++(XMPPUserCoreDataStorageObject *)getUserCoreDataObjectWithJidStr:(NSString *)jidstr
+{
+    NSManagedObjectContext *usercontext=kAppdelegate.xmppUserCoreDataContext;
+
+    NSFetchRequest *request=[[NSFetchRequest alloc]initWithEntityName:@"XMPPUserCoreDataStorageObject"];
+    request.predicate=[NSPredicate predicateWithFormat:@"jidStr CONTAINS %@",jidstr];
+    
+    NSError *error;
+    NSArray *array=[usercontext executeFetchRequest:request error:&error];
+    if(error)
+        NSLog(@"查询用户出错--%@",error.localizedDescription);
+    else if(array.count>0)
+        return array[0];
+    return nil;
 }
 
 @end

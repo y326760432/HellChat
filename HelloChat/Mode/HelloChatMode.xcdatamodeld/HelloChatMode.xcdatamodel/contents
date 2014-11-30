@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="HCMessage" representedClassName="HCMessage" syncable="YES">
+        <attribute name="jidstr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msgcontent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msgdate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="msgtype" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HCMessage" positionX="-54" positionY="-9" width="128" height="105"/>
+    </elements>
+</model>

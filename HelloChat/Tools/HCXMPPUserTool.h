@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
+@class XMPPJID;
 @class XMPPUserCoreDataStorageObject;
 @interface HCXMPPUserTool : NSObject
 
@@ -23,5 +24,10 @@ singleton_interface(HCXMPPUserTool)
  */
 -(UIImage *)loaduserPhotoWithUser:(XMPPUserCoreDataStorageObject *)user;
 
+/**
+ 根据JID加载用户头像，没有则显示默认头像
+ */
+-(UIImage *)loaduserPhotoWithJid:(NSString *)jid;
 
++(XMPPUserCoreDataStorageObject *)getUserCoreDataObjectWithJidStr:(NSString *)jidstr;
 @end

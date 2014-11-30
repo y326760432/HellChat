@@ -18,6 +18,8 @@
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPvCardTempModule.h"
 #import "HCSoundTool.h"
+#import "HCMessageDataTool.h"
+#import "HCMessage.h"
 @interface HCAppDelegate ()<XMPPvCardTempModuleDelegate,XMPPRosterDelegate,XMPPStreamDelegate>
 {
     connectFailBlock _connectFialBlock;//连接失败调用的Block 包括连接，验证密码错误，都调用整个block
@@ -43,7 +45,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
     _mainController=[[HCMainController alloc]init];
     //如果沙盒中有用户登录信息，则直接到主控制器，否则启动登录控制器
 //    if([HCLoginUserTool sharedHCLoginUserTool].loginUser&&[HCLoginUserTool sharedHCLoginUserTool])
@@ -51,6 +52,8 @@
 //    else
         [self goLoginController];
     
+    //创建本地会话数据库
+    [HCMessageDataTool sharedHCMessageDataTool];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -123,7 +126,7 @@
         //实体扩展模块
         _xmppcapabilitiesStorage =[[XMPPCapabilitiesCoreDataStorage alloc]init];
         _xmppcapabilities=[[XMPPCapabilities alloc]initWithCapabilitiesStorage:_xmppcapabilitiesStorage];
-        
+        _xmppUserCoreDataContext=_xmpprosterCoreDataStorage.mainThreadManagedObjectContext;
         //聊天记录模块
         _xmppmessageCoreDataStorage=[[XMPPMessageArchivingCoreDataStorage alloc]init];
         _xmppmessageArchiving=[[XMPPMessageArchiving alloc]initWithMessageArchivingStorage:_xmppmessageCoreDataStorage];
@@ -259,6 +262,8 @@
 #pragma mark 播放音效
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
+    NSLog(@"接受到新消息------%@",message);
+    [[HCMessageDataTool sharedHCMessageDataTool] addNewMessage:message];
     //播放音效
     [[HCSoundTool sharedHCSoundTool] playNewMsgSound];
 }

@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XMPPUserCoreDataStorageObject.h"
-@interface HCContactCell : UITableViewCell
-
-@property(nonatomic,strong) XMPPUserCoreDataStorageObject *user;
+#import "HCUserInfoCell.h"
+@interface HCContactCell : HCUserInfoCell
 
 @end

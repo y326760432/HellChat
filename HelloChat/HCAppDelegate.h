@@ -59,6 +59,11 @@ typedef void (^connectSuccessBlock)();
 @property(nonatomic,strong,readonly) XMPPRosterCoreDataStorage *xmpprosterCoreDataStorage;
 
 /**
+ 本地花名册数据库上下文
+ */
+@property(nonatomic,strong,readonly) NSManagedObjectContext *xmppUserCoreDataContext;
+
+/**
  聊天记录模块
  */
 @property(nonatomic,strong,readonly) XMPPMessageArchiving *xmppmessageArchiving;

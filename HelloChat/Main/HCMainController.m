@@ -48,7 +48,7 @@
     
     [self addDockItemWithtitle:@"消息" imgfornormal:@"tab_recent_nor" imgforhightlight:@"tab_recent_press" imgforselected:@"tab_recent_press"];
      [self addDockItemWithtitle:@"联系人" imgfornormal:@"tab_buddy_nor.png" imgforhightlight:@"tab_buddy_press.png" imgforselected:@"tab_buddy_press.png"];
-     [self addDockItemWithtitle:@"我" imgfornormal:@"tab_qworld_nor.png" imgforhightlight:@"tab_qworld_press.png" imgforselected:@"tab_qworld_press.png"];
+     [self addDockItemWithtitle:@"设置" imgfornormal:@"tab_qworld_nor.png" imgforhightlight:@"tab_qworld_press.png" imgforselected:@"tab_qworld_press.png"];
     
     _indicator=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _indicator.center=self.view.center;

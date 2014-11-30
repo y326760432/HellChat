@@ -14,10 +14,18 @@
 #import "HCLoginUser.h"
 #import "HCLoginUserTool.h"
 #import <QuartzCore/QuartzCore.h>
-@interface HCMessageController ()
+#import "HCMessageDataTool.h"
+#import "HCMessage.h"
+#import <CoreData/CoreData.h>
+#import "HCXMPPUserTool.h"
+#import "XMPPUserCoreDataStorageObject.h"
+#import "HCMessageCell.h"
+#import "HCChatController.h"
+@interface HCMessageController ()<NSFetchedResultsControllerDelegate>
 {
     UIImageView *_imgvPhoto;//头像
-    UIView *_discover;//加载蒙版
+    
+    NSFetchedResultsController *_fetchedresultsController;//本地会话查询控制器
 }
 @end
 
@@ -35,7 +43,6 @@
 {
     [super viewDidLoad];
     self.title=@"消息";
-    
     //设置圆角头像
     UIImage *img=[UIImage imageNamed:@"normalheadphoto.png"];
     _imgvPhoto=[[UIImageView alloc]initWithImage:img];
@@ -53,6 +60,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vCardUpdate) name:kdidupdatevCard object:nil];
     
     [self vCardUpdate];
+    
+    [self setupFetchResultController];
+}
+
+#pragma mark 查询结果控制器
+
+-(void)setupFetchResultController
+{
+    //查询请求
+    NSFetchRequest *requset=[[NSFetchRequest alloc]initWithEntityName:@"HCMessage"];
+    //设置排序字段
+    requset.sortDescriptors=@[[NSSortDescriptor sortDescriptorWithKey:@"msgdate" ascending:NO]];
+    
+    //初始化查询控制器
+    _fetchedresultsController=[[NSFetchedResultsController alloc]initWithFetchRequest:requset managedObjectContext:[HCMessageDataTool sharedHCMessageDataTool].context sectionNameKeyPath:nil cacheName:nil];
+    _fetchedresultsController.delegate=self;
+    
+    NSError *error;
+    [_fetchedresultsController performFetch:&error];
+    if(error)
+        NSLog(@"初始化NSFetchedResultsController出错%@",error.localizedDescription);
+    
 }
 
 #pragma mark 电子名片更新通知
@@ -68,23 +97,72 @@
     }
 }
 
-#pragma mark UITableView代理方法
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+#pragma mark 会话信息发生改变
+-(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    return 20;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+         [self.tableView reloadData];
+    });
+   
 }
 
+#pragma mark UITableView代理方法
+
+#pragma mark 表格行数
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_fetchedresultsController.sections[section] numberOfObjects];
+}
+
+#pragma mark 获取行高
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kCellHeight;
+}
+
+#pragma mark 获取每行视图
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID=@"CELL";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
+    HCMessageCell *cell=[tableView dequeueReusableCellWithIdentifier:ID];
     if(cell==nil)
     {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell=[[HCMessageCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
-    cell.textLabel.text=[NSString stringWithFormat:@"%d",indexPath.row];
+    HCMessage *msg=[_fetchedresultsController objectAtIndexPath:indexPath];
+    XMPPUserCoreDataStorageObject *user=[HCXMPPUserTool getUserCoreDataObjectWithJidStr:msg.jidstr];
+    cell.user=user;
+    cell.message=msg;
     return cell;
+}
+
+#pragma mark 点击某个联系人进入聊天界面
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    HCMessage *msg=[_fetchedresultsController objectAtIndexPath:indexPath];
+    XMPPUserCoreDataStorageObject *user=[HCXMPPUserTool getUserCoreDataObjectWithJidStr:msg.jidstr];
+    HCChatController *chatcontroller=[[HCChatController alloc]init];
+    chatcontroller.user=user;
+    [self.navigationController pushViewController:chatcontroller animated:YES];
+}
+
+#pragma mark 是否可编辑
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(editingStyle==UITableViewCellEditingStyleDelete)
+    {
+         HCMessage *msg=[_fetchedresultsController objectAtIndexPath:indexPath];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[HCMessageDataTool sharedHCMessageDataTool] delMessage:msg];
+        });
+        
+    }
 }
 
 #pragma mark 显示个人信息

@@ -71,7 +71,8 @@
     //从系统偏好里读取设置
     if([[NSUserDefaults standardUserDefaults] objectForKey:kSoundUserDefaultKey])
     {
-        _switchsound.on=(BOOL)[[NSUserDefaults standardUserDefaults] objectForKey:kSoundUserDefaultKey];
+        NSNumber *ison=[[NSUserDefaults standardUserDefaults] objectForKey:kSoundUserDefaultKey];
+        _switchsound.on=[ison boolValue];
     }
     [_switchsound addTarget:self action:@selector(switchValueChage:) forControlEvents:UIControlEventValueChanged];
     
@@ -80,7 +81,8 @@
     _switchnoti.on=YES;
     if([[NSUserDefaults standardUserDefaults] objectForKey:kNotiUserDefaultKey])
     {
-        _switchnoti.on=(BOOL)[[NSUserDefaults standardUserDefaults] objectForKey:kNotiUserDefaultKey];
+         NSNumber *ison=[[NSUserDefaults standardUserDefaults] objectForKey:kNotiUserDefaultKey];
+        _switchnoti.on=[ison boolValue];;
     }
     [_switchnoti addTarget:self action:@selector(switchValueChage:) forControlEvents:UIControlEventValueChanged];
 }
@@ -94,6 +96,8 @@
     }
     else
         [[NSUserDefaults standardUserDefaults] setObject:@(uiswitch.on) forKey: kNotiUserDefaultKey];
+    //马上保存，如果没有调用这个方法，会延时保存
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
