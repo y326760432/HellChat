@@ -26,6 +26,8 @@
     UIImageView *_imgvPhoto;//头像
     
     NSFetchedResultsController *_fetchedresultsController;//本地会话查询控制器
+    
+    //NSManagedObjectContext *_context;
 }
 @end
 
@@ -60,7 +62,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(vCardUpdate) name:kdidupdatevCard object:nil];
     
     [self vCardUpdate];
-    
     [self setupFetchResultController];
 }
 
@@ -100,10 +101,10 @@
 #pragma mark 会话信息发生改变
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-         [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
     });
-   
+    
 }
 
 #pragma mark UITableView代理方法
@@ -158,10 +159,7 @@
     if(editingStyle==UITableViewCellEditingStyleDelete)
     {
          HCMessage *msg=[_fetchedresultsController objectAtIndexPath:indexPath];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[HCMessageDataTool sharedHCMessageDataTool] delMessage:msg];
-        });
-        
+        [[HCMessageDataTool sharedHCMessageDataTool] delMessage:msg];
     }
 }
 

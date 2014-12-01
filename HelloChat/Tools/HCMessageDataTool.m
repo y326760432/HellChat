@@ -12,8 +12,7 @@
 #import "XMPPMessage.h"
 #import "HCXMPPUserTool.h"
 #import <QuartzCore/QuartzCore.h>
-#define kDBFileName @"HelloChat.db"//数据库文件名称
-#define kMsgEntityName @"HCMessage"//实体名称
+
 @implementation HCMessageDataTool
 
 singleton_implementation(HCMessageDataTool)
@@ -82,6 +81,7 @@ singleton_implementation(HCMessageDataTool)
     if(message)
     {
         [_context deleteObject:message];
+        [_context save:nil];
     }
 }
 

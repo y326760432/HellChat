@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
+#define kDBFileName @"HelloChat.db"//数据库文件名称
+#define kMsgEntityName @"HCMessage"//实体名称
 @class XMPPMessage;
 @class NSManagedObjectContext;
 @class HCMessage;
