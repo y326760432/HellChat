@@ -99,6 +99,10 @@
 		5A7831B81A0A57FA00025E28 /* sidebar_signature_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7831A91A0A57FA00025E28 /* sidebar_signature_nor@2x.png */; };
 		5A7831B91A0A57FA00025E28 /* sidebar_signature_other@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7831AA1A0A57FA00025E28 /* sidebar_signature_other@2x.png */; };
 		5A7831BD1A0A5CD200025E28 /* HCVCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7831BB1A0A5CD200025E28 /* HCVCardController.m */; };
+		5A7D0BEE1A2DDDF30069B213 /* Default320×480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D0BEA1A2DDDF30069B213 /* Default320×480@2x.png */; };
+		5A7D0BEF1A2DDDF30069B213 /* Default320×568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D0BEB1A2DDDF30069B213 /* Default320×568h@2x.png */; };
+		5A7D0BF01A2DDDF30069B213 /* Default357×667@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D0BEC1A2DDDF30069B213 /* Default357×667@2x.png */; };
+		5A7D0BF11A2DDDF30069B213 /* Default414×736@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D0BED1A2DDDF30069B213 /* Default414×736@3x.png */; };
 		5A90564D1A29F72600CA8FD9 /* HCXMPPUserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90564C1A29F72600CA8FD9 /* HCXMPPUserTool.m */; };
 		5A9056501A2A038600CA8FD9 /* msgTritone.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A90564F1A2A038600CA8FD9 /* msgTritone.caf */; };
 		5A90569B1A2A0C0900CA8FD9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A90569A1A2A0C0900CA8FD9 /* AudioToolbox.framework */; };
@@ -450,6 +454,11 @@
 		5A7831AA1A0A57FA00025E28 /* sidebar_signature_other@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sidebar_signature_other@2x.png"; sourceTree = "<group>"; };
 		5A7831BA1A0A5CD200025E28 /* HCVCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCVCardController.h; path = ../Setting/HCVCardController.h; sourceTree = "<group>"; };
 		5A7831BB1A0A5CD200025E28 /* HCVCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCVCardController.m; path = ../Setting/HCVCardController.m; sourceTree = "<group>"; };
+		5A7D0BEA1A2DDDF30069B213 /* Default320×480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default320×480@2x.png"; sourceTree = "<group>"; };
+		5A7D0BEB1A2DDDF30069B213 /* Default320×568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default320×568h@2x.png"; sourceTree = "<group>"; };
+		5A7D0BEC1A2DDDF30069B213 /* Default357×667@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default357×667@2x.png"; sourceTree = "<group>"; };
+		5A7D0BED1A2DDDF30069B213 /* Default414×736@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default414×736@3x.png"; sourceTree = "<group>"; };
+		5A7D0BF21A2DDFC60069B213 /* sendSuccess.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sendSuccess.caf; sourceTree = "<group>"; };
 		5A90564B1A29F72600CA8FD9 /* HCXMPPUserTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCXMPPUserTool.h; sourceTree = "<group>"; };
 		5A90564C1A29F72600CA8FD9 /* HCXMPPUserTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCXMPPUserTool.m; sourceTree = "<group>"; };
 		5A90564F1A2A038600CA8FD9 /* msgTritone.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgTritone.caf; sourceTree = "<group>"; };
@@ -1061,9 +1070,21 @@
 			path = LeftMenu;
 			sourceTree = "<group>";
 		};
+		5A7D0BE91A2DDDF30069B213 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				5A7D0BEA1A2DDDF30069B213 /* Default320×480@2x.png */,
+				5A7D0BEB1A2DDDF30069B213 /* Default320×568h@2x.png */,
+				5A7D0BEC1A2DDDF30069B213 /* Default357×667@2x.png */,
+				5A7D0BED1A2DDDF30069B213 /* Default414×736@3x.png */,
+			);
+			path = Default;
+			sourceTree = "<group>";
+		};
 		5A90564E1A2A038600CA8FD9 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				5A7D0BF21A2DDFC60069B213 /* sendSuccess.caf */,
 				5A90564F1A2A038600CA8FD9 /* msgTritone.caf */,
 			);
 			path = Sound;
@@ -2133,6 +2154,7 @@
 		5A987D791A04C05D00A71B46 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5A7D0BE91A2DDDF30069B213 /* Default */,
 				5A3EE0861A2161390081C9C1 /* Command */,
 				5AFDEF471A18CDE200C7B27C /* Chat */,
 				5ACA1B051A0E022D006427D7 /* AppIcon */,
@@ -2369,6 +2391,7 @@
 				5A45C9B61A06302B00D4C116 /* header_bg_ios7@2x.png in Resources */,
 				5A9D82EA1A1A33B00077D494 /* chat_bottom_voice_press@2x.png in Resources */,
 				5A7831AC1A0A57FA00025E28 /* sidebar_bg_mask@2x.png in Resources */,
+				5A7D0BF01A2DDDF30069B213 /* Default357×667@2x.png in Resources */,
 				5A45C9641A05D86A00D4C116 /* Balloon@2x.png in Resources */,
 				5A7831B21A0A57FA00025E28 /* sidebar_nightmode_loading@3x.png in Resources */,
 				5A7831B11A0A57FA00025E28 /* sidebar_file@3x.png in Resources */,
@@ -2389,6 +2412,7 @@
 				5A45C9A11A0629D700D4C116 /* login_bg.jpg in Resources */,
 				5A9D82EE1A1A34320077D494 /* chat_bottom_keyboard_press@2x.png in Resources */,
 				5A45C9AF1A062A3500D4C116 /* tab_recent_nor@2x.png in Resources */,
+				5A7D0BEF1A2DDDF30069B213 /* Default320×568h@2x.png in Resources */,
 				5A987DA51A04C70900A71B46 /* line@2x.png in Resources */,
 				5A9D82E81A1A33B00077D494 /* chat_bottom_up_press@2x.png in Resources */,
 				5A9056501A2A038600CA8FD9 /* msgTritone.caf in Resources */,
@@ -2401,6 +2425,7 @@
 				5A93A9B71A0906F7009BF9E3 /* common_button_blue_pressed@2x.png in Resources */,
 				5A7831AD1A0A57FA00025E28 /* sidebar_bg@2x.jpg in Resources */,
 				5A9D82E61A1A33B00077D494 /* chat_bottom_smile_press@2x.png in Resources */,
+				5A7D0BEE1A2DDDF30069B213 /* Default320×480@2x.png in Resources */,
 				5A3EE09C1A21655E0081C9C1 /* icon_helloList_arrow@2x.png in Resources */,
 				5A3EE0941A2161FF0081C9C1 /* icon_register_camerabg@2x.png in Resources */,
 				5A93A9B91A0906F7009BF9E3 /* common_button_focus_nor@2x.png in Resources */,
@@ -2421,6 +2446,7 @@
 				5A7831B31A0A57FA00025E28 /* sidebar_nightmode_off@3x.png in Resources */,
 				5A7831B01A0A57FA00025E28 /* sidebar_favorit@3x.png in Resources */,
 				5A9877981A047A6E00A71B46 /* Images.xcassets in Resources */,
+				5A7D0BF11A2DDDF30069B213 /* Default414×736@3x.png in Resources */,
 				5A7831AF1A0A57FA00025E28 /* sidebar_decoration@3x.png in Resources */,
 				5A9D82E71A1A33B00077D494 /* chat_bottom_up_nor@2x.png in Resources */,
 				5A432A7F1A20327300B41F3E /* aio_icons_pic@2x.png in Resources */,

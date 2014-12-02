@@ -59,6 +59,12 @@
   
 }
 
+#pragma mark IOS开始，通过下面这个方法设置导航栏的字体颜色
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark 导航控制器代理方法
 
 /*

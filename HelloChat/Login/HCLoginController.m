@@ -58,6 +58,12 @@
    [self setUI];
 }
 
+#pragma mark IOS开始，通过下面这个方法设置导航栏的字体颜色
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 -(void)setUI
 {
 

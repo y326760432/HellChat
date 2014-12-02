@@ -31,7 +31,6 @@
     CGFloat start_y=20;
     if(IOS7_OR_LATER)
         start_y +=64;
-    
     UIImageView *logo=[[UIImageView alloc]init];
 }
 
