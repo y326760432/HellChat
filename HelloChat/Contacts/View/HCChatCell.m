@@ -39,7 +39,6 @@
         _photoimgv.layer.masksToBounds=YES;
         _photoimgv.image=[UIImage imageNamed:@"normalheadphoto.png"];
         _photoimgv.layer.cornerRadius=25;
-        NSLog(@"%@",NSStringFromCGRect(_photoimgv.frame));
         [self.contentView addSubview:_photoimgv];
         
         //添加消息内容按钮
@@ -52,7 +51,7 @@
         [self.contentView addSubview:_msgbutton];
         
         _imageview=[[UIImageView alloc]init];
-        _imageview.frame=CGRectMake(25, 20, 10, 20);
+        _imageview.frame=CGRectMake(25, 10, 10, 20);
         _imageview.contentMode=UIViewContentModeScaleAspectFit;
         [_msgbutton addSubview:_imageview];
         
@@ -90,7 +89,6 @@
            
             _imageview.hidden=NO;
             NSString *url=[msg substringFromIndex:8];
-            NSLog(@"%@",url);
             btnframe.size.width=200;
             btnframe.size.height=230;
             CGRect imgframe=_imageview.frame;

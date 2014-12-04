@@ -242,14 +242,25 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XMPPMessageArchiving_Message_CoreDataObject *message=[_fetchedresultsController objectAtIndexPath:indexPath];
-    //计算文字宽高 需要和HCChatCell方法一致
-    CGSize msgsize=[message.body sizeWithFont:kFont(15) constrainedToSize:CGSizeMake(180, MAXFLOAT)];
-    CGFloat height=msgsize.height+40;
-    if(height<kbuttonHeight)
-        height=kbuttonHeight;
-    //行高再加10个距离，为了与输入视图有一定的距离
-    height +=10;
-    return height;
+    if([message.body hasPrefix:@"|file|"])
+    {
+        int filetype=[[message.body substringWithRange:NSMakeRange(6, 1)] intValue];
+        //图片消息
+        if(filetype==1)
+            return 230;
+        else
+            return kbuttonHeight;
+    }
+    else{
+        //计算文字宽高 需要和HCChatCell方法一致
+        CGSize msgsize=[message.body sizeWithFont:kFont(15) constrainedToSize:CGSizeMake(180, MAXFLOAT)];
+        CGFloat height=msgsize.height+40;
+        if(height<kbuttonHeight)
+            height=kbuttonHeight;
+        //行高再加10个距离，为了与输入视图有一定的距离
+        height +=10;
+        return height;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -533,8 +544,24 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *img=info[@"UIImagePickerControllerOriginalImage"];
-    [self sendImage:img];
+    UIImage *img=img=info[@"UIImagePickerControllerOriginalImage"];
+    NSLog(@"%@",NSStringFromCGSize(img.size));
+    UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(93, 93)];
+    if(img)
+        [self sendImage:smallImage];
+}
+
+//2.保持原来的长宽比，生成一个缩略图
+- (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
+{
+    UIImage *newimage;
+    if (nil == image)
+    {        newimage = nil;    }    else{        CGSize oldsize = image.size;        CGRect rect;        if (asize.width/asize.height > oldsize.width/oldsize.height) {            rect.size.width = asize.height*oldsize.width/oldsize.height;            rect.size.height = asize.height;            rect.origin.x = (asize.width - rect.size.width)/2;            rect.origin.y = 0;        }        else{            rect.size.width = asize.width;            rect.size.height = asize.width*oldsize.height/oldsize.width;            rect.origin.x = 0;            rect.origin.y = (asize.height - rect.size.height)/2;        }        UIGraphicsBeginImageContext(asize);        CGContextRef context = UIGraphicsGetCurrentContext();        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
+    [image drawInRect:rect];
+    newimage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    }
+    return newimage;
 }
 
 #pragma mark 发送图片
