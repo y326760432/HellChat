@@ -540,7 +540,7 @@
 #pragma mark 发送图片
 -(void)sendImage:(UIImage *)img
 {
-    NSData *data=UIImagePNGRepresentation(img);
+    NSData *data=UIImageJPEGRepresentation(img, 0.75);
     //时间
     NSString *datestr= [[NSDate date] toStringWithFormater:@"yyMMdd_HHmmsshh"];
     //拼接图片文件名称:发送人to接受人_时间.扩展名
