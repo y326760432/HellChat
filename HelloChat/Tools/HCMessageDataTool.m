@@ -68,7 +68,7 @@ singleton_implementation(HCMessageDataTool)
 {
     HCMessage *msg=[NSEntityDescription insertNewObjectForEntityForName:kMsgEntityName inManagedObjectContext:_context];
     msg.jidstr=[NSString stringWithFormat:@"%@@%@",message.from.user,message.from.domain];
-    msg.msgcontent=message.body;
+    msg.msgcontent=[self getMessageBody:message.body];
     msg.msgdate=[NSDate date];
     [[HCMessageDataTool sharedHCMessageDataTool].context save:nil];
     [_context save:nil];
@@ -88,10 +88,31 @@ singleton_implementation(HCMessageDataTool)
 #pragma mark 更新一个会话
 -(void)updateMessage:(HCMessage *)message xmppmessage:(XMPPMessage *)xmppmessage
 {
-    message.msgcontent=xmppmessage.body;
+    message.msgcontent=[self getMessageBody:xmppmessage.body];
     message.msgdate=[NSDate date];
     NSLog(@"%@",message.msgdate);
     [_context save:nil];
+}
+
+#pragma mark 获取消息内容
+-(NSString *)getMessageBody:(NSString *)msgbody;
+{
+    NSString *body=msgbody;
+    if([body hasPrefix:@"|file|"])
+    {
+        NSRange range=NSMakeRange(6, 1);
+        //获取文件类型
+        int filetype=[[body substringWithRange:range] intValue];
+        if(filetype==1)
+        {
+            return @"图片";
+        }
+        else if(filetype==2)
+            return @"语音";
+        else
+            return @"文件";
+    }
+    return body;
 }
 
 #pragma mark 查看数据中是否有此用户的记录，如果有，则更新消息内容和时间，如果没有，则插入信记录

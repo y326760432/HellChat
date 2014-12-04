@@ -22,6 +22,9 @@
 #import "UIImage+YGCCategory.h"
 #import "HCLocationTool.h"
 #import "MBProgressHUD.h"
+#import "AFNetWorking.h"
+#define kUpLoadFilePath @"FileUpLoad.aspx"
+#import "NSDate+YGCCategory.h"
 #define kInputBarHeight 44 //输入条高度
 
 @interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate>
@@ -41,6 +44,8 @@
     HCFileInputView *_fileInputView;//文件输入视图
     HCLocationTool *_locationtool;//定位工具
     MBProgressHUD *_locationhub;//定位加载动画
+    AFHTTPClient *_afHttpClient;//AFHTTPClient
+    
 }
 @end
 
@@ -71,6 +76,9 @@
     //初始化定位工具并设置代理
     _locationtool=[HCLocationTool sharedHCLocationTool];
     _locationtool.delegate=self;
+    
+    //初始化网络连接
+    _afHttpClient=[[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     
 }
 
@@ -500,11 +508,10 @@
 -(void)FileInputViewImgLib:(HCFileInputView *)FileInputView
 {
     UIImagePickerController *imgcontroller=[[UIImagePickerController alloc]init];
-    imgcontroller.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+    imgcontroller.sourceType=UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     imgcontroller.delegate=self;
-    //imgcontroller.allowsEditing=YES;
     [self presentViewController:imgcontroller animated:YES completion:^{
-        
+        [_txtMsg resignFirstResponder];
     }];
 
 }
@@ -525,7 +532,36 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *img=info[@"UIImagePickerControllerOriginalImage"];
+    [self sendImage:img];
+}
+
+#pragma mark 发送图片
+-(void)sendImage:(UIImage *)img
+{
+    NSData *data=UIImagePNGRepresentation(img);
+    //时间
+    NSString *datestr= [[NSDate date] toStringWithFormater:@"yyMMdd_HHmmsshh"];
+    //拼接图片文件名称:发送人to接受人_时间.扩展名
+    NSString *filename=[NSString stringWithFormat:@"%@to%@_%@.png",kmyJidStr,_user.jidStr,datestr];
+    [self sendFileWithData:data filetype:1 filename:filename];
+}
+
+#pragma mark 发送文件1=图片，2=语音文件
+-(void)sendFileWithData:(NSData *)data filetype:(int)filetype filename:(NSString *)filename
+{
+    NSMutableURLRequest *request=[_afHttpClient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(filetype)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+       
+        [formData appendPartWithFileData:data name:@"image" fileName:filename mimeType:@"image/png"];
+    }];
     
+    AFJSONRequestOperation *operation=[AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        [self sendMsgWithStr:[NSString stringWithFormat:@"|file|%d|%@/ChatImages/%@",filetype,kBaseUrl,filename]];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        
+    }];
+    [operation start];
 }
 
 #pragma mark 发送位置

@@ -10,7 +10,7 @@
 #import "HCRoundImageView.h"
 #import "UIImage+YGCCategory.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "UIImageView+WebCache.h"
 #define kmargin_x 10 //每条消息距离Cell的左距离和右距离为10
 #define kmargin_y 10 //每条消息距离Cell的顶部距离为10
 #define kphoto_size 50 //头像大小
@@ -23,6 +23,7 @@
     UIImage *_send_pressimg;//发送信息点击后状态背景
     UIImage *_recive_norimg;//接收信息默认状态背景
     UIImage *_recive_pressimg;//接受信息点击后状态背景
+    UIImageView *_imageview;
 }
 @end
 
@@ -49,6 +50,12 @@
         _msgbutton.titleEdgeInsets=UIEdgeInsetsMake(10, 20, 10,20);
         [_msgbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_msgbutton];
+        
+        _imageview=[[UIImageView alloc]init];
+        _imageview.frame=CGRectMake(25, 20, 10, 20);
+        _imageview.contentMode=UIViewContentModeScaleAspectFit;
+        [_msgbutton addSubview:_imageview];
+        
         //创建聊天信息背景图片
         _send_norimg=[UIImage resizedImage:@"chat_send_nor.png"];
         _send_pressimg=[UIImage resizedImage:@"chat_send_press_pic.png"];
@@ -70,21 +77,43 @@
 
 -(void)setMessage:(NSString *)msg
 {
-    [_msgbutton setTitle:msg forState:UIControlStateNormal];
-    
-    //计算文字宽高
-    CGSize msgsize=[msg sizeWithFont:_msgbutton.titleLabel.font constrainedToSize:CGSizeMake(180, MAXFLOAT)];
-    
     CGRect btnframe=_msgbutton.frame;
-    btnframe.size.width=msgsize.width+40;
-    btnframe.size.height=msgsize.height+40;
-    if(btnframe.size.width<kbuttonWith)
-        btnframe.size.width=kbuttonWith;
-    if(btnframe.size.height<kbuttonHeight)
-        btnframe.size.height=kbuttonHeight;
-    
     CGRect photoframe=_photoimgv.frame;
-   
+    _imageview.hidden=YES;
+    if([msg hasPrefix:@"|file|"])
+    {
+        NSRange range=NSMakeRange(6, 1);
+        //获取文件类型
+        int filetype=[[msg substringWithRange:range] intValue];
+        if(filetype==1)
+        {
+           
+            _imageview.hidden=NO;
+            NSString *url=[msg substringFromIndex:8];
+            NSLog(@"%@",url);
+            btnframe.size.width=200;
+            btnframe.size.height=230;
+            CGRect imgframe=_imageview.frame;
+            imgframe.size.height=170;
+            imgframe.size.width=150;
+            _imageview.frame=imgframe;
+            [_imageview setImageWithURL:[NSURL URLWithString:url]];
+        }
+    }
+    else
+    {
+        [_msgbutton setTitle:msg forState:UIControlStateNormal];
+        //计算文字宽高
+        CGSize msgsize=[msg sizeWithFont:_msgbutton.titleLabel.font constrainedToSize:CGSizeMake(180, MAXFLOAT)];
+        
+       
+        btnframe.size.width=msgsize.width+40;
+        btnframe.size.height=msgsize.height+40;
+        if(btnframe.size.width<kbuttonWith)
+            btnframe.size.width=kbuttonWith;
+        if(btnframe.size.height<kbuttonHeight)
+            btnframe.size.height=kbuttonHeight;
+    }
     //设置背景图片
     if(_isOutgoing)
     {

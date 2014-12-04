@@ -23,8 +23,11 @@
 
 //服务器IP
 #define kHostName @"121.41.37.62"
+
 //服务名称 拼接JID的时候时候 xxx@Ygcserver
 #define kServerName @"@Ygcserver"
+
+#define kBaseUrl @"http://121.41.37.62"
 
 //登录人JID字符串
 #define kmyJidStr [HCLoginUserTool sharedHCLoginUserTool].loginUser.JID
