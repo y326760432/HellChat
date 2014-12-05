@@ -15,6 +15,7 @@
 #define kmargin_y 10 //每条消息距离Cell的顶部距离为10
 #define kphoto_size 50 //头像大小
 #define kcornerRadius kphoto_size*0.5 //头像圆角半径
+#define kImageDirPaht @"ChatImages" //服务器图片存放文件夹
 @interface HCChatCell ()
 {
     UIImageView *_photoimgv;//头像
@@ -51,8 +52,8 @@
         [self.contentView addSubview:_msgbutton];
         
         _imageview=[[UIImageView alloc]init];
-        _imageview.frame=CGRectMake(25, 10, 10, 20);
-        _imageview.contentMode=UIViewContentModeScaleAspectFit;
+        _imageview.frame=CGRectMake(15, 13, 10, 20);
+        //_imageview.contentMode=UIViewContentModeScaleAspectFit;
         [_msgbutton addSubview:_imageview];
         
         //创建聊天信息背景图片
@@ -76,7 +77,7 @@
 
 -(void)setMessage:(NSString *)msg
 {
-    CGRect btnframe=_msgbutton.frame;
+   __block CGRect btnframe=_msgbutton.frame;
     CGRect photoframe=_photoimgv.frame;
     _imageview.hidden=YES;
     if([msg hasPrefix:@"|file|"])
@@ -89,13 +90,26 @@
            
             _imageview.hidden=NO;
             NSString *url=[msg substringFromIndex:8];
-            btnframe.size.width=200;
-            btnframe.size.height=230;
-            CGRect imgframe=_imageview.frame;
-            imgframe.size.height=170;
-            imgframe.size.width=150;
+            url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageDirPaht,url];
+           __block CGRect imgframe=_imageview.frame;
+            imgframe.size.height=100;
+            imgframe.size.width=100;
             _imageview.frame=imgframe;
-            [_imageview setImageWithURL:[NSURL URLWithString:url]];
+            __weak UIImageView *imageview=_imageview;
+            __weak UIButton *button=_msgbutton;
+            btnframe.size.width=130;
+            btnframe.size.height=130;
+            [_imageview setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"chat_images_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                    NSLog(@"%@",NSStringFromCGSize(image.size));
+                    imgframe.size.height=image.size.height;
+                    imgframe.size.width=image.size.width;
+                    imageview.frame=imgframe;
+                    btnframe.size.width=image.size.width+30;
+                    btnframe.size.height=image.size.height+30;
+                    button.frame=btnframe;
+            }];
+           
+           
         }
     }
     else
@@ -103,8 +117,6 @@
         [_msgbutton setTitle:msg forState:UIControlStateNormal];
         //计算文字宽高
         CGSize msgsize=[msg sizeWithFont:_msgbutton.titleLabel.font constrainedToSize:CGSizeMake(180, MAXFLOAT)];
-        
-       
         btnframe.size.width=msgsize.width+40;
         btnframe.size.height=msgsize.height+40;
         if(btnframe.size.width<kbuttonWith)

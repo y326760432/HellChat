@@ -247,7 +247,7 @@
         int filetype=[[message.body substringWithRange:NSMakeRange(6, 1)] intValue];
         //图片消息
         if(filetype==1)
-            return 230;
+            return 130;
         else
             return kbuttonHeight;
     }
@@ -546,7 +546,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *img=img=info[@"UIImagePickerControllerOriginalImage"];
     NSLog(@"%@",NSStringFromCGSize(img.size));
-    UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(93, 93)];
+    UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(100, 100)];
     if(img)
         [self sendImage:smallImage];
 }
@@ -556,10 +556,34 @@
 {
     UIImage *newimage;
     if (nil == image)
-    {        newimage = nil;    }    else{        CGSize oldsize = image.size;        CGRect rect;        if (asize.width/asize.height > oldsize.width/oldsize.height) {            rect.size.width = asize.height*oldsize.width/oldsize.height;            rect.size.height = asize.height;            rect.origin.x = (asize.width - rect.size.width)/2;            rect.origin.y = 0;        }        else{            rect.size.width = asize.width;            rect.size.height = asize.width*oldsize.height/oldsize.width;            rect.origin.x = 0;            rect.origin.y = (asize.height - rect.size.height)/2;        }        UIGraphicsBeginImageContext(asize);        CGContextRef context = UIGraphicsGetCurrentContext();        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
-    [image drawInRect:rect];
-    newimage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    {
+        newimage = nil;
+    }
+    else{
+        CGSize oldsize = image.size;
+        CGRect rect;
+        if (asize.width/asize.height > oldsize.width/oldsize.height)
+        {
+            rect.size.width = asize.height*(oldsize.width/oldsize.height);
+            rect.size.height = asize.height;
+            rect.origin.x =0;
+            rect.origin.y = 0;
+        }
+        else
+        {
+            rect.size.width = asize.width;
+            rect.size.height = asize.width*oldsize.height/oldsize.width;
+            rect.origin.x = 0;
+            rect.origin.y = (asize.height - rect.size.height)/2;
+        }
+        UIGraphicsBeginImageContext(rect.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+        UIRectFill(CGRectMake(0, 0, rect.size.width, asize.height));
+        //clear background
+        [image drawInRect:rect];
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     }
     return newimage;
 }
@@ -567,26 +591,39 @@
 #pragma mark 发送图片
 -(void)sendImage:(UIImage *)img
 {
+    NSData *oridata=UIImageJPEGRepresentation(img, 1);
     NSData *data=UIImageJPEGRepresentation(img, 0.75);
     //时间
     NSString *datestr= [[NSDate date] toStringWithFormater:@"yyMMdd_HHmmsshh"];
     //拼接图片文件名称:发送人to接受人_时间.扩展名
     NSString *filename=[NSString stringWithFormat:@"%@to%@_%@.png",kmyJidStr,_user.jidStr,datestr];
-    [self sendFileWithData:data filetype:1 filename:filename];
+    [self sendFileWithData:data oridata:oridata filetype:1 filename:filename];
 }
 
 #pragma mark 发送文件1=图片，2=语音文件
--(void)sendFileWithData:(NSData *)data filetype:(int)filetype filename:(NSString *)filename
+-(void)sendFileWithData:(NSData *)data oridata:(NSData *)oridata filetype:(int)filetype filename:(NSString *)filename
 {
     NSMutableURLRequest *request=[_afHttpClient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(filetype)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
        
-        [formData appendPartWithFileData:data name:@"image" fileName:filename mimeType:@"image/png"];
+        if(filetype==1)
+        {
+            [formData appendPartWithFileData:data name:@"image" fileName:filename mimeType:@"image/png"];
+            if(oridata!=nil)
+            {
+                [formData appendPartWithFileData:oridata name:@"imageori" fileName:filename mimeType:@"image/png"];
+            }
+        }
     }];
-    
+
     AFJSONRequestOperation *operation=[AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        [self sendMsgWithStr:[NSString stringWithFormat:@"|file|%d|%@/ChatImages/%@",filetype,kBaseUrl,filename]];
+        [self sendMsgWithStr:[NSString stringWithFormat:@"|file|%d|%@",filetype,filename]];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         
+    }];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        NSLog(@"%d",bytesWritten);
+        NSLog(@"%lld",totalBytesWritten);
+        NSLog(@"%lld",totalBytesExpectedToWrite);
     }];
     [operation start];
 }
