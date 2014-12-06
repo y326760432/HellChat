@@ -41,7 +41,10 @@ singleton_implementation(HCSoundTool)
 {
     if(_newMsgId)
     {
-        AudioServicesPlaySystemSound(_newMsgId);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              AudioServicesPlaySystemSound(_newMsgId);
+        });
+      
     }
 }
 

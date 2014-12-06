@@ -52,7 +52,9 @@
         [self.contentView addSubview:_msgbutton];
         
         _imageview=[[UIImageView alloc]init];
-        _imageview.frame=CGRectMake(15, 13, 10, 20);
+        _imageview.frame=CGRectMake(13, 10, 10, 20);
+        _imageview.layer.masksToBounds=YES;
+        _imageview.layer.cornerRadius=10;
         //_imageview.contentMode=UIViewContentModeScaleAspectFit;
         [_msgbutton addSubview:_imageview];
         
@@ -97,15 +99,15 @@
             _imageview.frame=imgframe;
             __weak UIImageView *imageview=_imageview;
             __weak UIButton *button=_msgbutton;
-            btnframe.size.width=130;
-            btnframe.size.height=130;
+            btnframe.size.width=imgframe.size.width+24;;
+            btnframe.size.height=imgframe.size.height+20;
             [_imageview setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"chat_images_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                     NSLog(@"%@",NSStringFromCGSize(image.size));
-                    imgframe.size.height=image.size.height;
-                    imgframe.size.width=image.size.width;
+                    imgframe.size.height=image.size.height*0.5;
+                    imgframe.size.width=image.size.width*0.5;
                     imageview.frame=imgframe;
-                    btnframe.size.width=image.size.width+30;
-                    btnframe.size.height=image.size.height+30;
+                    btnframe.size.width=imgframe.size.width+26;
+                    btnframe.size.height=imgframe.size.height+20;
                     button.frame=btnframe;
             }];
            

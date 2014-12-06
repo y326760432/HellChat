@@ -122,8 +122,7 @@
     //2.2添加语音按钮
     _btnvolice=[UIButton buttonWithType:UIButtonTypeCustom];
     _btnvolice.frame=CGRectMake(margin_x, margin_y,size,size);
-    [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
-    [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
+    [self setBtnVoiceIcon];
     [_btnvolice addTarget:self action:@selector(btnvoliceclick:) forControlEvents:UIControlEventTouchUpInside];
     [_inputBar addSubview:_btnvolice];
     
@@ -149,8 +148,7 @@
     //2.5添加表情按钮
     max_x=CGRectGetMaxX(_txtMsg.frame)+panding;
     _btnexpression=[UIButton buttonWithType:UIButtonTypeCustom];
-    [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
-    [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
+    [self setBtnSmileIcon];
     _btnexpression.frame=CGRectMake(max_x, margin_y, size, size);
     [_btnexpression addTarget:self action:@selector(btnexpressionclick:) forControlEvents:UIControlEventTouchUpInside];
     [_inputBar addSubview:_btnexpression];
@@ -158,8 +156,7 @@
     //2.6添加发送文件按钮
     max_x=CGRectGetMaxX(_btnexpression.frame)+panding;
     _btnFile=[UIButton buttonWithType:UIButtonTypeCustom];
-    [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
-    [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
+    [self setBtnFileIcon];
     [_btnFile addTarget:self action:@selector(btnFileclick:) forControlEvents:UIControlEventTouchUpInside];
     _btnFile.frame=CGRectMake(max_x, margin_y, size, size);
     [_inputBar addSubview:_btnFile];
@@ -211,7 +208,7 @@
     CGFloat duration=[nofification.userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];
     
     //如果键盘的y等于屏幕的总高度，则表示键盘将要隐藏，设置输入视图距离底部距离为0
-    if(keyboardframe.origin.y==[UIScreen mainScreen].bounds.size.height)
+    if(keyboardframe.origin.y>=[UIScreen mainScreen].bounds.size.height)
     {
         inputbarframe.origin.y=kselfviewsize.height-kInputBarHeight;
         tableviewframe.origin.y=0;
@@ -247,7 +244,7 @@
         int filetype=[[message.body substringWithRange:NSMakeRange(6, 1)] intValue];
         //图片消息
         if(filetype==1)
-            return 130;
+            return 120;
         else
             return kbuttonHeight;
     }
@@ -369,16 +366,12 @@
         _txtMsg.hidden=YES;
         [_txtMsg resignFirstResponder];
         
-        [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
-        [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
-        
-        [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
-        [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
+        [self setBtnSmileIcon];
+        [self setBtnFileIcon];
     }
     else
     {
-        [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
-        [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
+        [self setBtnVoiceIcon];
         _btnspeak.hidden=YES;
         _txtMsg.hidden=NO;
         _txtMsg.inputView=nil;
@@ -392,6 +385,7 @@
 {
    
 }
+
 
 #pragma mark 表情按钮点击
 -(void)btnexpressionclick:(UIButton *)sender
@@ -411,22 +405,39 @@
         _txtMsg.inputView=_emojiInputView;
         [sender setBackgroundImage:_keyboardimgnor forState:UIControlStateNormal];
         [sender setBackgroundImage:_keyboardimgpress forState:UIControlStateHighlighted];
-        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
-        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
-        [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
-        [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
-       
+        [self setBtnVoiceIcon];
+        [self setBtnFileIcon];
     }
     else
     {
         _txtMsg.inputView=nil;
-        [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
-        [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
+        [self setBtnSmileIcon];
     }
 
     [_txtMsg becomeFirstResponder];
     [_txtMsg reloadInputViews];
 
+}
+
+#pragma mark设置文件按钮图标
+-(void)setBtnFileIcon
+{
+    [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
+    [_btnFile setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
+}
+
+#pragma mark 设置语音按钮图标
+-(void)setBtnVoiceIcon
+{
+    [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
+    [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
+}
+
+#pragma makr 设置表情按钮图标
+-(void)setBtnSmileIcon
+{
+    [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
+    [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
 }
 
 #pragma mark 表情视图代理
@@ -523,6 +534,7 @@
     imgcontroller.delegate=self;
     [self presentViewController:imgcontroller animated:YES completion:^{
         [_txtMsg resignFirstResponder];
+        [self setBtnFileIcon];
     }];
 
 }
@@ -538,18 +550,25 @@
     UIImagePickerController *imgpickcontroller=[[UIImagePickerController alloc]init];
     imgpickcontroller.sourceType=UIImagePickerControllerSourceTypeCamera;
     imgpickcontroller.delegate=self;
-    [self.navigationController presentViewController:imgpickcontroller animated:YES completion:nil];
+    [self.navigationController presentViewController:imgpickcontroller animated:YES completion:^{
+         [_txtMsg resignFirstResponder];
+        [self setBtnFileIcon];
+    }];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [_txtMsg resignFirstResponder];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [_txtMsg resignFirstResponder];
+    }];
     UIImage *img=img=info[@"UIImagePickerControllerOriginalImage"];
     NSLog(@"%@",NSStringFromCGSize(img.size));
-    UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(100, 100)];
+    UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(200, 200)];
     if(img)
         [self sendImage:smallImage];
 }
+
 
 //2.保持原来的长宽比，生成一个缩略图
 - (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
