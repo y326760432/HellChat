@@ -10,10 +10,20 @@
 #import "Singleton.h"
 #define kDBFileName @"HelloChat.db"//数据库文件名称
 #define kMsgEntityName @"HCMessage"//实体名称
+
+//消息类型枚举
+typedef enum {
+    HCMsgTypeTEXT,
+    HCMsgTypeIMAGE,
+    HCMsgTypeVOICE,
+} HCMsgType;
+
 @class XMPPMessage;
 @class NSManagedObjectContext;
 @class HCMessage;
 @interface HCMessageDataTool : NSObject
+
+
 
 singleton_interface(HCMessageDataTool)
 
@@ -30,5 +40,15 @@ singleton_interface(HCMessageDataTool)
  删除会话记录
  */
 -(void)delMessage:(HCMessage *)message;
+
+/**
+ 根据消息内容获取消息类型
+ */
+-(HCMsgType)getMsgTypeWithMessage:(NSString *)msg;
+
+/**
+ 获取消息里面的文件名
+ */
+-(NSString *)getMsgFilename:(NSString *)msg;
 
 @end

@@ -98,21 +98,42 @@ singleton_implementation(HCMessageDataTool)
 -(NSString *)getMessageBody:(NSString *)msgbody;
 {
     NSString *body=msgbody;
-    if([body hasPrefix:@"|file|"])
+    HCMsgType type=[self getMsgTypeWithMessage:msgbody];
+    if(type==HCMsgTypeIMAGE)
+        return @"图片";
+    else if (type==HCMsgTypeVOICE)
+        return @"语音";
+    else
+       return body;
+}
+
+#pragma marak 获取消息类型
+-(HCMsgType)getMsgTypeWithMessage:(NSString *)msg
+{
+    if([msg hasPrefix:@"|file|"])
     {
         NSRange range=NSMakeRange(6, 1);
         //获取文件类型
-        int filetype=[[body substringWithRange:range] intValue];
+        int filetype=[[msg substringWithRange:range] intValue];
         if(filetype==1)
         {
-            return @"图片";
+            return HCMsgTypeIMAGE;//图片
         }
         else if(filetype==2)
-            return @"语音";
-        else
-            return @"文件";
+            return HCMsgTypeVOICE;//语音
     }
-    return body;
+    return HCMsgTypeTEXT;
+}
+
+#pragma marak 获取消息内容的文件名，图片消息和语音消息
+-(NSString *)getMsgFilename:(NSString *)msg
+{
+     HCMsgType type=[self getMsgTypeWithMessage:msg];
+    if(type==HCMsgTypeIMAGE||type==HCMsgTypeVOICE)
+    {
+        return [msg substringFromIndex:8];
+    }
+    return nil;
 }
 
 #pragma mark 查看数据中是否有此用户的记录，如果有，则更新消息内容和时间，如果没有，则插入信记录

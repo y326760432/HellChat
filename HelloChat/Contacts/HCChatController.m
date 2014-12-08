@@ -23,11 +23,14 @@
 #import "HCLocationTool.h"
 #import "MBProgressHUD.h"
 #import "AFNetWorking.h"
-#define kUpLoadFilePath @"FileUpLoad.aspx"
 #import "NSDate+YGCCategory.h"
+#import "RecorderManager.h"
+#import "PlayerManager.h"
+#define kUpLoadFilePath @"FileUpLoad.aspx"
+
 #define kInputBarHeight 44 //输入条高度
 
-@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,RecordingDelegate,PlayingDelegate>
 {
     //查询结果控制器
     NSFetchedResultsController *_fetchedresultsController;
@@ -45,7 +48,7 @@
     HCLocationTool *_locationtool;//定位工具
     MBProgressHUD *_locationhub;//定位加载动画
     AFHTTPClient *_afHttpClient;//AFHTTPClient
-    
+    MBProgressHUD *_recordhub;//录音遮住层
 }
 @end
 
@@ -140,7 +143,8 @@
     [_btnspeak setTitle:@"按住说话" forState:UIControlStateNormal];
     _btnspeak.titleLabel.font=kFont(15);
     [_btnspeak setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [_btnspeak addTarget:self action:@selector(btnspeakclick:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnspeak addTarget:self action:@selector(btnspeakclick:) forControlEvents:UIControlEventTouchDown];
+    [_btnspeak addTarget:self action:@selector(btnspeaktouchup:) forControlEvents:UIControlEventTouchUpInside];
     _btnspeak.frame=_txtMsg.frame;
     _btnspeak.hidden=YES;
     [_inputBar addSubview:_btnspeak];
@@ -380,11 +384,53 @@
     
 }
 
-#pragma mark 说话按钮点击
+#pragma mark 说话按钮点击 ，开始录音
 -(void)btnspeakclick:(UIButton *)sender
 {
-   
+   if(_recordhub==nil)
+   {
+       _recordhub=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+       _recordhub.labelText=@"正在录音";
+   }
+    [_recordhub show:YES];
+    [RecorderManager sharedManager].delegate = self;
+    NSString *datestr=[[NSDate date] toStringWithFormater:@"yyMMdd_HHmmsshh"];
+    NSString *filename=[NSString stringWithFormat:@"%@to%@_%@",kmyJidStr,_user.jidStr,datestr];
+    [[RecorderManager sharedManager] startRecordingWithFileName:filename];
 }
+
+#pragma mark 松开按钮说话按钮，发送语音
+-(void)btnspeaktouchup:(UIButton *)sender
+{
+    //停止录音
+    [[RecorderManager sharedManager] stopRecording];
+    [_recordhub hide:YES];
+}
+
+#pragma marak 结束录音
+-(void)recordingFinishedWithFileName:(NSString *)filePath time:(NSTimeInterval)interval
+{
+    NSLog(@"%@",filePath);
+    
+    NSData *data=[NSData dataWithContentsOfFile:filePath];
+    if(data)
+    {
+        NSString *filename=[filePath substringFromIndex:[filePath rangeOfString:@"/" options:NSBackwardsSearch].location+1];
+        [self sendFileWithData:data oridata:nil filetype:2 filename:filename];
+    }
+}
+
+-(void)recordingStopped
+{
+    
+}
+
+-(void)recordingFailed:(NSString *)failureInfoString
+{
+    NSLog(@"录音出错---%@",failureInfoString);
+    [_recordhub hide:YES];
+}
+
 
 
 #pragma mark 表情按钮点击
@@ -563,10 +609,9 @@
         [_txtMsg resignFirstResponder];
     }];
     UIImage *img=img=info[@"UIImagePickerControllerOriginalImage"];
-    NSLog(@"%@",NSStringFromCGSize(img.size));
     UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(200, 200)];
     if(img)
-        [self sendImage:smallImage];
+        [self sendImage:smallImage oriimg:img];
 }
 
 
@@ -608,9 +653,9 @@
 }
 
 #pragma mark 发送图片
--(void)sendImage:(UIImage *)img
+-(void)sendImage:(UIImage *)img oriimg:(UIImage *)oriimg
 {
-    NSData *oridata=UIImageJPEGRepresentation(img, 1);
+    NSData *oridata=UIImageJPEGRepresentation(oriimg, 1);
     NSData *data=UIImageJPEGRepresentation(img, 0.75);
     //时间
     NSString *datestr= [[NSDate date] toStringWithFormater:@"yyMMdd_HHmmsshh"];
@@ -624,7 +669,7 @@
 {
     NSMutableURLRequest *request=[_afHttpClient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(filetype)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
        
-        if(filetype==1)
+        if(filetype>0)
         {
             [formData appendPartWithFileData:data name:@"image" fileName:filename mimeType:@"image/png"];
             if(oridata!=nil)

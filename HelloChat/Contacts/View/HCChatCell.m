@@ -11,6 +11,8 @@
 #import "UIImage+YGCCategory.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
+#import "HCMessageDataTool.h"
+#import "HCSoundTool.h"
 #define kmargin_x 10 //每条消息距离Cell的左距离和右距离为10
 #define kmargin_y 10 //每条消息距离Cell的顶部距离为10
 #define kphoto_size 50 //头像大小
@@ -25,6 +27,7 @@
     UIImage *_recive_norimg;//接收信息默认状态背景
     UIImage *_recive_pressimg;//接受信息点击后状态背景
     UIImageView *_imageview;
+    NSString *_msg;//消息内容
 }
 @end
 
@@ -48,6 +51,7 @@
         _msgbutton.titleLabel.numberOfLines=0;
         _msgbutton.titleLabel.font=kFont(15);
         _msgbutton.titleEdgeInsets=UIEdgeInsetsMake(10, 20, 10,20);
+        [_msgbutton addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
         [_msgbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_msgbutton];
         
@@ -79,20 +83,19 @@
 
 -(void)setMessage:(NSString *)msg
 {
+    _msg=msg;
    __block CGRect btnframe=_msgbutton.frame;
     CGRect photoframe=_photoimgv.frame;
     _imageview.hidden=YES;
-    if([msg hasPrefix:@"|file|"])
+    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:msg];
+    if(msgtype>0)
     {
-        NSRange range=NSMakeRange(6, 1);
-        //获取文件类型
-        int filetype=[[msg substringWithRange:range] intValue];
-        if(filetype==1)
+        if(msgtype==HCMsgTypeIMAGE)
         {
            
             _imageview.hidden=NO;
-            NSString *url=[msg substringFromIndex:8];
-            url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageDirPaht,url];
+            NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
+           NSString *url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageDirPaht,filename];
            __block CGRect imgframe=_imageview.frame;
             imgframe.size.height=100;
             imgframe.size.width=100;
@@ -102,7 +105,6 @@
             btnframe.size.width=imgframe.size.width+24;;
             btnframe.size.height=imgframe.size.height+20;
             [_imageview setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"chat_images_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                    NSLog(@"%@",NSStringFromCGSize(image.size));
                     imgframe.size.height=image.size.height*0.5;
                     imgframe.size.width=image.size.width*0.5;
                     imageview.frame=imgframe;
@@ -158,6 +160,20 @@
         _photoimgv.image=photo;
     else
         _photoimgv.image=[UIImage imageNamed:@"normalheadphoto.png"];
+}
+
+#pragma marak 按钮点击
+-(void)btnclick
+{
+    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool] getMsgTypeWithMessage:_msg];
+    if(msgtype==HCMsgTypeIMAGE)
+        NSLog(@"图片");
+    else if(msgtype==HCMsgTypeVOICE)
+    {
+        NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:_msg];
+        if(filename)
+           [[HCSoundTool sharedHCSoundTool] playVoiceMsgWihtFilename:filename];
+    }
 }
 
 @end

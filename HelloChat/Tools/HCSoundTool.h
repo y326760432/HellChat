@@ -17,4 +17,10 @@ singleton_interface(HCSoundTool)
  */
 -(void)playNewMsgSound;
 
+/**
+ 播放语音信息
+ */
+-(void)playVoiceMsgWihtFilename:(NSString *)filename;
+
+
 @end

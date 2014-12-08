@@ -29,5 +29,8 @@ singleton_interface(HCXMPPUserTool)
  */
 -(UIImage *)loaduserPhotoWithJid:(NSString *)jid;
 
+/**
+ 根据JID查找用户信息
+ */
 +(XMPPUserCoreDataStorageObject *)getUserCoreDataObjectWithJidStr:(NSString *)jidstr;
 @end

@@ -9,11 +9,12 @@
 #import "HCSoundTool.h"
 #import "Singleton.h"
 #import <AudioToolbox/AudioToolbox.h>
-
-@interface HCSoundTool ()
+#import "PlayerManager.h"
+@interface HCSoundTool ()<PlayingDelegate>
 {
     SystemSoundID _newMsgId;//新消息提示音
 }
+@property (nonatomic, assign) BOOL isPlaying;
 @end
 
 @implementation HCSoundTool
@@ -46,6 +47,31 @@ singleton_implementation(HCSoundTool)
         });
       
     }
+}
+
+#pragma marak 播放语音消息
+-(void)playVoiceMsgWihtFilename:(NSString *)filename
+{
+    if ( ! self.isPlaying) {
+        [PlayerManager sharedManager].delegate = nil;
+        self.isPlaying = YES;
+        [[PlayerManager sharedManager] playAudioWithFileName:[self getfullPahtWihtFilename:filename] delegate:self];
+    }
+    else {
+        self.isPlaying = NO;
+        [[PlayerManager sharedManager] stopPlaying];
+    }
+}
+
+-(NSString *)getfullPahtWihtFilename:(NSString *)filename
+{
+    return [[kDocPath stringByAppendingPathComponent:@"voice"] stringByAppendingPathComponent:filename];
+}
+
+#pragma mark PlayingDelegate 代理 播放完成
+-(void)playingStoped
+{
+    
 }
 
 @end
