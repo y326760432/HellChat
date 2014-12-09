@@ -29,6 +29,13 @@
 
 #define kBaseUrl @"http://121.41.37.62"
 
+//上传文件的页面
+#define kUpLoadFilePath @"FileUpLoad.aspx"
+
+#define kImageServerDirPath @"ChatImages" //服务器图片存放文件夹
+#define kImageOriServerDirPath @"ChatImagesOri" //服务器原图片存放文件夹
+#define kVoiceServerDirPath @"ChatVoice" //服务器语音文件存放文件夹
+
 //登录人JID字符串
 #define kmyJidStr [HCLoginUserTool sharedHCLoginUserTool].loginUser.JID
 

@@ -22,5 +22,4 @@ singleton_interface(HCSoundTool)
  */
 -(void)playVoiceMsgWihtFilename:(NSString *)filename;
 
-
 @end

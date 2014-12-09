@@ -250,7 +250,7 @@
         if(filetype==1)
             return 120;
         else
-            return kbuttonHeight;
+            return kbuttonHeight+10;
     }
     else{
         //计算文字宽高 需要和HCChatCell方法一致

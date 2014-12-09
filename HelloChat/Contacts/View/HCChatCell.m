@@ -13,11 +13,12 @@
 #import "UIImageView+WebCache.h"
 #import "HCMessageDataTool.h"
 #import "HCSoundTool.h"
+#import "HCHttpTool.h"
 #define kmargin_x 10 //每条消息距离Cell的左距离和右距离为10
 #define kmargin_y 10 //每条消息距离Cell的顶部距离为10
 #define kphoto_size 50 //头像大小
 #define kcornerRadius kphoto_size*0.5 //头像圆角半径
-#define kImageDirPaht @"ChatImages" //服务器图片存放文件夹
+
 @interface HCChatCell ()
 {
     UIImageView *_photoimgv;//头像
@@ -90,12 +91,15 @@
     HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:msg];
     if(msgtype>0)
     {
+        //先恢复原始的frame
+        _imageview.frame=CGRectMake(13, 10, 10, 20);
+         _imageview.hidden=NO;
+        //下载本地文件
+        [[HCHttpTool sharedHCHttpTool]downLoadFileWithMessage:msg];
         if(msgtype==HCMsgTypeIMAGE)
         {
-           
-            _imageview.hidden=NO;
             NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
-           NSString *url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageDirPaht,filename];
+           NSString *url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageServerDirPath,filename];
            __block CGRect imgframe=_imageview.frame;
             imgframe.size.height=100;
             imgframe.size.width=100;
@@ -113,7 +117,16 @@
                     button.frame=btnframe;
             }];
            
-           
+        }
+        else
+        {
+            NSString *voiceimg=_isOutgoing?@"voice_send_icon_nor":@"voice_receive_icon_nor";
+            CGRect imgrect=_imageview.frame;
+            imgrect.size=CGSizeMake(24, 24);
+            imgrect.origin.y=(_msgbutton.frame.size.height-24)/2;
+            imgrect.origin.x=(_msgbutton.frame.size.width-24)/2;
+            _imageview.image=[UIImage imageNamed:voiceimg];
+            _imageview.frame=imgrect;
         }
     }
     else

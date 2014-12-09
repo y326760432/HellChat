@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define kbuttonWith 84 //消息内容最小宽度
+#define kbuttonWith 64 //消息内容最小宽度
 #define kbuttonHeight 56 //消息内容最小高度
 @interface HCChatCell : UITableViewCell
 
