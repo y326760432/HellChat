@@ -21,10 +21,13 @@ singleton_implementation(HCXMPPUserTool)
 {
     if(user.displayName)
     {
-        return user.displayName;
+        NSString *displayname=user.displayName;
+        if([displayname rangeOfString:@"@"].length>0)
+            return [user.displayName substringToIndex:[displayname rangeOfString:@"@"].location];
+        return displayname;
     }
     else
-        return user.jidStr;
+        return [user.jidStr substringToIndex:[user.jidStr rangeOfString:@"@"].location];
 }
 
 #pragma mark 加载用户头像

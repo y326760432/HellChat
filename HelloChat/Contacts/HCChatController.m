@@ -25,12 +25,12 @@
 #import "AFNetWorking.h"
 #import "NSDate+YGCCategory.h"
 #import "RecorderManager.h"
-#import "PlayerManager.h"
+#import "HCXMPPUserTool.h"
 #define kUpLoadFilePath @"FileUpLoad.aspx"
 
 #define kInputBarHeight 44 //输入条高度
 
-@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,RecordingDelegate,PlayingDelegate>
+@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,RecordingDelegate>
 {
     //查询结果控制器
     NSFetchedResultsController *_fetchedresultsController;
@@ -61,8 +61,9 @@
     
     [self setLayout];
     
+    
     //设置title
-    self.title=[NSString stringWithFormat:@"%@\n在线",_user.jidStr];
+    self.title=[[HCXMPPUserTool sharedHCXMPPUserTool]getDisplayNameWithUser:_user];
     
     //监听键盘位置即将改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -420,6 +421,13 @@
     }
 }
 
+#pragma mark录音超时
+-(void)recordingTimeout
+{
+    
+}
+
+#pragma mark 录音结束
 -(void)recordingStopped
 {
     
