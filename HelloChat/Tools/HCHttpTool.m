@@ -10,6 +10,7 @@
 #import "Singleton.h"
 #import "AFNetworking.h"
 #import "HCMessageDataTool.h"
+#import "HCFileTool.h"
 @interface HCHttpTool ()
 {
     AFHTTPClient *_httpclient;
@@ -33,58 +34,38 @@ singleton_implementation(HCHttpTool)
 {
     //获取消息类型
     HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:msg];
-    //获取文件类型
-    NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
-    [self downLoadFileWithFileName:filename filetype:msgtype];
+    if(msgtype>0)
+    {
+        if(![[HCFileTool sharedHCFileTool] fileExistsWihtMsg:msg])
+        {
+            [self downLoadFileWithFileName:msg];
+        }
+    }
 }
 
 #pragma mark 下载文件
--(void)downLoadFileWithFileName:(NSString *)filename filetype:(int)filetype
+-(void)downLoadFileWithFileName:(NSString *)msg
 {
-    if(filename==nil||filetype<=0)
+    //获取消息类型
+    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:msg];
+     NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
+    if(filename==nil||msgtype<=0)
         return;
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,[self getFileUrlOnServerWithType:filetype],filename]];
-
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@?filetype=%d&filename=%@",kBaseUrl,kDownLoadFilePath,msgtype,filename]];
+    NSLog(@"%@",url);
+    NSString *savepath=[[HCFileTool sharedHCFileTool] getFileSavePathWithMsg:msg];
     AFHTTPRequestOperation *oper=[[AFHTTPRequestOperation alloc]initWithRequest:[NSURLRequest requestWithURL:url]];
-    NSString *defaultDir=[self getFileDirectoryWithType:filetype];
-    NSString *savepath=[defaultDir stringByAppendingPathComponent:filename];
-    //如果文件存在，就不下载
-    if(![[NSFileManager defaultManager] fileExistsAtPath:savepath])
-    {
-            NSLog(@"url--%@",url);
-        oper.outputStream=[[NSOutputStream alloc ]initToFileAtPath:savepath append:NO];
-        [oper setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@下载成功",savepath);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@下载失败---%@",savepath,error.localizedDescription);
-        }];
-        [oper start];
-    }
+    oper.outputStream=[[NSOutputStream alloc ]initToFileAtPath:savepath append:NO];
+    [oper setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@下载成功",savepath);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@下载失败---%@",savepath,error.localizedDescription);
+    }];
+    [oper start];
 
 }
 
-#pragma mark 获取文件类型的默认文件夹路径
--(NSString *)getFileDirectoryWithType:(int)type
-{
-    
-    if(type==HCMsgTypeIMAGE)
-    {
-        NSString *imgdirpath=kAppendDocPath(@"image");
-        //如果文件夹不存在，则创建文件夹
-        if(![[NSFileManager defaultManager] fileExistsAtPath:imgdirpath])
-           [[NSFileManager defaultManager] createDirectoryAtPath:imgdirpath withIntermediateDirectories:YES attributes:nil error:nil];
-        return imgdirpath;
-    }
-    else if(type==HCMsgTypeVOICE)
-    {
-        NSString *imgdirpath=kAppendDocPath(@"voice");
-        //如果文件夹不存在，则创建文件夹
-        if(![[NSFileManager defaultManager] fileExistsAtPath:imgdirpath])
-            [[NSFileManager defaultManager] createDirectoryAtPath:imgdirpath withIntermediateDirectories:YES attributes:nil error:nil];
-        return imgdirpath;
-    }
-    return nil;
-}
+
 
 #pragma mark 获取文件类型在服务器存储的位置
 -(NSString *)getFileUrlOnServerWithType:(int)type

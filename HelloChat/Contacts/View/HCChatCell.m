@@ -14,6 +14,7 @@
 #import "HCMessageDataTool.h"
 #import "HCSoundTool.h"
 #import "HCHttpTool.h"
+#import "HCFileTool.h"
 #define kmargin_x 10 //每条消息距离Cell的左距离和右距离为10
 #define kmargin_y 10 //每条消息距离Cell的顶部距离为10
 #define kphoto_size 50 //头像大小
@@ -98,24 +99,45 @@
         [[HCHttpTool sharedHCHttpTool]downLoadFileWithMessage:msg];
         if(msgtype==HCMsgTypeIMAGE)
         {
-            NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
-           NSString *url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageServerDirPath,filename];
-           __block CGRect imgframe=_imageview.frame;
-            imgframe.size.height=100;
-            imgframe.size.width=100;
-            _imageview.frame=imgframe;
-            __weak UIImageView *imageview=_imageview;
-            __weak UIButton *button=_msgbutton;
-            btnframe.size.width=imgframe.size.width+24;;
-            btnframe.size.height=imgframe.size.height+20;
-            [_imageview setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"chat_images_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            __block CGRect imgframe=_imageview.frame;
+            //如果文件存储在本地，则显示本地图片资源
+            if([[HCFileTool sharedHCFileTool] fileExistsWihtMsg:msg])
+            {
+                NSString *savepath=[[HCFileTool sharedHCFileTool] getFileSavePathWithMsg:msg];
+                UIImage *image=[UIImage imageWithContentsOfFile:savepath];
+                _imageview.image=image;
+                if(image.size.height<100)
+                    imgframe.size=image.size;
+                else
+                {
                     imgframe.size.height=image.size.height*0.5;
                     imgframe.size.width=image.size.width*0.5;
-                    imageview.frame=imgframe;
-                    btnframe.size.width=imgframe.size.width+26;
-                    btnframe.size.height=imgframe.size.height+20;
-                    button.frame=btnframe;
-            }];
+                }
+                btnframe.size.width=imgframe.size.width+24;;
+                btnframe.size.height=imgframe.size.height+20;
+                _imageview.frame=imgframe;
+                _msgbutton.frame=btnframe;
+            }
+            else
+            {
+                NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
+                NSString *url=[NSString stringWithFormat:@"%@/%@/%@",kBaseUrl,kImageServerDirPath,filename];
+                imgframe.size.height=100;
+                imgframe.size.width=100;
+                _imageview.frame=imgframe;
+                __weak UIImageView *imageview=_imageview;
+                __weak UIButton *button=_msgbutton;
+                btnframe.size.width=imgframe.size.width+24;;
+                btnframe.size.height=imgframe.size.height+20;
+                [_imageview setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"chat_images_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                        imgframe.size.height=image.size.height*0.5;
+                        imgframe.size.width=image.size.width*0.5;
+                        imageview.frame=imgframe;
+                        btnframe.size.width=imgframe.size.width+26;
+                        btnframe.size.height=imgframe.size.height+20;
+                        button.frame=btnframe;
+                }];
+            }
            
         }
         else

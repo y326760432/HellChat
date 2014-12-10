@@ -31,6 +31,8 @@
 
 //上传文件的页面
 #define kUpLoadFilePath @"FileUpLoad.aspx"
+//下载文件的页面
+#define kDownLoadFilePath @"FileDownLoad.aspx"
 
 #define kImageServerDirPath @"ChatImages" //服务器图片存放文件夹
 #define kImageOriServerDirPath @"ChatImagesOri" //服务器原图片存放文件夹

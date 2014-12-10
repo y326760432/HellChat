@@ -406,6 +406,7 @@
 		5ACA1B071A0E024E006427D7 /* AppIcon-60*60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACA1B061A0E024E006427D7 /* AppIcon-60*60@2x.png */; };
 		5ACA1B0C1A0E04D4006427D7 /* AppIcon-29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACA1B0A1A0E04D4006427D7 /* AppIcon-29x29@2x.png */; };
 		5ACA1B0D1A0E04D4006427D7 /* AppIcon-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACA1B0B1A0E04D4006427D7 /* AppIcon-40x40@2x.png */; };
+		5AFCC75A1A387C69004C7DD3 /* HCFileTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFCC7591A387C69004C7DD3 /* HCFileTool.m */; };
 		5AFDEF431A18B82300C7B27C /* HCRoundImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFDEF421A18B82300C7B27C /* HCRoundImageView.m */; };
 		5AFDEF4B1A18CDF100C7B27C /* chat_send_dim@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFDEF481A18CDF100C7B27C /* chat_send_dim@2x.png */; };
 		5AFDEF4C1A18CDF100C7B27C /* chat_send_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFDEF491A18CDF100C7B27C /* chat_send_nor@2x.png */; };
@@ -1133,6 +1134,8 @@
 		5ACA1B091A0E032D006427D7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5ACA1B0A1A0E04D4006427D7 /* AppIcon-29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-29x29@2x.png"; sourceTree = "<group>"; };
 		5ACA1B0B1A0E04D4006427D7 /* AppIcon-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-40x40@2x.png"; sourceTree = "<group>"; };
+		5AFCC7581A387C69004C7DD3 /* HCFileTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCFileTool.h; sourceTree = "<group>"; };
+		5AFCC7591A387C69004C7DD3 /* HCFileTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCFileTool.m; sourceTree = "<group>"; };
 		5AFDEF411A18B82300C7B27C /* HCRoundImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCRoundImageView.h; sourceTree = "<group>"; };
 		5AFDEF421A18B82300C7B27C /* HCRoundImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCRoundImageView.m; sourceTree = "<group>"; };
 		5AFDEF481A18CDF100C7B27C /* chat_send_dim@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_send_dim@2x.png"; sourceTree = "<group>"; };
@@ -1391,6 +1394,8 @@
 				5A44AA0B1A2B17F90088E02B /* HCMessageDataTool.m */,
 				5A23B3D01A3727F300FAFB68 /* HCHttpTool.h */,
 				5A23B3D11A3727F300FAFB68 /* HCHttpTool.m */,
+				5AFCC7581A387C69004C7DD3 /* HCFileTool.h */,
+				5AFCC7591A387C69004C7DD3 /* HCFileTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -3163,6 +3168,7 @@
 				5A7DFAB21A35CC6B00282359 /* hexc_10_32_table.c in Sources */,
 				5A7DFA9F1A35CC6B00282359 /* RawAudioDataPlayer.m in Sources */,
 				5A987D231A0486E600A71B46 /* XMPPvCardTempLabel.m in Sources */,
+				5AFCC75A1A387C69004C7DD3 /* HCFileTool.m in Sources */,
 				5A432A821A20329800B41F3E /* HCFileInputView.m in Sources */,
 				5A10EF081A308EC700E35E8C /* UIImage+WebP.m in Sources */,
 				5A7DFA9D1A35CC6B00282359 /* CAStreamBasicDescription.cpp in Sources */,

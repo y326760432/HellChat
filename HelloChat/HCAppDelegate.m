@@ -266,6 +266,12 @@
     [[HCMessageDataTool sharedHCMessageDataTool] addNewMessage:message];
     //播放音效
     [[HCSoundTool sharedHCSoundTool] playNewMsgSound];
+    
+    UILocalNotification *noti=[[UILocalNotification alloc]init];
+    noti.alertBody=message.body;
+    noti.fireDate=[NSDate date];
+    noti.applicationIconBadgeNumber=[UIApplication sharedApplication].applicationIconBadgeNumber+1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:noti];
 }
 
 #pragma mark 电子名片保存成功
@@ -378,7 +384,7 @@
 #pragma mark 重新获取焦点
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    
+    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
