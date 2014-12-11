@@ -54,6 +54,7 @@
 		5A2AC8481A31E7630039AFBC /* chat_images_default_wording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2AC8451A31E7630039AFBC /* chat_images_default_wording@2x.png */; };
 		5A2AC8491A31E7630039AFBC /* chat_images_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2AC8461A31E7630039AFBC /* chat_images_default@2x.png */; };
 		5A2AC84A1A31E7630039AFBC /* chat_images_failed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2AC8471A31E7630039AFBC /* chat_images_failed@2x.png */; };
+		5A3CC3631A39CBB8007F1B43 /* HCShowPicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3CC3621A39CBB8007F1B43 /* HCShowPicController.m */; };
 		5A3EE0891A2161480081C9C1 /* icon_nearby_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A3EE0871A2161480081C9C1 /* icon_nearby_arrow.png */; };
 		5A3EE08A1A2161480081C9C1 /* icon_nearby_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A3EE0881A2161480081C9C1 /* icon_nearby_arrow@2x.png */; };
 		5A3EE08D1A2161840081C9C1 /* img_nearby_group_session_arrow_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A3EE08B1A2161840081C9C1 /* img_nearby_group_session_arrow_up@2x.png */; };
@@ -503,6 +504,8 @@
 		5A2AC8451A31E7630039AFBC /* chat_images_default_wording@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_images_default_wording@2x.png"; sourceTree = "<group>"; };
 		5A2AC8461A31E7630039AFBC /* chat_images_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_images_default@2x.png"; sourceTree = "<group>"; };
 		5A2AC8471A31E7630039AFBC /* chat_images_failed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_images_failed@2x.png"; sourceTree = "<group>"; };
+		5A3CC3611A39CBB8007F1B43 /* HCShowPicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCShowPicController.h; sourceTree = "<group>"; };
+		5A3CC3621A39CBB8007F1B43 /* HCShowPicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCShowPicController.m; sourceTree = "<group>"; };
 		5A3EE0871A2161480081C9C1 /* icon_nearby_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_nearby_arrow.png; sourceTree = "<group>"; };
 		5A3EE0881A2161480081C9C1 /* icon_nearby_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_nearby_arrow@2x.png"; sourceTree = "<group>"; };
 		5A3EE08B1A2161840081C9C1 /* img_nearby_group_session_arrow_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_nearby_group_session_arrow_up@2x.png"; sourceTree = "<group>"; };
@@ -1840,6 +1843,8 @@
 				5A93E3C61A12552D002E0E4A /* HCAddContactController.m */,
 				5A91ED2B1A17909000874DDF /* HCChatController.h */,
 				5A91ED2C1A17909000874DDF /* HCChatController.m */,
+				5A3CC3611A39CBB8007F1B43 /* HCShowPicController.h */,
+				5A3CC3621A39CBB8007F1B43 /* HCShowPicController.m */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -3308,6 +3313,7 @@
 				5A7DFA9E1A35CC6B00282359 /* CAXException.cpp in Sources */,
 				5A7DFABB1A35CC6B00282359 /* ltp.c in Sources */,
 				5A987D0F1A0486E600A71B46 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
+				5A3CC3631A39CBB8007F1B43 /* HCShowPicController.m in Sources */,
 				5A987D251A0486E600A71B46 /* XMPPvCardTempTel.m in Sources */,
 				5A987D391A0486E600A71B46 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				5A987D131A0486E600A71B46 /* XMPPRoomMemoryStorage.m in Sources */,

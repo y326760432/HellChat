@@ -65,15 +65,30 @@ singleton_implementation(HCHttpTool)
 
 }
 
-
+-(void)downLoadFileWithFileName:(NSString *)filename msgType:(HCMsgType)msgType successBlock:(void (^)())successBlock faildBlock:(void (^)())faildBlock
+{
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@?filetype=%d&filename=%@",kBaseUrl,kDownLoadFilePath,msgType,filename]];
+    NSLog(@"%@",url);
+    NSString *savepath=[[HCFileTool sharedHCFileTool] getFullPahtWithFilename:filename msgType:msgType];
+    AFHTTPRequestOperation *oper=[[AFHTTPRequestOperation alloc]initWithRequest:[NSURLRequest requestWithURL:url]];
+    oper.outputStream=[[NSOutputStream alloc ]initToFileAtPath:savepath append:NO];
+    [oper setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@下载成功",savepath);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@下载失败---%@",savepath,error.localizedDescription);
+    }];
+    [oper start];
+}
 
 #pragma mark 获取文件类型在服务器存储的位置
 -(NSString *)getFileUrlOnServerWithType:(int)type
 {
-    if(type==HCMsgTypeIMAGE)
+    if(type==HCMsgTypeIMAGE)//缩略图
         return kImageServerDirPath;
-    else if(type==HCMsgTypeVOICE)
+    else if(type==HCMsgTypeVOICE)//语音
         return kVoiceServerDirPath;
+    else if(type==HSMsgTypeOriIMAGE)//原图
+        return kImageOriServerDirPath;
     return nil;
 }
 

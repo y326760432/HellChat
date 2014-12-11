@@ -8,6 +8,9 @@
 
 #import "HCFileTool.h"
 #import "HCMessageDataTool.h"
+#define kimgdirname @"image" //缩略图存储文件夹
+#define koriimgdirname @"oriimage" //大图存储文件夹
+#define kvoicedirname @"voice" //语音文件存储文件夹
 @implementation HCFileTool
 
 singleton_implementation(HCFileTool)
@@ -40,24 +43,40 @@ singleton_implementation(HCFileTool)
 }
 
 #pragma mark 获取文件类型的默认文件夹路径
--(NSString *)getFileDirectoryWithType:(int)type
+-(NSString *)getFileDirectoryWithType:(HCMsgType)type
 {
-    
-    if(type==HCMsgTypeIMAGE)
+    if(type>0)
     {
-        NSString *imgdirpath=kAppendDocPath(@"image");
-        //如果文件夹不存在，则创建文件夹
-        if(![[NSFileManager defaultManager] fileExistsAtPath:imgdirpath])
-            [[NSFileManager defaultManager] createDirectoryAtPath:imgdirpath withIntermediateDirectories:YES attributes:nil error:nil];
-        return imgdirpath;
+        NSString *dir=nil;
+        if(type==HCMsgTypeIMAGE)
+            dir=kAppendDocPath(kimgdirname);
+        else if(type==HCMsgTypeVOICE)
+            dir=kAppendDocPath(kvoicedirname);
+        else if (type==HSMsgTypeOriIMAGE)//原图
+        {
+            dir=kAppendDocPath(koriimgdirname);
+        }
+        if(dir)
+        {
+            //如果文件夹不存在，则创建文件夹
+            if(![[NSFileManager defaultManager] fileExistsAtPath:dir])
+                [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        return dir;
     }
-    else if(type==HCMsgTypeVOICE)
+    return nil;
+}
+
+#pragma mark 根据缩略图获取大图路径
+-(NSString *)getFullPahtWithFilename:(NSString *)filename msgType:(HCMsgType)msgtype
+{
+    if(filename&&msgtype>0)
     {
-        NSString *imgdirpath=kAppendDocPath(@"voice");
-        //如果文件夹不存在，则创建文件夹
-        if(![[NSFileManager defaultManager] fileExistsAtPath:imgdirpath])
-            [[NSFileManager defaultManager] createDirectoryAtPath:imgdirpath withIntermediateDirectories:YES attributes:nil error:nil];
-        return imgdirpath;
+        NSString *dir=[self getFileDirectoryWithType:msgtype];
+        if(dir)
+        {
+            return [dir stringByAppendingPathComponent:filename];
+        }
     }
     return nil;
 }

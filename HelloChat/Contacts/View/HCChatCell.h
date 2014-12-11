@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #define kbuttonWith 64 //消息内容最小宽度
 #define kbuttonHeight 56 //消息内容最小高度
+
+@protocol HCChatCellDelegate <NSObject>
+
+/**
+ 消息内容被点击
+ */
+-(void)ChatCellButtonClick:(UIButton *)button Msg:(NSString *)msg;
+
+@end
+
 @interface HCChatCell : UITableViewCell
-
-
 /**
  头像
  */
@@ -25,5 +33,7 @@
  是否为发送行 反之为接受行
  */
 @property(assign,nonatomic) BOOL isOutgoing;
+
+@property(weak,nonatomic) id<HCChatCellDelegate> delegate;
 
 @end

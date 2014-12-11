@@ -13,9 +13,10 @@
 
 //消息类型枚举
 typedef enum {
-    HCMsgTypeTEXT,
-    HCMsgTypeIMAGE,
-    HCMsgTypeVOICE,
+    HCMsgTypeTEXT,//文本表情
+    HCMsgTypeIMAGE,//缩略图
+    HCMsgTypeVOICE,//语音
+    HSMsgTypeOriIMAGE,//原图
 } HCMsgType;
 
 @class XMPPMessage;

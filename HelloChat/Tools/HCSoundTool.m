@@ -52,14 +52,22 @@ singleton_implementation(HCSoundTool)
 #pragma marak 播放语音消息
 -(void)playVoiceMsgWihtFilename:(NSString *)filename
 {
-    if ( ! self.isPlaying) {
-        [PlayerManager sharedManager].delegate = nil;
-        self.isPlaying = YES;
-        [[PlayerManager sharedManager] playAudioWithFileName:[self getfullPahtWihtFilename:filename] delegate:self];
+    NSString *fullpath=[self getfullPahtWihtFilename:filename];
+    if([[NSFileManager defaultManager] fileExistsAtPath:fullpath])
+    {
+        if ( ! self.isPlaying) {
+            [PlayerManager sharedManager].delegate = nil;
+            self.isPlaying = YES;
+            [[PlayerManager sharedManager] playAudioWithFileName:[self getfullPahtWihtFilename:filename] delegate:self];
+        }
+        else {
+            self.isPlaying = NO;
+            [[PlayerManager sharedManager] stopPlaying];
+        }
     }
-    else {
-        self.isPlaying = NO;
-        [[PlayerManager sharedManager] stopPlaying];
+    else
+    {
+        NSLog(@"文件不存在%@",fullpath);
     }
 }
 
@@ -71,7 +79,7 @@ singleton_implementation(HCSoundTool)
 #pragma mark PlayingDelegate 代理 播放完成
 -(void)playingStoped
 {
-    
+    self.isPlaying=NO;
 }
 
 @end

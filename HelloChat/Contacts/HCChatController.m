@@ -25,12 +25,17 @@
 #import "AFNetWorking.h"
 #import "NSDate+YGCCategory.h"
 #import "RecorderManager.h"
+#import "HCShowPicController.h"
 #import "HCXMPPUserTool.h"
+#import "HCMessageDataTool.h"
+#import "HCHttpTool.h"
+#import "HCFileTool.h"
+#import "HCSoundTool.h"
 #define kUpLoadFilePath @"FileUpLoad.aspx"
 
 #define kInputBarHeight 44 //输入条高度
 
-@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,RecordingDelegate>
+@interface HCChatController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,HCEmojiInputViewDelegate,HCFileInputViewDelegate,HCLocationToolDelegate,UINavigationControllerDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,RecordingDelegate,HCChatCellDelegate>
 {
     //查询结果控制器
     NSFetchedResultsController *_fetchedresultsController;
@@ -265,6 +270,7 @@
     }
 }
 
+#pragma mark 获取每行视图
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID=@"CELL";
@@ -273,7 +279,10 @@
     
     HCChatCell *cell=nil;
     if(cell==nil)
+    {
         cell=[[HCChatCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell.delegate=self;
+    }
     cell.isOutgoing=message.isOutgoing;
     //设置头像
     XMPPJID *jid=kmyJid;
@@ -288,7 +297,28 @@
     return cell;
 }
 
-
+#pragma mark 单元格按钮被点击
+-(void)ChatCellButtonClick:(UIButton *)button Msg:(NSString *)msg
+{
+    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool] getMsgTypeWithMessage:msg];
+    if(msgtype>0)
+    {
+        NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:msg];
+        if(filename)
+        {
+            if(msgtype==HCMsgTypeIMAGE)//显示图片
+            {
+                HCShowPicController *showpic=[[HCShowPicController alloc]init];
+                showpic.filename=filename;
+                [self presentViewController:showpic animated:YES completion:nil];
+            }
+            else if(msgtype==HCMsgTypeVOICE) //播放语音
+            {
+                [[HCSoundTool sharedHCSoundTool] playVoiceMsgWihtFilename:filename];
+            }
+        }
+    }
+}
 
 #pragma mark 表格自动滚动到最底部
 -(void)scrolBottom

@@ -12,7 +12,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
 #import "HCMessageDataTool.h"
-#import "HCSoundTool.h"
 #import "HCHttpTool.h"
 #import "HCFileTool.h"
 #define kmargin_x 10 //每条消息距离Cell的左距离和右距离为10
@@ -200,14 +199,10 @@
 #pragma marak 按钮点击
 -(void)btnclick
 {
-    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool] getMsgTypeWithMessage:_msg];
-    if(msgtype==HCMsgTypeIMAGE)
-        NSLog(@"图片");
-    else if(msgtype==HCMsgTypeVOICE)
+    //通知代理
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(ChatCellButtonClick:Msg:)])
     {
-        NSString *filename=[[HCMessageDataTool sharedHCMessageDataTool] getMsgFilename:_msg];
-        if(filename)
-           [[HCSoundTool sharedHCSoundTool] playVoiceMsgWihtFilename:filename];
+        [self.delegate ChatCellButtonClick:_msgbutton Msg:_msg];
     }
 }
 

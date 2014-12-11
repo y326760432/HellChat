@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
+#import "HCMessageDataTool.h"
 @interface HCFileTool : NSObject
 
 singleton_interface(HCFileTool)
@@ -26,6 +27,18 @@ singleton_interface(HCFileTool)
 /**
  获取消息类型的默认存储目录
  */
--(NSString *)getFileDirectoryWithType:(int)type;
+-(NSString *)getFileDirectoryWithType:(HCMsgType)type;
+
+/**
+ 获取大图文件存储文件夹
+ */
+-(NSString *)getOriImageDirectory;
+
+
+
+/**
+ 根据文件名和类型获取本地全路径
+ */
+-(NSString *)getFullPahtWithFilename:(NSString *)filename msgType:(HCMsgType)msgtype;
 
 @end
