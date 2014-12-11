@@ -83,6 +83,11 @@
     return  _imgview;
 }
 
+-(void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    _imgview.center=_scrollview.center;
+}
+
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
    // _imgview.center=_scrollview.center;
