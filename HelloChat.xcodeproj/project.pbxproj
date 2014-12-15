@@ -402,6 +402,7 @@
 		5AA810361A1CD06500CAAC25 /* aio_face_delete_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA810341A1CD06500CAAC25 /* aio_face_delete_pressed@2x.png */; };
 		5AA810371A1CD06500CAAC25 /* aio_face_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA810351A1CD06500CAAC25 /* aio_face_delete@2x.png */; };
 		5AA89FE51A1E1C8B0013E913 /* UITextField+YGCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA89FE41A1E1C8B0013E913 /* UITextField+YGCCategory.m */; };
+		5AA944AB1A3DC7920029B2FB /* HCLocalNotiTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA944AA1A3DC7920029B2FB /* HCLocalNotiTool.m */; };
 		5ACA1AF91A0DB92A006427D7 /* HCMineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA1AF81A0DB92A006427D7 /* HCMineController.m */; };
 		5ACA1B011A0DEE84006427D7 /* NSDate+YGCCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA1B001A0DEE84006427D7 /* NSDate+YGCCategory.m */; };
 		5ACA1B071A0E024E006427D7 /* AppIcon-60*60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACA1B061A0E024E006427D7 /* AppIcon-60*60@2x.png */; };
@@ -1128,6 +1129,8 @@
 		5AA810351A1CD06500CAAC25 /* aio_face_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aio_face_delete@2x.png"; sourceTree = "<group>"; };
 		5AA89FE31A1E1C8B0013E913 /* UITextField+YGCCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+YGCCategory.h"; sourceTree = "<group>"; };
 		5AA89FE41A1E1C8B0013E913 /* UITextField+YGCCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+YGCCategory.m"; sourceTree = "<group>"; };
+		5AA944A91A3DC7920029B2FB /* HCLocalNotiTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCLocalNotiTool.h; sourceTree = "<group>"; };
+		5AA944AA1A3DC7920029B2FB /* HCLocalNotiTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCLocalNotiTool.m; sourceTree = "<group>"; };
 		5ACA1AF71A0DB92A006427D7 /* HCMineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCMineController.h; sourceTree = "<group>"; };
 		5ACA1AF81A0DB92A006427D7 /* HCMineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCMineController.m; sourceTree = "<group>"; };
 		5ACA1AFF1A0DEE84006427D7 /* NSDate+YGCCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+YGCCategory.h"; sourceTree = "<group>"; };
@@ -1399,6 +1402,8 @@
 				5A23B3D11A3727F300FAFB68 /* HCHttpTool.m */,
 				5AFCC7581A387C69004C7DD3 /* HCFileTool.h */,
 				5AFCC7591A387C69004C7DD3 /* HCFileTool.m */,
+				5AA944A91A3DC7920029B2FB /* HCLocalNotiTool.h */,
+				5AA944AA1A3DC7920029B2FB /* HCLocalNotiTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -3307,6 +3312,7 @@
 				5A987CEE1A0486E600A71B46 /* XMPPElement.m in Sources */,
 				5A987D121A0486E600A71B46 /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				5AA810331A1CBDFD00CAAC25 /* HCEmojiInputView.m in Sources */,
+				5AA944AB1A3DC7920029B2FB /* HCLocalNotiTool.m in Sources */,
 				5A7DFAD21A35CC6B00282359 /* vq.c in Sources */,
 				5A987D2E1A0486E600A71B46 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				5A987D3D1A0486E600A71B46 /* XMPPMessageArchiving.m in Sources */,
@@ -3488,6 +3494,7 @@
 					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include\n/usr/include/libxml2",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

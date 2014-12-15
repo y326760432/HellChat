@@ -16,7 +16,7 @@ typedef enum {
     HCMsgTypeTEXT,//文本表情
     HCMsgTypeIMAGE,//缩略图
     HCMsgTypeVOICE,//语音
-    HSMsgTypeOriIMAGE,//原图
+    HCMsgTypeOriIMAGE,//原图
 } HCMsgType;
 
 @class XMPPMessage;

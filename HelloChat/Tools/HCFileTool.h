@@ -30,15 +30,17 @@ singleton_interface(HCFileTool)
 -(NSString *)getFileDirectoryWithType:(HCMsgType)type;
 
 /**
- 获取大图文件存储文件夹
- */
--(NSString *)getOriImageDirectory;
-
-
-
-/**
  根据文件名和类型获取本地全路径
  */
 -(NSString *)getFullPahtWithFilename:(NSString *)filename msgType:(HCMsgType)msgtype;
+
+/**
+ *  根据文件名和文件类型保存到沙盒
+ *
+ *  @param data 文件流
+ *  @param fileName 文件名
+ *  @param msgType  文件类型
+ */
+-(void)saveFileWihtData:(NSData *)data fileName:(NSString *)fileName msgType:(HCMsgType)msgType;
 
 @end

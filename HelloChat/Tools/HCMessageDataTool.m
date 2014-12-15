@@ -12,7 +12,7 @@
 #import "XMPPMessage.h"
 #import "HCXMPPUserTool.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "HCLocalNotiTool.h"
 @implementation HCMessageDataTool
 
 singleton_implementation(HCMessageDataTool)
@@ -61,6 +61,11 @@ singleton_implementation(HCMessageDataTool)
         [self updateMessage:msg xmppmessage:message];
     else
         [self insertMessage:message];
+    //发送本地通知
+   __block NSString *msgbody=[self getMessageBody:message.body];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[HCLocalNotiTool sharedHCLocalNotiTool] postLocalNotiWithString:msgbody];
+    });
 }
 
 #pragma mark 插入新记录

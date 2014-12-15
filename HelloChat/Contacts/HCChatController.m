@@ -447,7 +447,14 @@
     if(data)
     {
         NSString *filename=[filePath substringFromIndex:[filePath rangeOfString:@"/" options:NSBackwardsSearch].location+1];
-        [self sendFileWithData:data oridata:nil filetype:2 filename:filename];
+        __unsafe_unretained HCChatController *selfcontroller=self;
+        //上传文件
+        [[HCHttpTool sharedHCHttpTool] upLoadFileWithFileName:filename fileData:data oriFileData:nil msgType:HCMsgTypeVOICE successBlock:^{
+            //发送消息
+              [selfcontroller sendMsgWithStr:[NSString stringWithFormat:@"|file|%d|%@",HCMsgTypeVOICE,filename]];
+        } faildBlock:^{
+            [HCAlertDialog showDialog:@"发送失败"];
+        }];
     }
 }
 
@@ -530,7 +537,7 @@
 -(void)EmojiInputViewSelectItem:(NSString *)string
 {
     _txtMsg.text=[_txtMsg.text stringByAppendingString:string];
-    NSRange range=_txtMsg.selectedRange;
+//    NSRange range=_txtMsg.selectedRange;
 //    int length=string.length;
 //    //当前光标位置
 //    NSRange range=_txtMsg.selectedRange;
@@ -589,18 +596,15 @@
         _txtMsg.inputView=_fileInputView;
         [sender setBackgroundImage:_keyboardimgnor forState:UIControlStateNormal];
         [sender setBackgroundImage:_keyboardimgpress forState:UIControlStateHighlighted];
-        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_nor.png"] forState:UIControlStateNormal];
-        [_btnvolice setBackgroundImage:[UIImage imageNamed:@"chat_bottom_voice_press.png"] forState:UIControlStateHighlighted];
-        [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_nor.png"] forState:UIControlStateNormal];
-        [_btnexpression setBackgroundImage:[UIImage imageNamed:@"chat_bottom_smile_press.png"] forState:UIControlStateHighlighted];
+        [self setBtnVoiceIcon];
+        [self setBtnSmileIcon];
         
 
     }
     else
     {
         _txtMsg.inputView=nil;
-        [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_nor.png"] forState:UIControlStateNormal];
-        [sender setBackgroundImage:[UIImage imageNamed:@"chat_bottom_up_press.png"] forState:UIControlStateHighlighted];
+        [self setBtnFileIcon];
     }
     [_txtMsg becomeFirstResponder];
     
@@ -647,48 +651,12 @@
         [_txtMsg resignFirstResponder];
     }];
     UIImage *img=img=info[@"UIImagePickerControllerOriginalImage"];
-    UIImage *smallImage = [self thumbnailWithImageWithoutScale:img size:CGSizeMake(200, 200)];
+    //生成缩略图
+    UIImage *smallImage = [UIImage thumbnailWithImageWithoutScale:img size:CGSizeMake(200, 200)];
     if(img)
         [self sendImage:smallImage oriimg:img];
 }
 
-
-//2.保持原来的长宽比，生成一个缩略图
-- (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
-{
-    UIImage *newimage;
-    if (nil == image)
-    {
-        newimage = nil;
-    }
-    else{
-        CGSize oldsize = image.size;
-        CGRect rect;
-        if (asize.width/asize.height > oldsize.width/oldsize.height)
-        {
-            rect.size.width = asize.height*(oldsize.width/oldsize.height);
-            rect.size.height = asize.height;
-            rect.origin.x =0;
-            rect.origin.y = 0;
-        }
-        else
-        {
-            rect.size.width = asize.width;
-            rect.size.height = asize.width*oldsize.height/oldsize.width;
-            rect.origin.x = 0;
-            rect.origin.y = (asize.height - rect.size.height)/2;
-        }
-        UIGraphicsBeginImageContext(rect.size);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-        UIRectFill(CGRectMake(0, 0, rect.size.width, asize.height));
-        //clear background
-        [image drawInRect:rect];
-        newimage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-    return newimage;
-}
 
 #pragma mark 发送图片
 -(void)sendImage:(UIImage *)img oriimg:(UIImage *)oriimg
@@ -699,35 +667,13 @@
     NSString *datestr= [[NSDate date] toStringWithFormater:@"yyMMdd_HHmmsshh"];
     //拼接图片文件名称:发送人to接受人_时间.扩展名
     NSString *filename=[NSString stringWithFormat:@"%@to%@_%@.png",kmyJidStr,_user.jidStr,datestr];
-    [self sendFileWithData:data oridata:oridata filetype:1 filename:filename];
-}
-
-#pragma mark 发送文件1=图片，2=语音文件
--(void)sendFileWithData:(NSData *)data oridata:(NSData *)oridata filetype:(int)filetype filename:(NSString *)filename
-{
-    NSMutableURLRequest *request=[_afHttpClient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(filetype)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-       
-        if(filetype>0)
-        {
-            [formData appendPartWithFileData:data name:@"image" fileName:filename mimeType:@"image/png"];
-            if(oridata!=nil)
-            {
-                [formData appendPartWithFileData:oridata name:@"imageori" fileName:filename mimeType:@"image/png"];
-            }
-        }
+    __unsafe_unretained HCChatController *selfcontroller=self;
+    [[HCHttpTool sharedHCHttpTool] upLoadFileWithFileName:filename fileData:data oriFileData:oridata msgType:HCMsgTypeIMAGE successBlock:^{
+         [selfcontroller sendMsgWithStr:[NSString stringWithFormat:@"|file|%d|%@",HCMsgTypeIMAGE,filename]];
+    } faildBlock:^{
+        [HCAlertDialog showDialog:@"发送失败"];
     }];
-
-    AFJSONRequestOperation *operation=[AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        [self sendMsgWithStr:[NSString stringWithFormat:@"|file|%d|%@",filetype,filename]];
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        
-    }];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        NSLog(@"%d",bytesWritten);
-        NSLog(@"%lld",totalBytesWritten);
-        NSLog(@"%lld",totalBytesExpectedToWrite);
-    }];
-    [operation start];
+   
 }
 
 #pragma mark 发送位置

@@ -26,4 +26,14 @@
  */
 + (UIImage *)resizedImage:(NSString *)imgName xPos:(CGFloat)xPos yPos:(CGFloat)yPos;
 
+/**
+ *  根据指定宽高比返回一个新的图像
+ *
+ *  @param image 原始图像
+ *  @param asize 要缩放的大小
+ *
+ *  @return 新图像
+ */
++(UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize;
+
 @end

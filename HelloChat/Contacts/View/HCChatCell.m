@@ -84,25 +84,26 @@
 
 -(void)setMessage:(NSString *)msg
 {
-    _msg=msg;
+    _msg=[msg copy];
    __block CGRect btnframe=_msgbutton.frame;
     CGRect photoframe=_photoimgv.frame;
     _imageview.hidden=YES;
-    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:msg];
+    HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:_msg];
     if(msgtype>0)
     {
+        NSLog(@"%@",msg);
         //先恢复原始的frame
         _imageview.frame=CGRectMake(13, 10, 10, 20);
          _imageview.hidden=NO;
         //下载本地文件
-        [[HCHttpTool sharedHCHttpTool]downLoadFileWithMessage:msg];
+        [[HCHttpTool sharedHCHttpTool]downLoadFileWithMessage:_msg];
         if(msgtype==HCMsgTypeIMAGE)
         {
             __block CGRect imgframe=_imageview.frame;
             //如果文件存储在本地，则显示本地图片资源
-            if([[HCFileTool sharedHCFileTool] fileExistsWihtMsg:msg])
+            if([[HCFileTool sharedHCFileTool] fileExistsWihtMsg:_msg])
             {
-                NSString *savepath=[[HCFileTool sharedHCFileTool] getFileSavePathWithMsg:msg];
+                NSString *savepath=[[HCFileTool sharedHCFileTool] getFileSavePathWithMsg:_msg];
                 UIImage *image=[UIImage imageWithContentsOfFile:savepath];
                 _imageview.image=image;
                 if(image.size.height<100)

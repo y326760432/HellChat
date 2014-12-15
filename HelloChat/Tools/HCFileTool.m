@@ -52,7 +52,7 @@ singleton_implementation(HCFileTool)
             dir=kAppendDocPath(kimgdirname);
         else if(type==HCMsgTypeVOICE)
             dir=kAppendDocPath(kvoicedirname);
-        else if (type==HSMsgTypeOriIMAGE)//原图
+        else if (type==HCMsgTypeOriIMAGE)//原图
         {
             dir=kAppendDocPath(koriimgdirname);
         }
@@ -67,7 +67,7 @@ singleton_implementation(HCFileTool)
     return nil;
 }
 
-#pragma mark 根据缩略图获取大图路径
+#pragma mark 根据文件名和文件类型获取本地存储全路径
 -(NSString *)getFullPahtWithFilename:(NSString *)filename msgType:(HCMsgType)msgtype
 {
     if(filename&&msgtype>0)
@@ -79,6 +79,16 @@ singleton_implementation(HCFileTool)
         }
     }
     return nil;
+}
+
+#pragma mark 存储文件
+-(void)saveFileWihtData:(NSData *)data fileName:(NSString *)fileName msgType:(HCMsgType)msgType
+{
+    if(data&&fileName&&msgType)
+    {
+        NSString *savepath=[[self getFileDirectoryWithType:msgType] stringByAppendingPathComponent:fileName];
+        [data writeToFile:savepath atomically:NO];
+    }
 }
 
 @end
