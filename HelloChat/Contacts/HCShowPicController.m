@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "HCHttpTool.h"
 #import "MBProgressHUD.h"
+#import "HCAlertDialog.h"
 @interface HCShowPicController ()<UIScrollViewDelegate>
 {
     UIImageView *_imgview;
@@ -80,15 +81,24 @@
     NSString *oriimgpath=[[HCFileTool sharedHCFileTool] getFullPahtWithFilename:_filename msgType:HCMsgTypeOriIMAGE];
     //如果本地存在原图，则加载本地原图
     if([[NSFileManager defaultManager] fileExistsAtPath:oriimgpath])
-        img=[UIImage imageWithContentsOfFile:oriimgpath];
+    {
+       UIImage  *oriimg=[UIImage imageWithContentsOfFile:oriimgpath];
+        img=oriimg?oriimg:img;
+    }
     else//从网络上下载原图，并存储到本地
     {
-        __unsafe_unretained UIImageView *imageview=_imgview;
-        
+       __block MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:_scrollview animated:YES];
        [[HCHttpTool sharedHCHttpTool]downLoadFileWithFileName:_filename msgType:HCMsgTypeOriIMAGE successBlock:^{
-           imageview.image=[UIImage imageWithContentsOfFile:oriimgpath];
+           UIImage  *oriimg=[UIImage imageWithContentsOfFile:oriimgpath];
+           if(oriimg)
+           {
+               _imgview.image=oriimg;
+               [self setImageSize:oriimg];
+           }
+           [hud hide:YES];
        } faildBlock:^{
-           
+           [hud hide:YES];
+           [HCAlertDialog showDialog:@"加载失败"];
        }];
     }
      _imgview.image=img;
@@ -123,7 +133,6 @@
     }
     else//宽度比高度小，长图
     {
-        NSLog(@"%f",scale);
         if(size.height>kselfviewsize.height)
         {
             //如果图片的高度大于屏幕高度，则将屏幕高度设为图片高度，宽度等于高度乘以比率

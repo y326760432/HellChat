@@ -40,7 +40,7 @@
 {
     _message=message;
     _labmsgcontent.text=message.msgcontent;
-    _labmsgtime.text=[message.msgdate toStringWithFormater:@"HH:ss"];
+    _labmsgtime.text=[message.msgdate toStringWithFormater:@"HH:mm"];
 }
 ;
 

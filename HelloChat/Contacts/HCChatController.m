@@ -377,7 +377,8 @@
 {
     if(msgstr)
     {
-        XMPPMessage *message=[[XMPPMessage alloc]initWithType:@"chat" to:_user.jid];
+        NSString *datestr=[[NSDate date] toStringWithFormater:@"yyyy-MM-dd HH:mm:ss"];
+        XMPPMessage *message=[[XMPPMessage alloc]initWithType:@"chat" to:_user.jid elementID:datestr];
         [message addBody:msgstr];
         [kAppdelegate.xmppStream sendElement:message];
         

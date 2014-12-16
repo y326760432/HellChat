@@ -20,4 +20,16 @@
     return [fmt stringFromDate:self];
 }
 
+//将字符串转换成日期
++(NSDate *)dateWithFormat:(NSString *)format dateStr:(NSString *)dateStr
+{
+    if(format&&dateStr)
+    {
+    NSDateFormatter *fmt=[[NSDateFormatter alloc]init];
+    fmt.dateFormat=format;
+    return [fmt dateFromString:dateStr];
+    }
+    return nil;
+}
+
 @end

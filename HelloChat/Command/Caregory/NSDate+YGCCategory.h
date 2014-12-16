@@ -15,4 +15,13 @@
  */
 -(NSString *)toStringWithFormater:(NSString *)formater;
 
+/**
+ *  将字符串转换成日期
+ *
+ *  @param format  日期格式
+ *  @param dateStr 日期字符串
+ *
+ *  @return 日期对象
+ */
++(NSDate *)dateWithFormat:(NSString *)format dateStr:(NSString *)dateStr;
 @end

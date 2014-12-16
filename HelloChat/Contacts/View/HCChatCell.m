@@ -91,7 +91,6 @@
     HCMsgType msgtype=[[HCMessageDataTool sharedHCMessageDataTool]getMsgTypeWithMessage:_msg];
     if(msgtype>0)
     {
-        NSLog(@"%@",msg);
         //先恢复原始的frame
         _imageview.frame=CGRectMake(13, 10, 10, 20);
          _imageview.hidden=NO;

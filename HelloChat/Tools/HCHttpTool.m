@@ -39,23 +39,22 @@ singleton_implementation(HCHttpTool)
     //请求参数
     NSMutableURLRequest *request=[_httpclient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(msgType)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:fileData name:@"image" fileName:filename mimeType:@"image/png"];
-            if(oriFileData)
-            {
-                 [formData appendPartWithFileData:oriFileData name:@"imageori" fileName:filename mimeType:@"image/png"];
-            }
     }];
    
-    //保存本地图片
-    [[HCFileTool sharedHCFileTool] saveFileWihtData:fileData fileName:filename msgType:msgType];
+    //异步存储图片
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //保存本地图片
+        [[HCFileTool sharedHCFileTool] saveFileWihtData:fileData fileName:filename msgType:msgType];
+    });
     //创建请求
     AFJSONRequestOperation *operation=[AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
        if(successBlock)
        {
            successBlock();
            //上传高清图片，高清图片和缩略图分开任务上传，为了页面可以快速反应，上传完缩略图就调用回调函数
-//           if (oriFileData) {
-//               [self upLoadHQImage:oriFileData fileName:filename];
-//           }
+           if (oriFileData) {
+               [self upLoadHQImage:oriFileData fileName:filename];
+           }
        }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if(faildBlock)
@@ -76,16 +75,13 @@ singleton_implementation(HCHttpTool)
     //先保存本地文件
     [[HCFileTool sharedHCFileTool] saveFileWihtData:data fileName:fileName msgType:HCMsgTypeOriIMAGE];
     //请求参数
-    NSMutableURLRequest *request=[_httpclient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(HCMsgTypeIMAGE)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableURLRequest *request=[_httpclient multipartFormRequestWithMethod:@"POST" path:kUpLoadFilePath parameters:@{@"filetype": @(HCMsgTypeOriIMAGE)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:data name:@"imageori" fileName:fileName mimeType:@"image/png"];
     }];
     AFJSONRequestOperation *oper=[AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"上传高清图片成功--%@",[NSString stringWithFormat:@"%@",JSON]);
-        UIAlertView *dialog=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",JSON] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil,nil];
-        [dialog show];
+        NSLog(@"上传高清图片成功---%@",JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        
-        NSLog(@"上传高清图片失败--%@",error.localizedDescription);
+        NSLog(@"上传高清图片失败---%@",error.localizedDescription);
     }];
     [oper start];
 }
@@ -126,8 +122,12 @@ singleton_implementation(HCHttpTool)
     AFHTTPRequestOperation *oper=[[AFHTTPRequestOperation alloc]initWithRequest:[NSURLRequest requestWithURL:url]];
     oper.outputStream=[[NSOutputStream alloc ]initToFileAtPath:savepath append:NO];
     [oper setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@下载成功",savepath);
+       if(successBlock)
+           successBlock();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[NSFileManager defaultManager] removeItemAtPath:savepath error:nil];
+        if(faildBlock)
+            faildBlock();
         NSLog(@"%@下载失败---%@",savepath,error.localizedDescription);
     }];
     [oper start];

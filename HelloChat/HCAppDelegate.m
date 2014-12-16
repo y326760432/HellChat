@@ -271,15 +271,6 @@
 #pragma mark 电子名片保存成功
 -(void)xmppvCardTempModuleDidUpdateMyvCard:(XMPPvCardTempModule *)vCardTempModule
 {
-    NSData *data=[_xmppvCardAvatarModule photoDataForJID:kmyJid];
-    if(data)
-    {
-        NSLog(@"asd");
-    }
-    else if(vCardTempModule.myvCardTemp.photo)
-    {
-        data=vCardTempModule.myvCardTemp.photo;
-    }
     //发送通知
     [[NSNotificationCenter defaultCenter] postNotificationName:kdidupdatevCard object:nil];
 }

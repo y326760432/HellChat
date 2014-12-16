@@ -13,6 +13,7 @@
 #import "HCXMPPUserTool.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HCLocalNotiTool.h"
+#import "NSDate+YGCCategory.h"
 @implementation HCMessageDataTool
 
 singleton_implementation(HCMessageDataTool)
@@ -74,7 +75,8 @@ singleton_implementation(HCMessageDataTool)
     HCMessage *msg=[NSEntityDescription insertNewObjectForEntityForName:kMsgEntityName inManagedObjectContext:_context];
     msg.jidstr=[NSString stringWithFormat:@"%@@%@",message.from.user,message.from.domain];
     msg.msgcontent=[self getMessageBody:message.body];
-    msg.msgdate=[NSDate date];
+    if(message.elementID)
+        msg.msgdate=[NSDate dateWithFormat:@"yyyy-MM-dd HH:mm:ss" dateStr:message.elementID];
     [[HCMessageDataTool sharedHCMessageDataTool].context save:nil];
     [_context save:nil];
 
@@ -94,8 +96,8 @@ singleton_implementation(HCMessageDataTool)
 -(void)updateMessage:(HCMessage *)message xmppmessage:(XMPPMessage *)xmppmessage
 {
     message.msgcontent=[self getMessageBody:xmppmessage.body];
-    message.msgdate=[NSDate date];
-    NSLog(@"%@",message.msgdate);
+    if(xmppmessage.elementID)
+        message.msgdate=[NSDate dateWithFormat:@"yyyy-MM-dd HH:mm:ss" dateStr:xmppmessage.elementID];
     [_context save:nil];
 }
 
