@@ -254,18 +254,18 @@
         int filetype=[[message.body substringWithRange:NSMakeRange(6, 1)] intValue];
         //图片消息
         if(filetype==1)
-            return 120;
+            return 140;
         else
-            return kbuttonHeight+10;
+            return kbuttonHeight+20;
     }
     else{
         //计算文字宽高 需要和HCChatCell方法一致
         CGSize msgsize=[message.body sizeWithFont:kFont(15) constrainedToSize:CGSizeMake(180, MAXFLOAT)];
-        CGFloat height=msgsize.height+40;
-        if(height<kbuttonHeight)
-            height=kbuttonHeight;
+        CGFloat height=msgsize.height+50;
+        if(height<kbuttonHeight+10)
+            height=kbuttonHeight+10;
         //行高再加10个距离，为了与输入视图有一定的距离
-        height +=10;
+        height +=20;
         return height;
     }
 }
@@ -276,7 +276,6 @@
     static NSString *ID=@"CELL";
     //提取消息
     XMPPMessageArchiving_Message_CoreDataObject *message=[_fetchedresultsController objectAtIndexPath:indexPath];
-    
     HCChatCell *cell=nil;
     if(cell==nil)
     {
@@ -291,7 +290,7 @@
         jid=message.bareJid;
     [cell setPhoto:[UIImage imageWithData:[kAppdelegate.xmppvCardAvatarModule photoDataForJID:jid]]];
     //设置消息内容
-    [cell setMessage:message.body];
+    [cell setMessage:message];
     
     
     return cell;

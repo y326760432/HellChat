@@ -22,7 +22,10 @@ singleton_implementation(HCMessageDataTool)
 {
     if(self=[super init])
     {
-        [self openDB];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+             [self openDB];
+        });
+       
     }
     return self;
 }
@@ -38,7 +41,6 @@ singleton_implementation(HCMessageDataTool)
     NSPersistentStoreCoordinator *store=[[NSPersistentStoreCoordinator alloc]initWithManagedObjectModel:mode];
     //数据库文件路径
     NSURL *url=[NSURL fileURLWithPath:kAppendDocPath(kDBFileName)];
-    NSLog(@"%@",kAppendDocPath(kDBFileName));
     NSError *error=nil;
     //创建或打开数据库
     [store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error];

@@ -44,6 +44,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _mainController=[[HCMainController alloc]init];
     //如果沙盒中有用户登录信息，则直接到主控制器，否则启动登录控制器
