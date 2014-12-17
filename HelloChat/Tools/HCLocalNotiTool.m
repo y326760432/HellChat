@@ -17,6 +17,7 @@ singleton_implementation(HCLocalNotiTool)
     UILocalNotification *noti=[[UILocalNotification alloc]init];
     noti.alertBody=str;
     noti.fireDate=[NSDate date];
+    noti.soundName=UILocalNotificationDefaultSoundName;//通知声音
     noti.applicationIconBadgeNumber=[UIApplication sharedApplication].applicationIconBadgeNumber+1;
     [[UIApplication sharedApplication] scheduleLocalNotification:noti];
 }

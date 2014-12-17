@@ -24,6 +24,11 @@ typedef void (^connectSuccessBlock)();
 @interface HCAppDelegate : UIResponder <UIApplicationDelegate,XMPPStreamDelegate>
 
 /**
+ 是否进入后台
+ */
+@property(nonatomic,assign) BOOL isbackground;
+
+/**
  是否注册
  */
 @property(nonatomic,assign) BOOL isRegister;

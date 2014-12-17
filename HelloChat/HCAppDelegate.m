@@ -37,6 +37,8 @@
     
     XMPPCapabilities *_xmppcapabilities;//增强实体连接模块
     XMPPCapabilitiesCoreDataStorage *_xmppcapabilitiesStorage;//增强实体连接模块
+    
+    BOOL _isbackground;//是否进入后台；
 }
 @end
 
@@ -265,8 +267,12 @@
 {
     NSLog(@"接受到新消息------%@",message);
     [[HCMessageDataTool sharedHCMessageDataTool] addNewMessage:message];
+    //只有在前台才播放声音，后台由通知播放
+    if(!_isbackground)
+    {
     //播放音效
-    [[HCSoundTool sharedHCSoundTool] playNewMsgSound];
+        [[HCSoundTool sharedHCSoundTool] playNewMsgSound];
+    }
 }
 
 #pragma mark 电子名片保存成功
@@ -358,7 +364,7 @@
 #pragma mark 程序进入后台
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-   
+    _isbackground=YES;
 }
 
 #pragma mark 即将进入前台
@@ -370,6 +376,7 @@
 #pragma mark 重新获取焦点
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    _isbackground=NO;
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
 }
 

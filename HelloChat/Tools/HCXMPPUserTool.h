@@ -19,6 +19,8 @@ singleton_interface(HCXMPPUserTool)
  */
 -(NSString *)getDisplayNameWithUser:(XMPPUserCoreDataStorageObject *)user;
 
+-(NSString *)getDisplayNameWithJid:(NSString *)jid;
+
 /**
  加载用户头像，如果没有，则显示默认头像
  */

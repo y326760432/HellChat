@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HCLocalNotiTool.h"
 #import "NSDate+YGCCategory.h"
+#import "HCAppdelegate.h"
 @implementation HCMessageDataTool
 
 singleton_implementation(HCMessageDataTool)
@@ -64,11 +65,16 @@ singleton_implementation(HCMessageDataTool)
         [self updateMessage:msg xmppmessage:message];
     else
         [self insertMessage:message];
-    //发送本地通知
-   __block NSString *msgbody=[self getMessageBody:message.body];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[HCLocalNotiTool sharedHCLocalNotiTool] postLocalNotiWithString:msgbody];
-    });
+    //进入后台才推送通知
+    if(kAppdelegate.isbackground)
+    {
+        //发送本地通知
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *msgbody=[self getMessageBody:message.body];
+            NSString *info=[NSString  stringWithFormat:@"%@:%@",[[HCXMPPUserTool sharedHCXMPPUserTool] getDisplayNameWithJid:jid],msgbody];
+            [[HCLocalNotiTool sharedHCLocalNotiTool] postLocalNotiWithString:info];
+        });
+    }
 }
 
 #pragma mark 插入新记录

@@ -30,6 +30,16 @@ singleton_implementation(HCXMPPUserTool)
         return [user.jidStr substringToIndex:[user.jidStr rangeOfString:@"@"].location];
 }
 
+-(NSString *)getDisplayNameWithJid:(NSString *)jid
+{
+    XMPPUserCoreDataStorageObject *user=[HCXMPPUserTool getUserCoreDataObjectWithJidStr:jid];
+    if(user)
+    {
+        return [self getDisplayNameWithUser:user];
+    }
+    return jid;
+}
+
 #pragma mark 加载用户头像
 -(UIImage *)loaduserPhotoWithUser:(XMPPUserCoreDataStorageObject *)user
 {
